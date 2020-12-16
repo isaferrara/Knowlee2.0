@@ -3,11 +3,12 @@ const Path = require('../models/Path')
 
 
 exports.createTopic = async (req, res) => {
-    const { title, objective, duration, content, pathId } = req.body
+    const { title, objective, duration, progress, content, pathId } = req.body
     const newTopic = await Topic.create({
         title,
         objective,
         duration,
+        progress,
         content, 
         paths:pathId
     })
@@ -24,8 +25,8 @@ exports.deleteTopic = async (req, res) => {
 
 exports.updateTopic = async (req, res) => {
     const { id } = req.params
-    const { title, objective, duration, content} = req.body
-    const upTopic =await Topic.findByIdAndUpdate(id, { title, objective, duration, content, id }, {new:true})
+    const { title, objective, duration, progress, content, paths} = req.body
+    const upTopic =await Topic.findByIdAndUpdate(id, { title, objective, duration, progress, content, id, paths }, {new:true})
 
     res.status(202).json(upTopic)
     }

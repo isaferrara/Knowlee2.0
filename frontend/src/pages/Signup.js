@@ -25,8 +25,9 @@ const Signup = ({ history }) => {
 
   async function handleSubmit(userInput) {
     const usr = {...userInput, image: img}
-    const {data : newUsr} = await signupFn(usr)
-    history.push('/login')
+    console.log(usr)
+    const {data} = await signupFn(usr)
+    history.push('/')
   }
 
   const onReset = () => {
@@ -34,7 +35,6 @@ const Signup = ({ history }) => {
   };
 
   async function handleUploadFile(file){
-    //console.log(info)
     setLoading(true)
     const data = new FormData()
 
@@ -100,8 +100,14 @@ const Signup = ({ history }) => {
       <Divider />
       <Col span={24}>
         <Form layout="vertical" form={form} onFinish={handleSubmit}>
+
           <Form.Item name='username' label="Username:" rules={[{ 
             required: true, message: 'Please input your username!' }]}>
+            <Input />
+          </Form.Item>
+
+
+          <Form.Item name='email' label="Email:" rules={[{ required: true, message: 'Please input your password!' }]} >
             <Input />
           </Form.Item>
 
@@ -109,24 +115,7 @@ const Signup = ({ history }) => {
             <PasswordInput />
           </Form.Item>
 
-          <Form.Item name='email' label="Email:" rules={[
-          {
-            type: 'email',
-            message: 'The input is not valid E-mail!',
-          },
-          {
-            required: true,
-            message: 'Please input your E-mail!',
-          },
-          ]}>
-            <Input />
-          </Form.Item>
-          
-          <Form.Item name='name' label="Name:" rules={[{ required: true, message: 'Please input your name!' }]}>
-            <Input/>  
-          </Form.Item>
-
-          <Form.Item name='image' label="Image:" rules={[{ required: true, message: 'Please add an image!' }]}>
+          <Form.Item name='image' label="Image:">
             <Upload 
               name="image"
               showUploadList={false}

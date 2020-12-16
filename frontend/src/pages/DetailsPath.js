@@ -2,14 +2,15 @@ import React, {useState, useEffect} from 'react'
 import { useContextInfo } from '../hooks/context'
 import { getSinglePath, deletePath } from '../services/paths.js'
 import {  deleteTopic, createTopic} from '../services/topics.js'
-import { Skeleton, Divider, Card, Button, Modal, Form, Input, Space} from 'antd'
+import { Skeleton, Divider, Card, Button, Modal, Form, Input, Progress} from 'antd'
 import EditPath from '../components/EditPath'
 import PathInfo from '../components/PathInfo'
 import { Link } from 'react-router-dom'
 import LayoutDash from "../components/LayoutDash";
+import { updatePath } from '../services/paths'
 
 
-const DetailsPath = ({ match: { params: { id } }, history }) => {
+const DetailsPath = ({ match: { params: { id } }, history } ) => {
     const [form] = Form.useForm()
     const [pathsy, setPaths] = useState(null)
     const [showEditForm, setShowEditForm] = useState(false)
@@ -17,13 +18,17 @@ const DetailsPath = ({ match: { params: { id } }, history }) => {
     const [changes, setChanges] = useState(false)
     const { user } = useContextInfo()
     const [isModalVisible, setIsModalVisible] = useState(false);
+    const [status, setStatus] = useState(0);
+    const [counter, setCounter] = useState(0);
+
 
     useEffect(() => {
         async function getPaths() {
              const {data} = await getSinglePath(id)
              setPaths(data) 
             }
-            getPaths()
+            getPaths()        
+
         }, [changes])
 
         async function handleDelete() {
@@ -54,13 +59,38 @@ const DetailsPath = ({ match: { params: { id } }, history }) => {
                 {title:value.title,
                 objective: value.objective,
                 duration: value.duration,
+                progress: status.progress,
                 content:value.content,
                 pathId:pathsy._id
                 })
             setIsModalVisible(false);
             form.resetFields()
             setChanges(!changes)
-           
+        
+    }
+    let count=0;
+    let percentage=0;
+     const countDone=  ()=>{
+        count++
+       percentage= Math.floor((count/ pathsy.topics.length)*100)
+    
+       const updateProgressPath= async ()=>{  
+       const {data} = await getSinglePath(id)
+       const {data: upData}=await updatePath (id, 
+        {
+         title: data.title,
+         description: data.description,
+         shortDesc: data.shortDesc,
+         progress: percentage,
+         level: data.level,
+         category: data.category,
+         topics: data.topics,
+         users: data.users
+        } )
+        setCounter(upData.progress)
+        setChanges(!changes)
+        }
+        updateProgressPath()
     }
 
 
@@ -76,21 +106,24 @@ const DetailsPath = ({ match: { params: { id } }, history }) => {
     <Button type="primary" onClick={showModal} block >Add Topic</Button>
     <br />
     <div style={{marginTop: '40px',}}>
+    <Progress type="circle" percent={counter} format={percent => `${percent}`} />
+   
+
     {pathsy.topics.map((topic, i) => 
         <Link to={`/topic/${topic._id}`}> 
-    <Card hoverable
+        <Card hoverable
      number={sum(i)} title={ (i+1) + '     ' + topic.title  } style={{marginBottom:'10px'}} >
     <div style={{display:'flex', flexDirection:'row', justifyContent:'space-between'}}>  
- 
+        {topic.progress? countDone(): console.log('no')}
 
         <div style={{display:'flex', flexDirection:'column', textAlign:'left',  marginLeft: '40px', padding: '20px'}}>
-
         <div><b>Objective</b> <p>  {topic.objective}</p></div>
-    
        <div><b>Duration</b> <p>  {topic.duration}</p></div> 
+        <div><b>Progress</b> <p>  {topic.progress}</p></div> 
         
+         { topic.progress===true ? <Progress type="circle" percent={100} width={40} /> : <> </>}
         </div>
-
+       
             <div style={{marginTop: '60px'}}>
             <Button type="ghost" danger onClick={ async ()=> {
                 await deleteTopic(topic._id)
@@ -107,6 +140,7 @@ const DetailsPath = ({ match: { params: { id } }, history }) => {
     {/* modal to add new topics  */} 
 
         <Modal
+         footer={null}
         title="Add topic"
         visible={isModalVisible}
         onCancel={handleCancel}
@@ -130,7 +164,7 @@ const DetailsPath = ({ match: { params: { id } }, history }) => {
             
         </Form>
             </Modal>
-    
+            
     </div>
     ) : (
           <Skeleton active />

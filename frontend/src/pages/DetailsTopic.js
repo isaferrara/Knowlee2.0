@@ -9,11 +9,7 @@ import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import {  getSingleTopic, updateTopic} from '../services/topics.js'
 
 //components
-import TextContent from '../components/TextContent'
-import LinkContent from '../components/LinkContent'
-import ImgContent from '../components/ImgContent'
 import LayoutDash from "../components/LayoutDash";
-
 
 export const DetailsTopic = (props) => {
 
@@ -124,7 +120,6 @@ export const DetailsTopic = (props) => {
                 </div>
                     <Divider></Divider>
                         {content && content }
-        
                     </div>):(
                         <Skeleton active />
                     )}

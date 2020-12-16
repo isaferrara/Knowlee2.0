@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseURL = '/api/topic'
+const baseURL = 'http://localhost:3000/api/topic'
 
 const pathService = axios.create({ baseURL })
 

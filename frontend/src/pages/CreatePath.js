@@ -22,11 +22,15 @@ import {useContextInfo} from '../hooks/context'
     const [form] = Form.useForm()
     const {user}= useContextInfo()
 
+    
+
     const submitForm=  async (path) =>{ 
         const {data}= await createPath(
             {
             title: path.title,
             description:path.description,
+            shortDesc: path.shortDesc,
+            level: path.level,
             category: path.category,
             userId: user._id
         }
@@ -75,14 +79,24 @@ import {useContextInfo} from '../hooks/context'
             </Form.Item>
 
             <Form.Item 
-            name="description"
-            label="Description:"
+           
+            placeholder="Write a short sentence in 20 words"
+            name="Short description"
+            label="Short description:"
             rules={[
             {
                 required: true,
-                message: 'Please input a description!',
+                message: 'Please input a short description!',
             }, 
             ]}>
+              <Input.TextArea maxLength={20} />
+            </Form.Item>
+
+            <Form.Item 
+            placeholder="Not required"
+            name="description"
+            label="Description:"
+            >
               <Input.TextArea />
             </Form.Item>
 
@@ -102,6 +116,22 @@ import {useContextInfo} from '../hooks/context'
                 <Select.Option value="Cyber Security">Cyber Security</Select.Option>
                 </Select>
             </Form.Item>
+
+            <Form.Item name="level" label="Level:"
+            rules={[
+            {
+                required: true,
+                message: 'Please input a level!',
+            }, 
+            ]}>
+            
+                <Select placeholder="Level">
+                    <Select.Option value="Beginner">Beginner</Select.Option>
+                    <Select.Option value="Intermediate">Intermediate</Select.Option>
+                    <Select.Option value="Advanced">Advanced</Select.Option>
+                </Select>
+            </Form.Item>
+
 
             <Form.List name="topics"
             rules={[

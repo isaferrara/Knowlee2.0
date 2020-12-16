@@ -5,6 +5,15 @@ const pathSchema = new Schema(
   {
     title: String,
     description: String,
+    shortDesc: String,
+    progress: {
+      type: Number,
+      default: 0
+    },
+    level: {
+      type: String,
+      enum: ['Beginner', 'Intermediate', ' Advanced']
+  },
     category: {
         type: String,
         enum: ['Web Dev', 'Ux/Ui', 'Dev Ops', 'Data Science', 'Cyber Security']

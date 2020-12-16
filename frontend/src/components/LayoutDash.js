@@ -52,7 +52,7 @@ const LayoutDash = ({ children }) => {
                 Login
             </Link>
             </Menu.Item>
-          </> : <React.Fragment>
+          </> : <>
             <Menu.Item key="4">
               <Link to="/choose-donation">
               Donate
@@ -68,8 +68,7 @@ const LayoutDash = ({ children }) => {
                   Dashboard
               </Link>
               </Menu.Item>
-            </React.Fragment>}
-
+              </> }
         </Menu>
       </Header>
     <Content style={{ padding: '0 50px' }}>
@@ -106,7 +105,6 @@ const LayoutDash = ({ children }) => {
             Profile
         </Link>
         </Menu.Item>
-        <Divider> --- </Divider>
         <Menu.Item key="5" onClick={handleLogout}>
               <Link to="/">
               Logout

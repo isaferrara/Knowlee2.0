@@ -1,32 +1,31 @@
 const User = require('../models/User')
 const bcrypt = require('bcrypt')
 const passport = require('passport')
-const Path = require('../models/Path')
 
 exports.signup = async (req, res) => {
-  const { username, password, email,name, image} = req.body
-
+  const { username, password, email, image} = req.body
   if (!username || !password) {
     return res
       .status(403)
       .json({ message: 'Provide username and password' })
   }
   const user = await User.findOne({ username })
-
+  console.log(user, 'userrr')
   if (user) {
     return res
       .status(400)
       .json({ message: 'Error with username' })
   }
 
+  
+
   const hashPass = bcrypt
     .hashSync(password, bcrypt.genSaltSync(12))
 
   const newUser = await User.create({
+    email,
     username,
     password: hashPass,
-    email,
-    name,
     image
   })
 
@@ -50,7 +49,6 @@ exports.login = async (req, res, next) => {
       return res.status(401).json(failureDetails)
     }
 
-    //Ejecutamos a manita el metodo login del request que guarda a nuestro user en req.user
 
     req.login(user, err => {
       if (err) {
@@ -64,10 +62,9 @@ exports.login = async (req, res, next) => {
   })(req, res, next)
 }
 
-exports.currentUser = (req, res) => {
-
-  res.json(req.user || null)
-}
+  exports.currentUser = (req, res) => {
+    res.json(req.user || null)
+  }
 
 exports.logout = (req, res) => {
   req.logout()

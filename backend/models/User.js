@@ -11,11 +11,22 @@ const userSchema = new Schema(
       type: String,
       default: 'https://coa.pe/public/assets/img/default-user.png'
     },
-    paths:[{
+    paths:
+    [{
       type: Schema.Types.ObjectId,
       ref: 'Path'
-    }]
-  },
+    }],
+  suscriptions:
+  [{
+    type: Schema.Types.ObjectId,
+    ref: 'Suscription'
+  }],
+  favorites:
+  [{
+    type: Schema.Types.ObjectId,
+    ref: 'Favorite'
+  }]
+},
   {
     timestamps: true,
     versionKey: false

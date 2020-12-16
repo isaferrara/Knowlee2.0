@@ -13,12 +13,13 @@ import TextContent from '../components/TextContent'
 import LinkContent from '../components/LinkContent'
 import ImgContent from '../components/ImgContent'
 import LayoutDash from "../components/LayoutDash";
-
+import Progreso from '../components/progress/Progreso'
 
 export const ContentTopic = (props) => {
 
     //GENERAL
     const [form] = Form.useForm()
+    const [done] = Form.useForm()
     const [changes, setChanges] = useState(false)
 
     //TOPICS CONTENT INFO
@@ -29,7 +30,7 @@ export const ContentTopic = (props) => {
     const [contenty, setContent] = useState(null)
 
        //saves content on database
-       const [allInfo, setAllInfo] = useState([])
+    const [allInfo, setAllInfo] = useState([])
 
     //CONTENT, LINKS OR IMG
     const [txt, setTxt] = useState(null)
@@ -40,6 +41,9 @@ export const ContentTopic = (props) => {
     const [contentForm, setContentForm] = useState(false)
     const [imgForm, setImgForm] = useState(false)
     const [linkForm, setLinkForm]=useState(false)
+
+    //progress
+    const[current, setCurrent] = useState(false)
 
 
     useEffect(() => {
@@ -84,9 +88,11 @@ export const ContentTopic = (props) => {
                         title: contenty.title,
                         objective: contenty.objective,
                         duration: contenty.duration,
+                        progress: contenty.progress,
                         content:allInfoArray,
                         })
                     setContent(data) 
+                    setChanges (!changes)
                 }
         
                topicContent () 
@@ -94,10 +100,14 @@ export const ContentTopic = (props) => {
                 setLinkForm(false) 
                 setImgForm(false) 
                 form.resetFields()
-                setChanges (true)
+                setChanges (!changes)
             };
         
-        
+           
+            function setFinished(){
+                setCurrent(!current)
+            }
+
             function setContentForms(){
                 setContentForm(!contentForm)
                 }
@@ -147,7 +157,9 @@ export const ContentTopic = (props) => {
                 </div>
                     <Divider></Divider>
                         {content && content }
-        
+
+                        <Progreso {...contenty} />
+
                     </div>):(
                         <Skeleton active />
                     )}

@@ -5,6 +5,10 @@ const topicSchema = new Schema(
     title: String,
     objective: String,
     duration: String,
+    progress:{
+      type: Boolean,
+      default: false
+  },
     content: [String],
     paths: [{
       type: Schema.Types.ObjectId,

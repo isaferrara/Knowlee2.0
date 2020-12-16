@@ -1,6 +1,6 @@
 import React, {useState, useEffect}from 'react'
-import { getAllPaths, updatePath} from '../services/paths.js'
-import { Typography, Button, Modal, Form,  Card, Divider, Skeleton} from 'antd'
+import { getAllPaths, updatePath, getSinglePath} from '../services/paths.js'
+import { Typography, Button, Modal, Form,  Card, Divider, Skeleton, Progress} from 'antd'
 import { Link } from 'react-router-dom'
 import { useContextInfo } from '../hooks/context.js'
 import { Input } from 'antd';
@@ -15,25 +15,29 @@ const Dash = () => {
     //user´s paths
     const [pathsy, setPaths] = useState(null)
     //recommended paths
-    const [otherPaths, setOtherPaths] = useState(null)
     const [selectedTopics, setSelectedTopics] = useState(null)
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [changes, setChanges] = useState(false);
+    const [counter, setCounter] = useState(0);
 
 
     useEffect(() => {
         async function getPaths() {
             const {data} = await getAllPaths()
             //get only users path//
+            
             const userPaths = data.filter((info)=>
-                info.users[0]===user._id
-            )
-            //get recommended paths--users starts with all existing paths//
-            data.filter((info)=>
             info.users[0]===user._id
-        )
-            setOtherPaths(data)
-            setPaths(userPaths) 
+            )
+            setPaths(userPaths)  
+
+            // const userProgress = userPaths.map((info)=>
+            // info.progress
+            
+            // )
+
+            // setCounter(userProgress)
+            
         }
         getPaths()
         }, [changes])
@@ -43,12 +47,6 @@ const Dash = () => {
            
         }
 
-        //on submit all the selected topics user is adding to paths
-        const onFinish = values => {
-                let copy = {...values}
-                setSelectedTopics(copy)
-        } 
-
         //search recommended paths
         async function onSearch (value) {
             let search= value.target.value
@@ -57,47 +55,13 @@ const Dash = () => {
             let allPaths= allTitles.filter(info=> info.title.toLowerCase()===search)
             setPaths(allPaths)
             if(value===' '){console.log(pathsy) 
-                setPaths(data)}
-        
-          }
+                setPaths(data)}     
+        }
 
          //show modal to transfer topics 
         const showModal = () => {
             setIsModalVisible(true);
-          };
-
-          //on submit transfer topics to users paths
-        const handleOk = (values) => {
-            setIsModalVisible(false);
-
-            async function getPaths() {
-                //Check every path 
-                let allPathsy=[]
-            for(let i=0; i< values['checkbox-group'].length; i++){
-
-                //Id of all selected paths
-                let idPath= values['checkbox-group'][i]._id
-                allPathsy.push(values['checkbox-group'][i])
-
-
-                // all selected topics
-                for(let i=0; i<selectedTopics['checkbox-group'].length; i++  ){             
-                    let {data}=await createTopic({  
-                        title:selectedTopics['checkbox-group'][i].title ,
-                        objective:selectedTopics['checkbox-group'][i].objective ,
-                        duration:selectedTopics['checkbox-group'][i].duration ,
-                        content:selectedTopics['checkbox-group'][i].content , 
-                        pathId: allPathsy
-                    })
-                        setChanges(true)
-
-                    }
-                }
-               
-            }
-            getPaths()
-
-    }
+        };
 
         return (
             <LayoutDash>
@@ -111,8 +75,9 @@ const Dash = () => {
                     <div style={{marginTop:'50px'}}>
                     <Search placeholder="What are you looking for?" onChange={onSearch} allowClear style={{ width: 500 }} />                        <br />         
                     </div>
-                <div style={{ padding: '1rem', display:'flex', flexDirection:'row', flexWrap: 'wrap'  }}>    
-                        {pathsy?.map(path => (
+                <div style={{ padding: '1rem', display:'flex', flexDirection:'row', flexWrap: 'wrap'  }}>  
+
+                        {pathsy?.map((path, i ) => (
                         <div style={{borderRadius:' 20px ', margin:'10px',  width:'240px'}}>
                         <Card  hoverable  style={{backgroundColor: 'white', borderRadius:'10px', boxShadow: '3px 4px 25px -7px rgba(0,0,0,0.75)'}} >
                             <Link to={`/path/${path._id}`}>
@@ -122,6 +87,9 @@ const Dash = () => {
                                     </Card>
                                 </div> 
                             </Link>  
+                            <Progress  percent={path.progress} size="small" />
+                           
+
                             <Divider>Topics</Divider>
                            
                             {path.topics?.map((topic, index ) => (
@@ -143,8 +111,8 @@ const Dash = () => {
                         onCancel={handleCancel}
                         cancelText="cancel"
                             >
-                            <CreatePath handleCancel={handleCancel}/>
-                            </Modal>
+                        <CreatePath handleCancel={handleCancel}/>
+                        </Modal>
                 </div>
                 
             </div>

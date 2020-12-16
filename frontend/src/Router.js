@@ -19,7 +19,7 @@ import Donate100 from './pages/Donate100'
 import Donate200 from './pages/Donate200'
 import Donate300 from './pages/Donate300'
 import Donate400 from './pages/Donate400'
-import Progreso from "./pages/Progreso"
+import Progreso from "./components/progress/Progreso"
 import ChooseDonation from './pages/ChooseDonation'
 import PrivateRoute from "./components/PrivateRoute"
 import PrivDash from "./components/PrivDash"
@@ -29,11 +29,7 @@ import DetailsTopic from "./pages/DetailsTopic"
 import DiscoverPaths from './pages/DiscoverPaths';
 import Newsfeed from './pages/Newsfeed';
 
-///Dummy Components
-//const Home = () => <h1>Home</h1>
-// const Login = () => <h1>Login</h1>
-// const Signup = () => <h1>Signup</h1>
-// const Profile = () => <h1>Profile</h1>
+
 
 const Success = () => <h1>Success Payment</h1>
 const Failure = () => <h1>Failure Payment</h1>
@@ -42,8 +38,9 @@ const Pending = () => <h1>Pending Payment</h1>
 const Router = () => {
   return (
     <BrowserRouter >
-      
-      <Route exact path="/" component={Home} />
+       <Route exact path="/" component={Home} />
+      <PrivDash path='/login' component={Login} exact/>
+      <Route path='/signup' component={Signup} exact/>
       <PrivateRoute exact path="/dash/:id" component={Dash} />
       <Route path='/path/create' component={CreatePath} exact />
       <PrivateRoute path='/path/:id' component={DetailsPath} exact />
@@ -52,8 +49,6 @@ const Router = () => {
       <Route path='/path/explore/:id' component={DetailsExplorePath} exact />      
       <PrivateRoute path='/topic/:id' component={ContentTopic} exact />
       <Route path='/topicdetails/:id' component={DetailsTopic} exact />
-      <PrivDash path='/login' component={Login} exact/>
-      <Route path='/signup' component={Signup} exact/>
       <Route path='/news' component={Newsfeed} exact/>
       <PrivateRoute path='/profile' component={Profile} exact />
       <Route path='/multimedia' component={Multimedia} exact />

@@ -3,10 +3,13 @@ const User = require('../models/User')
 
 
 exports.createPath = async (req, res) => {
-    const { title, description, category, userId} = req.body
+    const { title, description, shortDesc, progress, level, category, userId} = req.body
     const newPath = await Path.create({
       title,
       description,
+      shortDesc,
+      progress,
+      level,
       category,
       users:userId
     })
@@ -24,8 +27,8 @@ exports.createPath = async (req, res) => {
   
 exports.updatePath = async (req, res) => {
     const { id } = req.params
-    const { title, description, category, topics } = req.body
-    const pathsy= await Path.findByIdAndUpdate(id, { title, description, category, topics }, {new:true})
+    const { title, description, shortDesc, progress, level, category, topics, users } = req.body
+    const pathsy= await Path.findByIdAndUpdate(id, { title, description, shortDesc, progress, level, category, topics, users }, {new:true})
     res.status(202).json(pathsy)
   }
 
@@ -40,7 +43,3 @@ exports.getSinglePath = async (req, res) => {
     res.status(200).json(path)
   }
 
-  // exports.getAllUserPaths = async (req, res) => {
-  //   const paths= await Path.find().populate('topics')
-  //   res.status(200).json(paths)
-  // }

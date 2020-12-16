@@ -16,6 +16,22 @@ const {
   updateContent
 } = require('../controllers/topics')
 
+
+const {
+  createSuscriber,
+  deleteSuscriber,
+  getAllSuscribers,
+  getSingleSuscriber
+} = require('../controllers/suscribers')
+
+
+const {
+  createFav,
+  deleteFav,
+  getAllFavs,
+  getSingleFav
+} = require('../controllers/favs')
+
 const { catchErr } = require('../middlewares')
 
 const router = Router()
@@ -38,6 +54,20 @@ router.delete('/topic/:id', catchErr(deleteTopic))
 router.get('/topic', catchErr(getAllTopic))
 router.get('/topic/:id', catchErr(getSingleTopic))
 
+
+/// suscriber routes
+
+router.post('/subs/create', catchErr(createSuscriber))
+router.delete('/subs/:id', catchErr(deleteSuscriber))
+router.get('/subs', catchErr(getAllSuscribers))
+router.get('/subs/:id', catchErr(getSingleSuscriber))
+
+/// fav routes
+
+router.post('/favs/create', catchErr(createFav))
+router.delete('/favs/:id', catchErr(deleteFav))
+router.get('/favs', catchErr(getAllFavs))
+router.get('/favs/:id', catchErr(getSingleFav))
 
 module.exports = router
 

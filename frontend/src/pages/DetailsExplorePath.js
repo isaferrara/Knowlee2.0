@@ -5,6 +5,8 @@ import {  deleteTopic, createTopic} from '../services/topics.js'
 import { Input, Typography, Skeleton, Divider, Card, Button, Modal, Form, Inputtle} from 'antd'
 import { Link } from 'react-router-dom'
 import LayoutDash from "../components/LayoutDash";
+
+
 const { Title } = Typography
 const DetailsExplorePath = ({ match: { params: { id } }, history }) => {
     const [form] = Form.useForm()
@@ -43,8 +45,10 @@ const createNewTopic= async (value)=>{
         setChanges(!changes)
 } 
     return (
+        //solo ver no editar
     <LayoutDash>
         <div style={{ padding: '1rem 3rem' }}>
+
         {pathsy? (<div>
             <Title level={2}>{pathsy.title}</Title>
         <div style={{textAlign:'left'}}> 
@@ -53,6 +57,7 @@ const createNewTopic= async (value)=>{
         </div>
     <Divider>Topics</Divider>
     <br />
+
     {pathsy.topics.map((topic, i) => 
         <Link to={`/topicdetails/${topic._id}`}> 
     <Card hoverable
@@ -65,6 +70,7 @@ const createNewTopic= async (value)=>{
             <p style={{marginBottom:'3px', paddingLeft:'0px'}} > 
         <b>Duration:</b>
         {topic.duration}</p>
+
             </div>
         </div>
     </Card>

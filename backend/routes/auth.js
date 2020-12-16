@@ -10,7 +10,6 @@ const { signup, login, logout, currentUser, edit, googleInit, googleCb } = requi
 
 router.post("/login", login);
 
-
 router.post("/signup", signup);
 
 router.get('/current-user', currentUser)
