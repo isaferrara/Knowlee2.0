@@ -17,8 +17,6 @@ exports.signup = async (req, res) => {
       .json({ message: 'Error with username' })
   }
 
-  
-
   const hashPass = bcrypt
     .hashSync(password, bcrypt.genSaltSync(12))
 
@@ -26,7 +24,11 @@ exports.signup = async (req, res) => {
     email,
     username,
     password: hashPass,
-    image
+    name,
+    image,
+    paths,
+    suscriptions, 
+    favorites,
   })
 
   newUser.password = null
@@ -74,9 +76,9 @@ exports.logout = (req, res) => {
 
 exports.edit = async (req, res) => {
   const { id } = req.params
-  const { username, name, email, image } = req.body
+  const { username, name, email, image,  paths, suscriptions, favorites } = req.body
 
-  await User.findByIdAndUpdate(id, { username, name, email, image})
+  await User.findByIdAndUpdate(id, { email, username, name, image, paths, suscriptions, favorites })
 
   res.status(202).json({ message: 'Profile updated' })
 }

@@ -20,7 +20,7 @@ export const logoutFn = () =>
   authService.get('/logout')
 
 export const updateFn = (id, user) =>
-authService.post(`/edit/${id}`, user)
+authService.put(`/edit/${id}`, user)
 
 export const profile = () => authService.get("/profile")
 

@@ -6,7 +6,11 @@ import { useContextInfo } from '../hooks/context.js'
 import { Input } from 'antd';
 import { createTopic } from '../services/topics.js'
 import LayoutDash from "../components/LayoutDash";
+import FavPath from "../components/favorites/FavPath";
+import FavTopic from "../components/favorites/FavTopic";
+
 import CreatePath from './CreatePath.js'
+
 const { Title } = Typography
 const { Search } = Input;
 
@@ -93,15 +97,18 @@ const Dash = () => {
                             <Divider>Topics</Divider>
                            
                             {path.topics?.map((topic, index ) => (
+                                <>
                                 <Link to={`/topic/${topic._id}`}>
                                 <Card hoverable  style={{ marginTop:'15px', width:'180px', height:'70px', margin:'0px', padding:'0px', borderColor: '#1F79B5'}}  >
                                         <b><p style={{ margin:'0px', padding:'0px', color:'gray'}}>{topic.title}</p></b>
                                 </Card>  
-                                </Link>      
+                                </Link>   
+                                <FavTopic {...topic}/> 
+                                </>  
                             ))}
-                            
+                        <FavPath {...path}/> 
                         </Card>
-                        </div>        
+                        </div>      
                         ))}
                     </div>
                     <Modal

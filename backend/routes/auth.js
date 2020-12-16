@@ -16,7 +16,7 @@ router.get('/current-user', currentUser)
 
 router.get("/logout",isAuth, logout);
 
-router.post("/edit/:id",isAuth, edit)
+router.put("/edit/:id",isAuth, edit)
 
 router.get('/google', googleInit)
 
