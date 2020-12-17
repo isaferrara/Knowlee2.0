@@ -8,6 +8,7 @@ exports.createPath = async (req, res) => {
       title,
       description,
       shortDesc,
+      isFav,
       progress,
       level,
       category,
@@ -27,8 +28,8 @@ exports.createPath = async (req, res) => {
   
 exports.updatePath = async (req, res) => {
     const { id } = req.params
-    const { title, description, shortDesc, progress, level, category, topics, users } = req.body
-    const pathsy= await Path.findByIdAndUpdate(id, { title, description, shortDesc, progress, level, category, topics, users }, {new:true})
+    const { title, description, shortDesc, isFav, progress, level, category, topics, users } = req.body
+    const pathsy= await Path.findByIdAndUpdate(id, { title, description, shortDesc, isFav, progress, level, category, topics, users }, {new:true})
     res.status(202).json(pathsy)
   }
 

@@ -3,11 +3,12 @@ const User = require('../models/User')
 
 
 exports.createFav = async (req, res) => {
-    const {userId} = req.body
+    const {userId, pathId, topicId} = req.body
     const newPath = await Fav.create({
-      users:userId
+      users:userId,
+      paths:pathId,
+      topics:topicId
     })
-
     await User.findByIdAndUpdate(userId, { $push: { favorites: newPath._id } },  {new:true})
     res.status(201).json( newPath)
     

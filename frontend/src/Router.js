@@ -28,7 +28,7 @@ import DetailsExplorePath from "./pages/DetailsExplorePath"
 import DetailsTopic from "./pages/DetailsTopic"
 import DiscoverPaths from './pages/DiscoverPaths';
 import Newsfeed from './pages/Newsfeed';
-
+import Suscription from './pages/Suscriptions';
 
 
 const Success = () => <h1>Success Payment</h1>
@@ -45,6 +45,7 @@ const Router = () => {
       <Route path='/path/create' component={CreatePath} exact />
       <PrivateRoute path='/path/:id' component={DetailsPath} exact />
       <Route path='/discover' component={DiscoverPaths} exact />
+      <PrivateRoute path='/path/suscribe' component={Suscription} exact />
       <PrivateRoute path='/explore' component={ExplorePaths} exact />
       <Route path='/path/explore/:id' component={DetailsExplorePath} exact />      
       <PrivateRoute path='/topic/:id' component={ContentTopic} exact />

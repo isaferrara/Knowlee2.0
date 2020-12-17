@@ -81,6 +81,7 @@ const DetailsPath = ({ match: { params: { id } }, history } ) => {
          title: data.title,
          description: data.description,
          shortDesc: data.shortDesc,
+         isFav: data.isFav,
          progress: percentage,
          level: data.level,
          category: data.category,

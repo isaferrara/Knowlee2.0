@@ -10,7 +10,6 @@ exports.signup = async (req, res) => {
       .json({ message: 'Provide username and password' })
   }
   const user = await User.findOne({ username })
-  console.log(user, 'userrr')
   if (user) {
     return res
       .status(400)
@@ -30,7 +29,6 @@ exports.signup = async (req, res) => {
     suscriptions, 
     favorites,
   })
-
   newUser.password = null
   res.status(201).json(newUser)
 }
@@ -78,9 +76,20 @@ exports.edit = async (req, res) => {
   const { id } = req.params
   const { username, name, email, image,  paths, suscriptions, favorites } = req.body
 
-  await User.findByIdAndUpdate(id, { email, username, name, image, paths, suscriptions, favorites })
+ const updated= await User.findByIdAndUpdate(id, { email, username, name, image, paths, suscriptions, favorites }, {new:true})
 
-  res.status(202).json({ message: 'Profile updated' })
+  res.status(202).json(updated)
+}
+
+exports.getAllUsers = async (req, res) => {
+  const user= await User.find().populate('paths').populate('topics').populate('favorites')
+  res.status(200).json(user)
+}
+
+exports.getSingleUser= async (req, res) => {
+  const { id } = req.params
+  const user = await User.findById(id).populate('paths').populate('topics').populate('favorites')
+  res.status(200).json(user)
 }
 
 exports.googleInit = passport.authenticate('google', {

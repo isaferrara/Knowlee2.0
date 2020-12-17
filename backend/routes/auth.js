@@ -4,7 +4,7 @@ const router = express.Router();
 const User = require('../models/User')
 
 const { isAuth } = require('../middlewares')
-const { signup, login, logout, currentUser, edit, googleInit, googleCb } = require('../controllers/auth')
+const { signup, login, logout, currentUser, edit, googleInit, googleCb, getAllUsers, getSingleUser } = require('../controllers/auth')
 // Bcrypt to encrypt passwords
 
 
@@ -28,5 +28,8 @@ router.get('/profile', isAuth, (req, res, next) => {
       .catch((err) => res.status(500).json({ err }));
   });
 
+router.get('/user', getAllUsers)
+
+router.get('/user/:id', getSingleUser)
 
 module.exports = router;

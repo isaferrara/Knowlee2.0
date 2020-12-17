@@ -15,6 +15,8 @@ async function changeFav(){
 const {data} = await getSingleTopic(props._id) 
 
 async function createFav(){
+    const favorSingle= {...data}
+
     await updateFn(user._id,{
         username: user.username, 
         name: user.name, 
@@ -22,9 +24,8 @@ async function createFav(){
         image: user.image, 
         paths: user.paths,
         suscriptions: user.suscriptions, 
-        favorites: user.favorites, 
+        favorites: favorSingle, 
     })
-    console.log(data) 
     }    
     createFav()
 }

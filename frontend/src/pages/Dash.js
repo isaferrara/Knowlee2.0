@@ -4,12 +4,11 @@ import { Typography, Button, Modal, Form,  Card, Divider, Skeleton, Progress} fr
 import { Link } from 'react-router-dom'
 import { useContextInfo } from '../hooks/context.js'
 import { Input } from 'antd';
-import { createTopic } from '../services/topics.js'
 import LayoutDash from "../components/LayoutDash";
 import FavPath from "../components/favorites/FavPath";
 import FavTopic from "../components/favorites/FavTopic";
-
 import CreatePath from './CreatePath.js'
+import { getAllUsers } from '../services/auth.js'
 
 const { Title } = Typography
 const { Search } = Input;
@@ -26,6 +25,7 @@ const Dash = () => {
 
 
     useEffect(() => {
+
         async function getPaths() {
             const {data} = await getAllPaths()
             //get only users path//
@@ -35,12 +35,6 @@ const Dash = () => {
             )
             setPaths(userPaths)  
 
-            // const userProgress = userPaths.map((info)=>
-            // info.progress
-            
-            // )
-
-            // setCounter(userProgress)
             
         }
         getPaths()
@@ -103,7 +97,6 @@ const Dash = () => {
                                         <b><p style={{ margin:'0px', padding:'0px', color:'gray'}}>{topic.title}</p></b>
                                 </Card>  
                                 </Link>   
-                                <FavTopic {...topic}/> 
                                 </>  
                             ))}
                         <FavPath {...path}/> 

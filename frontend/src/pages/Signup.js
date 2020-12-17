@@ -25,7 +25,7 @@ const Signup = ({ history }) => {
 
   async function handleSubmit(userInput) {
     const usr = {...userInput, image: img}
-    console.log(usr)
+
     const {data} = await signupFn(usr)
     history.push('/')
   }

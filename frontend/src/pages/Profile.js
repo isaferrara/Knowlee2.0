@@ -45,7 +45,7 @@ const Profile = () => {
         <Typography.Title level={3}>
           Your account
         </Typography.Title>
-          {console.log(user.image, user.email)} 
+
           <br/>
           <img style={{width: 200, height: 200, borderRadius: 30}} src={user.image} alt="User Img"></img>
           

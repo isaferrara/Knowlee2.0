@@ -30,6 +30,7 @@ import {useContextInfo} from '../hooks/context'
             title: path.title,
             description:path.description,
             shortDesc: path.shortDesc,
+            isFav: path.isFav,
             level: path.level,
             category: path.category,
             userId: user._id

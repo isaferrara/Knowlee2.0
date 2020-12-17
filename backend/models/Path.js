@@ -6,6 +6,10 @@ const pathSchema = new Schema(
     title: String,
     description: String,
     shortDesc: String,
+    isFav: {
+      type: Boolean,
+      default:false
+    },
     progress: {
       type: Number,
       default: 0
