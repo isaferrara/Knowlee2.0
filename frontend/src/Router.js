@@ -44,8 +44,8 @@ const Router = () => {
       <PrivateRoute exact path="/dash/:id" component={Dash} />
       <Route path='/path/create' component={CreatePath} exact />
       <PrivateRoute path='/path/:id' component={DetailsPath} exact />
+      <PrivateRoute path='/subs' component={Suscription} exact />
       <Route path='/discover' component={DiscoverPaths} exact />
-      <PrivateRoute path='/path/suscribe' component={Suscription} exact />
       <PrivateRoute path='/explore' component={ExplorePaths} exact />
       <Route path='/path/explore/:id' component={DetailsExplorePath} exact />      
       <PrivateRoute path='/topic/:id' component={ContentTopic} exact />

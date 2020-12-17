@@ -91,7 +91,7 @@ const LayoutDash = ({ children }) => {
         </Link>
         </Menu.Item>
         <Menu.Item key="2" icon={<VideoCameraOutlined />}>
-        <Link to={`/path/suscribe`}>
+        <Link to={`/subs`}>
            Suscriptions
         </Link>        
         </Menu.Item>

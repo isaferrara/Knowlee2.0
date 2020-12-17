@@ -3,7 +3,7 @@ const User = require('../models/User')
 
 
 exports.createPath = async (req, res) => {
-    const { title, description, shortDesc, progress, level, category, userId} = req.body
+    const { title, description, shortDesc, isFav, progress, level, category, userId} = req.body
     const newPath = await Path.create({
       title,
       description,
@@ -14,8 +14,7 @@ exports.createPath = async (req, res) => {
       category,
       users:userId
     })
-
-    await User.findByIdAndUpdate(userId, { $push: { users: newPath._id } },  {new:true})
+    await User.findByIdAndUpdate(userId, { $push: { paths: newPath._id } },  {new:true})
     res.status(201).json( newPath)
     
   }

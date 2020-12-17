@@ -1,6 +1,7 @@
 const User = require('../models/User')
 const bcrypt = require('bcrypt')
 const passport = require('passport')
+const Path = require('../models/Path')
 
 exports.signup = async (req, res) => {
   const { username, password, email, image} = req.body
@@ -23,11 +24,7 @@ exports.signup = async (req, res) => {
     email,
     username,
     password: hashPass,
-    name,
-    image,
-    paths,
-    suscriptions, 
-    favorites,
+    image
   })
   newUser.password = null
   res.status(201).json(newUser)
@@ -82,13 +79,13 @@ exports.edit = async (req, res) => {
 }
 
 exports.getAllUsers = async (req, res) => {
-  const user= await User.find().populate('paths').populate('topics').populate('favorites')
+  const user= await User.find().populate('paths').populate('favorites')
   res.status(200).json(user)
 }
 
 exports.getSingleUser= async (req, res) => {
   const { id } = req.params
-  const user = await User.findById(id).populate('paths').populate('topics').populate('favorites')
+  const user = await User.findById(id).populate('paths').populate('favorites')
   res.status(200).json(user)
 }
 

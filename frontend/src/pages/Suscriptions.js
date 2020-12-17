@@ -1,13 +1,16 @@
 import React from 'react'
 import { SuscribeExplore } from '../components/Suscribe/SuscribeExplore'
-import LayoutDash from "../components/LayoutDash";
+import { useContextInfo } from '../hooks/context.js'
+
 
 const Suscriptions = () => {
+    const { user } = useContextInfo()
+
     return (
         <div>        
-        <LayoutDash>
+
             <SuscribeExplore/>
-        </LayoutDash>
+
         </div>
     )
 }
