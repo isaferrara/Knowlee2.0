@@ -4,9 +4,11 @@ import { Typography, Button, Modal,  Card, Divider, Skeleton, Progress} from 'an
 import { Link } from 'react-router-dom'
 import { useContextInfo } from '../hooks/context.js'
 import { Input } from 'antd';
+
 import { createTopic } from '../services/topics.js'
 import LayoutDash from "../components/LayoutDash";
 import FavPath from "../components/favorites/FavPath";
+import CategoriesIcons from "../components/CategoriesIcons";
 
 import CreatePath from './CreatePath.js'
 
@@ -49,7 +51,6 @@ const Dash = () => {
 
         const handleCancel = () => {
             setIsModalVisible(false);
-           
         }
 
         //search recommended paths
@@ -72,6 +73,7 @@ const Dash = () => {
             <LayoutDash>
             <div>
              {/* User´s paths */} 
+             <CategoriesIcons/>
              {user? (
                 <div style={{ padding: '1rem 3rem', display:'flex', flexDirection:'column' }}>
                     <h1 style={{fontFamily:'Verdana', fontSize:'30px'}}><b>Your study paths</b></h1> 

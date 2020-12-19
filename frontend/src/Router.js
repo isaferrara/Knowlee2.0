@@ -35,6 +35,12 @@ import DevOps from './pages/Categories/DevOps';
 import UxUi from './pages/Categories/UxUi';
 import WebDev from './pages/Categories/WebDev';
 
+import MyCyberSecurity from './pages/MyCategories/MyCyberSecurity';
+import MyDataScience from './pages/MyCategories/MyDataScience';
+import MyDevOps from './pages/MyCategories/MyDevOps';
+import MyUxUi from './pages/MyCategories/MyUxUi';
+import MyWebDev from './pages/MyCategories/MyWebDev';
+
 import Favorites from './pages/DashboardMenu/Favorites';
 import Completed from './pages/DashboardMenu/StatusProgress/Completed';
 import InProgress from './pages/DashboardMenu/StatusProgress/InProgress';
@@ -48,7 +54,7 @@ const Pending = () => <h1>Pending Payment</h1>
 const Router = () => {
   return (
     <BrowserRouter >
-
+    <Switch>
     {/* Auth user */}
        <Route exact path="/" component={Home} />
       <PrivDash path='/login' component={Login} exact/>
@@ -84,6 +90,14 @@ const Router = () => {
       <Route path='/ux-ui' component={UxUi} exact />
       <Route path='/web-dev' component={WebDev} exact />
 
+
+      {/* Categories user*/}
+      <PrivateRoute path='/cyber-security/:id' component={MyCyberSecurity} exact />
+      <PrivateRoute path='/data-science/:id' component={MyDataScience} exact />
+      <PrivateRoute path='/dev-ops/:id' component={MyDevOps} exact />
+      <PrivateRoute path='/ux-ui/:id' component={MyUxUi} exact />
+      <PrivateRoute path='/web-dev/:id' component={MyWebDev} exact />
+
       {/* Donations*/}
 
       <Route path='/choose-donation' component={ChooseDonation}exact />
@@ -97,6 +111,7 @@ const Router = () => {
       <Route exact path="/pending" component={Pending} />
       
     {/*<Route component={NotFound} />*/}
+    </Switch>
     </BrowserRouter>
   )
 }

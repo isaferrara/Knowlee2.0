@@ -1,16 +1,18 @@
 import React, {useState, useEffect}from 'react'
-import { getAllPaths} from '../../../services/paths.js'
+import { getAllPaths} from '../../services/paths.js'
 import { Typography, Button, Modal,  Card, Divider, Skeleton, Progress} from 'antd'
 import { Link } from 'react-router-dom'
-import { useContextInfo } from '../../../hooks/context.js'
+import { useContextInfo } from '../../hooks/context.js'
 import { Input } from 'antd';
-import LayoutDash from "../../../components/LayoutDash";
-import FavPath from "../../../components/favorites/FavPath";
+import LayoutDash from "../../components/LayoutDash";
+import FavPath from "../../components/favorites/FavPath";
+import MyCategoriesIcons from '../../components/MyCategoriesIcons.js'
 
 const { Title } = Typography
 const { Search } = Input;
 
-export const InProgress = () => {
+export const MyDataScience = () => {
+
 
     const { user } = useContextInfo()
     const [pathsy, setPaths] = useState(null)
@@ -23,7 +25,7 @@ export const InProgress = () => {
 
            //get only users path//
             const userPaths = data.filter((info)=>
-            info.users[0]===user._id && info.progress !== 100
+            info.users[0]===user._id && info.category === 'Data Science'
             )
             setPaths(userPaths)    
             console.log(userPaths)          
@@ -44,13 +46,14 @@ export const InProgress = () => {
 
     return (
         <LayoutDash>
-            <div>
+        <div>
+        <MyCategoriesIcons/>
+
              {/* User´s paths */} 
              {user? (
                 <div style={{ padding: '1rem 3rem', display:'flex', flexDirection:'column' }}>
                     <h1 style={{fontFamily:'Verdana', fontSize:'30px'}}><b>Your study paths</b></h1> 
                 <div style={{ padding: '1rem 3rem', display:'flex', flexDirection:'column'}}>
-                <Button type='primary' ><Link to={'/path/create'}  style={{fontFamily:'Arial', fontSize:'20px', color:'white', createBottom: '10px'}}> <b>Create new path </b> </Link> </Button>
                     <div style={{marginTop:'50px'}}>
                     <Search placeholder="What are you looking for?" onChange={onSearch} allowClear style={{ width: 500 }} />                        <br />         
                     </div>
@@ -97,4 +100,4 @@ export const InProgress = () => {
     )
 }
 
-export default InProgress
+export default MyDataScience
