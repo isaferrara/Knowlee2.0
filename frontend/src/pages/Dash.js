@@ -1,13 +1,12 @@
 import React, {useState, useEffect}from 'react'
-import { getAllPaths, updatePath, getSinglePath} from '../services/paths.js'
-import { Typography, Button, Modal, Form,  Card, Divider, Skeleton, Progress} from 'antd'
+import { getAllPaths} from '../services/paths.js'
+import { Typography, Button, Modal,  Card, Divider, Skeleton, Progress} from 'antd'
 import { Link } from 'react-router-dom'
 import { useContextInfo } from '../hooks/context.js'
 import { Input } from 'antd';
 import { createTopic } from '../services/topics.js'
 import LayoutDash from "../components/LayoutDash";
 import FavPath from "../components/favorites/FavPath";
-import FavTopic from "../components/favorites/FavTopic";
 
 import CreatePath from './CreatePath.js'
 

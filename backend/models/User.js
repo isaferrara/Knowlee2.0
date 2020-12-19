@@ -7,6 +7,10 @@ const userSchema = new Schema(
     username: String,
     password: String,
     name: String,
+    suscribers:[{
+      type: Schema.Types.ObjectId,
+      ref: 'User'
+    }],
     image: {
       type: String,
       default: 'https://coa.pe/public/assets/img/default-user.png'
@@ -19,7 +23,7 @@ const userSchema = new Schema(
   suscriptions:
   [{
     type: Schema.Types.ObjectId,
-    ref: 'Suscription'
+    ref: 'User'
   }],
   favorites:
   [{

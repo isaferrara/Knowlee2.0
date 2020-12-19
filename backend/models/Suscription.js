@@ -3,7 +3,12 @@ const { Schema, model } = require('mongoose');
 
 const suscriptionSchema = new Schema(
   {
-    users:
+    suscribers:
+    [{
+      type: Schema.Types.ObjectId,
+      ref: 'User'
+    }],
+    suscriptions:
     [{
       type: Schema.Types.ObjectId,
       ref: 'User'

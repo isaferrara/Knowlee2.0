@@ -19,6 +19,7 @@ const {
 
 const {
   createSuscriber,
+  createSubscription,
   deleteSuscriber,
   getAllSuscribers,
   getSingleSuscriber
@@ -58,6 +59,7 @@ router.get('/topic/:id', catchErr(getSingleTopic))
 /// suscriber routes
 
 router.post('/subs/create', catchErr(createSuscriber))
+router.post('/subs/creates', catchErr(createSubscription))
 router.delete('/subs/:id', catchErr(deleteSuscriber))
 router.get('/subs', catchErr(getAllSuscribers))
 router.get('/subs/:id', catchErr(getSingleSuscriber))

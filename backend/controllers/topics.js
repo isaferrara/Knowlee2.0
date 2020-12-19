@@ -46,7 +46,7 @@ exports.getAllTopic = async (req, res) => {
 
 exports.getSingleTopic = async (req, res) => {
     const { id } = req.params
-    const topic = await Topic.findById(id)
+    const topic = await Topic.findById(id).populate('paths')
     res.status(200).json(topic)
     }
 

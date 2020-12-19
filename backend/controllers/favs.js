@@ -22,13 +22,13 @@ exports.createFav = async (req, res) => {
   
 
 exports.getAllFavs = async (req, res) => {
-    const fav= await Fav.find().populate('paths').populate('topics')
+    const fav= await Fav.find().populate('paths').populate('topics').exec();
     res.status(200).json(fav)
   }
 
 exports.getSingleFav= async (req, res) => {
     const { id } = req.params
-    const fav = await Fav.findById(id).populate('paths').populate('topics')
+    const fav = await Fav.findById(id).populate('paths').populate('topics').exec();
     res.status(200).json(fav)
   }
 

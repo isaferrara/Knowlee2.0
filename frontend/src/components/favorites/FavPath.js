@@ -47,9 +47,10 @@ import { updatePath } from '../../services/paths'
             username: user.username, 
             name: user.name, 
             email: user.email, 
+            suscriptions: user.suscriptions, 
             image: user.image, 
             paths: user.paths,
-            suscriptions: user.suscriptions, 
+            subscribers: user.subscribers, 
             favorites: favsFiltered, 
         })
 

@@ -28,6 +28,7 @@ exports.signup = async (req, res) => {
   })
   newUser.password = null
   res.status(201).json(newUser)
+  res.redirect('/login')
 }
 
 
@@ -71,21 +72,21 @@ exports.logout = (req, res) => {
 
 exports.edit = async (req, res) => {
   const { id } = req.params
-  const { username, name, email, image,  paths, suscriptions, favorites } = req.body
+  const { username, name, email, image, suscribers, paths, suscriptions, favorites } = req.body
 
- const updated= await User.findByIdAndUpdate(id, { email, username, name, image, paths, suscriptions, favorites }, {new:true})
+ const updated= await User.findByIdAndUpdate(id, { email, username, name, suscribers, image, paths, suscriptions, favorites }, {new:true})
 
   res.status(202).json(updated)
 }
 
 exports.getAllUsers = async (req, res) => {
-  const user= await User.find().populate('paths').populate('favorites')
+  const user= await User.find().populate('users ').populate(' paths ').populate('favorites').populate('suscriptions').populate('suscribers')
   res.status(200).json(user)
 }
 
 exports.getSingleUser= async (req, res) => {
   const { id } = req.params
-  const user = await User.findById(id).populate('paths').populate('favorites')
+  const user = await User.findById(id).populate('users ').populate(' paths ').populate('favorites').populate('suscriptions').populate('suscribers')
   res.status(200).json(user)
 }
 

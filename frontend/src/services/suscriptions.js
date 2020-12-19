@@ -10,4 +10,7 @@ export const getSingleSuscriber = id => pathService.get(`/${id}`)
     
 export const createSuscriber =  path => pathService.post(`/create`, path)
     
- export const deleteSuscriber = id => pathService.delete(`/${id}`) 
+export const createSubscription =  path => pathService.post(`/creates`, path)
+
+
+export const deleteSuscriber = id => pathService.delete(`/${id}`) 

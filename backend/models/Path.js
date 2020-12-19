@@ -16,7 +16,7 @@ const pathSchema = new Schema(
     },
     level: {
       type: String,
-      enum: ['Beginner', 'Intermediate', ' Advanced']
+      enum: ['Beginner', 'Intermediate', 'Advanced']
   },
     category: {
         type: String,
