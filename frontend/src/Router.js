@@ -14,7 +14,6 @@ import Signup from './pages/Signup'
 import Profile from './pages/Profile'
 import DetailsPath from './pages/DetailsPath'
 import ContentTopic from './pages/ContentTopic'
-import Multimedia from './pages/Multimedia'
 import Donate100 from './pages/Donate100'
 import Donate200 from './pages/Donate200'
 import Donate300 from './pages/Donate300'
@@ -28,7 +27,18 @@ import DetailsExplorePath from "./pages/DetailsExplorePath"
 import DetailsTopic from "./pages/DetailsTopic"
 import DiscoverPaths from './pages/DiscoverPaths';
 import Newsfeed from './pages/Newsfeed';
+
 import Suscription from './pages/Suscriptions';
+import CyberSecurity from './pages/Categories/CyberSecurity';
+import DataScience from './pages/Categories/DataScience';
+import DevOps from './pages/Categories/DevOps';
+import UxUi from './pages/Categories/UxUi';
+import WebDev from './pages/Categories/WebDev';
+
+import Favorites from './pages/DashboardMenu/Favorites';
+import Completed from './pages/DashboardMenu/StatusProgress/Completed';
+import InProgress from './pages/DashboardMenu/StatusProgress/InProgress';
+import AllMyPaths from './pages/DashboardMenu/AllMyPaths';
 
 
 const Success = () => <h1>Success Payment</h1>
@@ -38,21 +48,44 @@ const Pending = () => <h1>Pending Payment</h1>
 const Router = () => {
   return (
     <BrowserRouter >
+
+    {/* Auth user */}
        <Route exact path="/" component={Home} />
       <PrivDash path='/login' component={Login} exact/>
       <Route path='/signup' component={Signup} exact/>
-      <PrivateRoute exact path="/dash/:id" component={Dash} />
-      <Route path='/path/create' component={CreatePath} exact />
+      <PrivateRoute path='/profile' component={Profile} exact />
+
+     {/* Routes Menu Top*/}
+      <Route path='/discover' component={DiscoverPaths} exact />
+
+     {/* Routes Menu dash*/}
+     <PrivateRoute exact path="/dash/:id" component={Dash} />
+     <PrivateRoute path='/explore' component={ExplorePaths} exact />
+
+       <PrivateRoute path='/my-paths/:id' component={AllMyPaths} exact />
+        <PrivateRoute path='/favorites/:id' component={Favorites} exact />
+        <PrivateRoute path='/completed/:id' component={Completed} exact />
+        <PrivateRoute path='/progress/:id' component={InProgress} exact />
+
+
+      {/* Routes helpers */}
+     <Route path='/path/create' component={CreatePath} exact />
       <PrivateRoute path='/path/:id' component={DetailsPath} exact />
       <PrivateRoute path='/subs' component={Suscription} exact />
-      <Route path='/discover' component={DiscoverPaths} exact />
-      <PrivateRoute path='/explore' component={ExplorePaths} exact />
       <Route path='/path/explore/:id' component={DetailsExplorePath} exact />      
       <PrivateRoute path='/topic/:id' component={ContentTopic} exact />
       <Route path='/topicdetails/:id' component={DetailsTopic} exact />
       <Route path='/news' component={Newsfeed} exact/>
-      <PrivateRoute path='/profile' component={Profile} exact />
-      <Route path='/multimedia' component={Multimedia} exact />
+
+      {/* Categories all users*/}
+      <Route path='/cyber-security' component={CyberSecurity} exact />
+      <Route path='/data-science' component={DataScience} exact />
+      <Route path='/dev-ops' component={DevOps} exact />
+      <Route path='/ux-ui' component={UxUi} exact />
+      <Route path='/web-dev' component={WebDev} exact />
+
+      {/* Donations*/}
+
       <Route path='/choose-donation' component={ChooseDonation}exact />
       <Route path='/donate100' component={Donate100} exact />
       <Route path='/donate200' component={Donate200} exact />

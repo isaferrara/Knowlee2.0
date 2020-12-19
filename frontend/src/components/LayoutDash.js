@@ -3,12 +3,12 @@ import {
     BarChartOutlined,
     CloudOutlined,
     ShopOutlined,
-    TeamOutlined,
+    MailOutlined,
     UserOutlined,
     UploadOutlined,
     VideoCameraOutlined,
   } from '@ant-design/icons';
-  import React from 'react'
+  import React, {useState}from 'react'
 import { Divider, Layout, Menu } from 'antd';
 import { Link } from 'react-router-dom'
 import { useContextInfo } from '../hooks/context'
@@ -20,17 +20,28 @@ const { Header, Content, Footer, Sider } = Layout;
 
 const LayoutDash = ({ children }) => {
     const { user, logout } = useContextInfo()
+    const rootSubmenuKeys = ['sub1'];
+    const [openKeys, setOpenKeys] = useState(['sub1']);
 
     async function handleLogout() {
       await logoutFn()
       logout()
     }
-  
+    
+      const onOpenChange = keys => {
+        const latestOpenKey = keys.find(key => openKeys.indexOf(key) === -1);
+        if (rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
+          setOpenKeys(keys);
+        } else {
+          setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
+        }
+      };
+    
     return (
       <div className="main" style={{backgroundColor:'#DCDCDC'}}>
           <Header className="header" style={{paddingLeft:'200px'}}>
         <div className="logo" style={{display:'flex', justifyContent:'right'}}/>
-        <Menu theme="dark" mode="horizontal">
+        <Menu theme="dark" mode="horizontal"  >
           <Menu.Item key="1">
             <Link to="/">
               Home
@@ -83,18 +94,35 @@ const LayoutDash = ({ children }) => {
       }}
     >
       <div className="logo" />
-      <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']} 
-       style={{shadowBox: '100px'}}>
+      <Menu  defaultOpenKeys={['sub1']} theme="dark" mode="inline" defaultSelectedKeys={['1']} style={{shadowBox: '100px'}} openKeys={openKeys} onOpenChange={onOpenChange}>
+
+      {/* submenu */}
+      <SubMenu key="sub1" icon={<MailOutlined />} title={<Link to={`/dash/${user._id}`}> Dashboard </Link>}>
+      <Menu.ItemGroup  >
         <Menu.Item key="1" icon={<UserOutlined />}>
-        <Link to={`/dash/${user._id}`}>
-           Dashboard
-        </Link>
+          <Link to={`/my-paths/${user._id}`}> My Paths </Link>
         </Menu.Item>
+
+        <Menu.Item key="2" icon={<UserOutlined />}>
+          <Link to={`/favorites/${user._id}`}> Favorites </Link>
+        </Menu.Item>
+
+        <Menu.Item key="3" icon={<UserOutlined />}>
+          <Link to={`/completed/${user._id}`}> Completed</Link>
+        </Menu.Item>
+
+        <Menu.Item key="4" icon={<UserOutlined />}>
+          <Link to={`/progress/${user._id}`}> In Progress </Link>
+        </Menu.Item>
+      </Menu.ItemGroup>
+      </SubMenu>
+
         <Menu.Item key="2" icon={<VideoCameraOutlined />}>
         <Link to={`/subs`}>
            Suscriptions
         </Link>        
         </Menu.Item>
+
         <Menu.Item key="3" icon={<UploadOutlined />}>
         <Link to={`/explore`}>
            Explore paths
@@ -110,6 +138,8 @@ const LayoutDash = ({ children }) => {
               Logout
               </Link>
         </Menu.Item>
+
+
       </Menu>
     </Sider>
     <Content
@@ -131,7 +161,3 @@ const LayoutDash = ({ children }) => {
 }
 
 export default LayoutDash
-
-
-  
-

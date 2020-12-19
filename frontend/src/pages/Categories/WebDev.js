@@ -1,11 +1,10 @@
 import React from 'react'
 
-export const DevOps = () => {
+ const WebDev = () => {
     return (
         <div>
             
         </div>
     )
 }
-
-export default DevOps
+export default WebDev
