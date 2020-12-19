@@ -21,34 +21,13 @@ const SuscribeExplore = () => {
         async function getPaths() {
             const {data} = await getAllUsers()
             setInfo(data) 
-            
-            
-        }
+       }
         getPaths()
         }, [changes])
 
     
     async function suscribeUser(values){
 
-
-        // const {data} = await createSuscriber({
-        //     suscribersId: user,
-        // })
-
-        // console.log(data)
-
-
-        // const {data: isa} = await createSubscription({
-        //     suscriptionId: values,
-        // })
-
-
-        // console.log(isa)
-
-        // const {data: isas} = await getSingleUser(user._id)
-
-        // console.log(isas, 'yoo')
-        setChanges(!changes)
 
         // const {data: allSubs} = await getAllSuscribers()
         // let allUsers= allSubs.map(subs=> subs.users[0])
@@ -58,23 +37,25 @@ const SuscribeExplore = () => {
 
         //Cuando alguien me da click  ---subscribers
 
-        const {data: allSubs} = await getAllUsers()
-        console.log(allSubs, 'ssubscription')
+
+    
+        const allSubscribers= [...values.suscribers, user]
 
         const {data: updateUsera} = await updateFn(values._id, {
             email: values.email,
             username: values.username,
             password: values.password,
             name: values.name,
-            suscribers: user,
+            suscribers: allSubscribers,
             image: values.image, 
             paths: values.paths,
             suscriptions: values.suscriptions,
             favorites: values.favorites
         })
-    console.log(updateUsera, 'subscirvers')
 
             //yyo le doy click y su perfil se guarda (suscription)
+            const allSuscriptions= [...user.suscriptions, values]
+
             const {data: updateUser} = await updateFn(user._id, {
                 email: user.email,
                 username: user.username,
@@ -83,10 +64,13 @@ const SuscribeExplore = () => {
                 suscribers: user.suscribers,
                 image: user.image, 
                 paths: user.paths,
-                suscriptions: values,
+                suscriptions: allSuscriptions,
                 favorites: user.favorites
             })
-        console.log(updateUser, 'ssubscription')
+
+
+
+            setChanges(!changes)
 
 
     }
@@ -103,7 +87,8 @@ const SuscribeExplore = () => {
             cover={<img alt="icon" src={users.image} style={{width:'50px', borderRadius: '50%'}}/>} >
             <h2>{users.username}</h2>
             <p>{users.paths.length} paths</p>
-             <p> {users.subscribers} suscribers </p>
+            {!users.suscribers.length? <p> 0 suscribers </p> : <p> {users.suscribers.length} suscribers </p>}
+
              <p> {users._id} suscribers </p>
 
             <Button onClick={()=> suscribeUser(users)} >Suscribe</Button>

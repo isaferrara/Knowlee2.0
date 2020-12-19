@@ -28,10 +28,11 @@ const Dash = () => {
         async function getPaths() {
             const {data} = await getAllPaths()
             //get only users path//
-            
+
             const userPaths = data.filter((info)=>
             info.users[0]===user._id
             )
+            console.log(userPaths)
             setPaths(userPaths)  
 
 
