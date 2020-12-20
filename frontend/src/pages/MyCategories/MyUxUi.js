@@ -1,6 +1,6 @@
 import React, {useState, useEffect}from 'react'
 import { getAllPaths} from '../../services/paths.js'
-import { Typography, Button, Modal,  Card, Divider, Skeleton, Progress} from 'antd'
+import { Typography , Card, Divider, Skeleton, Progress} from 'antd'
 import { Link } from 'react-router-dom'
 import { useContextInfo } from '../../hooks/context.js'
 import { Input } from 'antd';
@@ -14,7 +14,7 @@ const { Search } = Input;
 export const MyUxUi = () => {
     const { user } = useContextInfo()
     const [pathsy, setPaths] = useState(null)
-    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [allMyPathsy, setallMyPathsy] = useState(null)
     const [changes, setChanges] = useState(false);
 
     useEffect(() => {
@@ -25,22 +25,26 @@ export const MyUxUi = () => {
             const userPaths = data.filter((info)=>
             info.users[0]===user._id && info.category === 'Ux/Ui'
             )
-            setPaths(userPaths)    
-            console.log(userPaths)          
+            setPaths(userPaths) 
+            setallMyPathsy(userPaths)
+   
         }
         getPaths()
         }, [changes])
 
         //search paths
-        async function onSearch (value) {
-            let search= value.target.value
-            const {data} = await getAllPaths()
-            let allTitles= data.map(info=> info)
-            let allPaths= allTitles.filter(info=> info.title.toLowerCase()===search)
-            setPaths(allPaths)
-            if(value===' '){console.log(pathsy) 
-                setPaths(data)}     
-        }
+        function onSearch (value, info) {
+            const results = pathsy.filter(path => path.title.toLowerCase().includes(value)) 
+            console.log(info)
+            if(value===''){
+                setPaths(allMyPathsy)
+            }else if(!results){
+                setPaths(allMyPathsy)
+            } else{
+                setPaths(results)
+            }      
+        };
+
     return (
 <LayoutDash>
         <div>
@@ -51,7 +55,7 @@ export const MyUxUi = () => {
                     <h1 style={{fontFamily:'Verdana', fontSize:'30px'}}><b>Your study paths</b></h1> 
                 <div style={{ padding: '1rem 3rem', display:'flex', flexDirection:'column'}}>
                     <div style={{marginTop:'50px'}}>
-                    <Search placeholder="What are you looking for?" onChange={onSearch} allowClear style={{ width: 500 }} />                        <br />         
+                    <Search placeholder="What are you looking for?" onSearch={onSearch} allowClear style={{ width: 500 }} />                        <br />         
                     </div>
                 <div style={{ padding: '1rem', display:'flex', flexDirection:'row', flexWrap: 'wrap'  }}>  
 

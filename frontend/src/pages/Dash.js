@@ -5,12 +5,11 @@ import { Link } from 'react-router-dom'
 import { useContextInfo } from '../hooks/context.js'
 import { Input } from 'antd';
 
-import { createTopic } from '../services/topics.js'
 import LayoutDash from "../components/LayoutDash";
 import FavPath from "../components/favorites/FavPath";
 import CategoriesIcons from "../components/CategoriesIcons";
+import SuscribersPaths from '../components/DashComponents/SuscribersPaths.js'
 
-import CreatePath from './CreatePath.js'
 
 const { Title } = Typography
 const { Search } = Input;
@@ -19,60 +18,47 @@ const Dash = () => {
     const { user } = useContextInfo()
     //user´s paths
     const [pathsy, setPaths] = useState(null)
-    //recommended paths
-    const [selectedTopics, setSelectedTopics] = useState(null)
-    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [allMyPathsy, setallMyPathsy] = useState(null)
     const [changes, setChanges] = useState(false);
-    const [counter, setCounter] = useState(0);
-
+    const [info, setInfo]= useState(null)
 
     useEffect(() => {
         async function getPaths() {
             const {data} = await getAllPaths()
             //get only users path//
+            const Pathsy = data.filter((info)=>
+            info.users[0]._id===user._id)
 
-            const userPaths = data.filter((info)=>
-            info.users[0]===user._id
-            )
-            console.log(userPaths)
-            setPaths(userPaths)  
+            // // //users paths edit
+            setPaths(Pathsy) 
 
-
-            // const userProgress = userPaths.map((info)=>
-            // info.progress
-            
-            // )
-
-            // setCounter(userProgress)
-            
+             //users paths always complete
+            setallMyPathsy(Pathsy)
         }
         getPaths()
+
+
         }, [changes])
 
-        const handleCancel = () => {
-            setIsModalVisible(false);
-        }
-
         //search recommended paths
-        async function onSearch (value) {
-            let search= value.target.value
-            const {data} = await getAllPaths()
-            let allTitles= data.map(info=> info)
-            let allPaths= allTitles.filter(info=> info.title.toLowerCase()===search)
-            setPaths(allPaths)
-            if(value===' '){console.log(pathsy) 
-                setPaths(data)}     
-        }
-
-         //show modal to transfer topics 
-        const showModal = () => {
-            setIsModalVisible(true);
+        function onSearch (value) {
+            const results = pathsy.filter(path => path.title.toLowerCase().includes(value)) 
+            if(value===''){
+                setPaths(allMyPathsy)
+            }else if(!results){
+                setPaths(allMyPathsy)
+            } else{
+                setPaths(results)
+            }      
         };
+
+
 
         return (
             <LayoutDash>
             <div>
              {/* User´s paths */} 
+             <SuscribersPaths/>
              <CategoriesIcons/>
              {user? (
                 <div style={{ padding: '1rem 3rem', display:'flex', flexDirection:'column' }}>
@@ -80,10 +66,12 @@ const Dash = () => {
                 <div style={{ padding: '1rem 3rem', display:'flex', flexDirection:'column'}}>
                 <Button type='primary' ><Link to={'/path/create'}  style={{fontFamily:'Arial', fontSize:'20px', color:'white', createBottom: '10px'}}> <b>Create new path </b> </Link> </Button>
                     <div style={{marginTop:'50px'}}>
-                    <Search placeholder="What are you looking for?" onChange={onSearch} allowClear style={{ width: 500 }} />                        <br />         
+                    <Search placeholder="What are you looking for?" onSearch={onSearch} allowClear style={{ width: 500 }} />                       
+                     <br />         
                     </div>
                 <div style={{ padding: '1rem', display:'flex', flexDirection:'row', flexWrap: 'wrap'  }}>  
 
+                        {/* sacas todos tus paths */}
                         {pathsy?.map((path, i ) => (
                         <div style={{borderRadius:' 20px ', margin:'10px',  width:'240px'}}>
                         <Card  hoverable  style={{backgroundColor: 'white', borderRadius:'10px', boxShadow: '3px 4px 25px -7px rgba(0,0,0,0.75)'}} >
@@ -112,21 +100,13 @@ const Dash = () => {
                         </Card>
                         </div>      
                         ))}
+                    
                     </div>
-                    <Modal
-                        footer={null}
-                        title="Create new path"
-                        visible={isModalVisible}
-                        onCancel={handleCancel}
-                        cancelText="cancel"
-                            >
-                        <CreatePath handleCancel={handleCancel}/>
-                        </Modal>
                 </div>
                 
             </div>
             ):( 
-                <Skeleton active />
+                <h1>No Results Found</h1>
             )}
             
         </div>

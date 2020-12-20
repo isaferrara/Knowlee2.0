@@ -14,12 +14,14 @@ const DiscoverPaths = () => {
     const [otherPaths, setOtherPaths] = useState(null)
     const [selectedTopics, setSelectedTopics] = useState(null)
     const [changes, setChanges] = useState(false);
+    const [allMyPathsy, setallMyPathsy] = useState(null)
 
     useEffect(() => {
         async function getPaths() {
             const {data} = await getAllPaths()
             //get recommended paths--users starts with all existing paths//
             setOtherPaths(data)
+            setallMyPathsy(data)
 
         }
         getPaths()
@@ -34,14 +36,16 @@ const DiscoverPaths = () => {
         } 
 
         //search recommended paths
-        async function onSearch (value) {
-            let search= value.target.value
-            const {data} = await getAllPaths()
-            let allTitles= data.map(info=> info)
-            let allPaths= allTitles.filter(info=> info.title.toLowerCase()===search)
-            setOtherPaths(allPaths)
-            if(!allPaths){setOtherPaths(data)}
-          }
+        function onSearch (value) {
+            const results = otherPaths.filter(path => path.title.toLowerCase().includes(value)) 
+            if(value===''){
+                setOtherPaths(allMyPathsy)
+            }else if(!results){
+                setOtherPaths(allMyPathsy)
+            } else{
+                setOtherPaths(results)
+            }      
+        };
 
         return (
             <LayoutApp>
@@ -54,7 +58,7 @@ const DiscoverPaths = () => {
                     <div style={{borderRadius:' 20px ', margin:'10px', marginRight:'20px'}}>
                     <h1 style={{fontFamily:'Verdana', fontSize:'30px', paddingTop: '50px'}}><b>Find the best study paths</b></h1> 
                     {/* searchbar */}
-                    <Search placeholder="input search text" onChange={onSearch} allowClear style={{ width: 500 }} />                               
+                    <Search placeholder="What are you looking for?" onSearch={onSearch} allowClear style={{ width: 500 }} />                        <br />         
                         <div style={{ display:'flex', flexDirection:'row', flexWrap: 'wrap' , justifyContent:'center' }}>    
 
                             {/* show only paths that interest user*/} 

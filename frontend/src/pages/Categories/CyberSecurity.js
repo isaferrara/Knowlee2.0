@@ -14,7 +14,7 @@ export const CyberSecurity = () => {
 
     const { user } = useContextInfo()
     const [pathsy, setPaths] = useState(null)
-    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [allMyPathsy, setallMyPathsy] = useState(null)
     const [changes, setChanges] = useState(false);
 
     useEffect(() => {
@@ -26,21 +26,23 @@ export const CyberSecurity = () => {
              info.category === 'Cyber Security'
             )
             setPaths(userPaths)    
-            console.log(userPaths)          
+            setallMyPathsy(userPaths)
         }
         getPaths()
         }, [changes])
 
         //search paths
-        async function onSearch (value) {
-            let search= value.target.value
-            const {data} = await getAllPaths()
-            let allTitles= data.map(info=> info)
-            let allPaths= allTitles.filter(info=> info.title.toLowerCase()===search)
-            setPaths(allPaths)
-            if(value===' '){console.log(pathsy) 
-                setPaths(data)}     
-        }
+        function onSearch (value, info) {
+            const results = pathsy.filter(path => path.title.toLowerCase().includes(value)) 
+            console.log(info)
+            if(value===''){
+                setPaths(allMyPathsy)
+            }else if(!results){
+                setPaths(allMyPathsy)
+            } else{
+                setPaths(results)
+            }      
+        };
 
     return (
         <LayoutDash>
@@ -51,7 +53,7 @@ export const CyberSecurity = () => {
                     <h1 style={{fontFamily:'Verdana', fontSize:'30px'}}><b>Your study paths</b></h1> 
                 <div style={{ padding: '1rem 3rem', display:'flex', flexDirection:'column'}}>
                     <div style={{marginTop:'50px'}}>
-                    <Search placeholder="What are you looking for?" onChange={onSearch} allowClear style={{ width: 500 }} />                        <br />         
+                    <Search placeholder="What are you looking for?" onSearch={onSearch} allowClear style={{ width: 500 }} />                        <br />         
                     </div>
                 <div style={{ padding: '1rem', display:'flex', flexDirection:'row', flexWrap: 'wrap'  }}>  
 

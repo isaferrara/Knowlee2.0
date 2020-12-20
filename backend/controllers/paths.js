@@ -33,13 +33,13 @@ exports.updatePath = async (req, res) => {
   }
 
 exports.getAllPaths = async (req, res) => {
-    const paths= await Path.find().populate('topics favorites ')
+    const paths= await Path.find().populate('topics favorites users suscriptions suscribers')
     res.status(200).json(paths)
   }
 
 exports.getSinglePath = async (req, res) => {
     const { id } = req.params
-    const path = await Path.findById(id).populate('topics favorites ')
+    const path = await Path.findById(id).populate('topics favorites users suscriptions suscribers')
     res.status(200).json(path)
   }
 

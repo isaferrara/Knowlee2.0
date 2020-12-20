@@ -90,6 +90,7 @@ export const ContentTopic = (props) => {
                         duration: contenty.duration,
                         progress: contenty.progress,
                         content:allInfoArray,
+                        paths: contenty.paths,
                         })
                     setContent(data) 
                     setChanges (!changes)

@@ -26,7 +26,7 @@ exports.deleteTopic = async (req, res) => {
 exports.updateTopic = async (req, res) => {
     const { id } = req.params
     const { title, objective, duration, progress, content, paths} = req.body
-    const upTopic =await Topic.findByIdAndUpdate(id, { title, objective, duration, progress, content, id, paths }, {new:true})
+    const upTopic =await Topic.findByIdAndUpdate(id, { title, objective, duration, progress, content, paths }, {new:true})
 
     res.status(202).json(upTopic)
     }

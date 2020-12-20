@@ -97,48 +97,51 @@ const LayoutDash = ({ children }) => {
       <Menu  defaultOpenKeys={['sub1']} theme="dark" mode="inline" defaultSelectedKeys={['1']} style={{shadowBox: '100px'}} openKeys={openKeys} onOpenChange={onOpenChange}>
 
       {/* submenu */}
-      <SubMenu key="sub1" icon={<MailOutlined />} title={<Link to={`/dash/${user._id}`}> Dashboard </Link>}>
-      <Menu.ItemGroup  >
         <Menu.Item key="1" icon={<UserOutlined />}>
-          <Link to={`/my-paths/${user._id}`}> My Paths </Link>
+          <Link to={`/dash/${user._id}`}> Dashboard </Link>
+        </Menu.Item>
+
+      <SubMenu key="sub1" icon={<MailOutlined />} title='My paths'> 
+ 
+        <Menu.Item key="2" icon={<UserOutlined />}>
+          <Link to={`/my-paths/${user._id}`}> All my Paths </Link>
         </Menu.Item>
 
         <Menu.Item key="2" icon={<UserOutlined />}>
           <Link to={`/favorites/${user._id}`}> Favorites </Link>
         </Menu.Item>
 
-        <Menu.Item key="3" icon={<UserOutlined />}>
+        <Menu.Item key="4" icon={<UserOutlined />}>
           <Link to={`/completed/${user._id}`}> Completed</Link>
         </Menu.Item>
 
-        <Menu.Item key="4" icon={<UserOutlined />}>
+        <Menu.Item key="5" icon={<UserOutlined />}>
           <Link to={`/progress/${user._id}`}> In Progress </Link>
         </Menu.Item>
-      </Menu.ItemGroup>
+
       </SubMenu>
 
-        <Menu.Item key="2" icon={<VideoCameraOutlined />}>
+        <Menu.Item key="6" icon={<VideoCameraOutlined />}>
         <Link to={`/subs`}>
            Suscriptions
         </Link>        
         </Menu.Item>
 
-        <Menu.Item key="3" icon={<UploadOutlined />}>
+        <Menu.Item key="7" icon={<UploadOutlined />}>
         <Link to={`/explore`}>
            Explore paths
         </Link>
         </Menu.Item>
-        <Menu.Item key="4" icon={<BarChartOutlined />}>
+        <Menu.Item key="8" icon={<BarChartOutlined />}>
         <Link to={"/profile"}>
             Profile
         </Link>
         </Menu.Item>
-        <Menu.Item key="5" onClick={handleLogout}>
+        <Menu.Item key="9" onClick={handleLogout}>
               <Link to="/">
               Logout
               </Link>
         </Menu.Item>
-
 
       </Menu>
     </Sider>

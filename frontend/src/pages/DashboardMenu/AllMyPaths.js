@@ -17,6 +17,7 @@ export const AllMyPaths = () => {
     const [pathsy, setPaths] = useState(null)
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [changes, setChanges] = useState(false);
+    const [allMyPathsy, setallMyPathsy] = useState(null)
 
     useEffect(() => {
         async function getPaths() {
@@ -26,21 +27,25 @@ export const AllMyPaths = () => {
             const userPaths = data.filter((info)=>
             info.users[0]===user._id
             )
-            setPaths(userPaths)              
+            setPaths(userPaths)     
+            setallMyPathsy(userPaths)
+         
         }
         getPaths()
         }, [changes])
 
         //search paths
-        async function onSearch (value) {
-            let search= value.target.value
-            const {data} = await getAllPaths()
-            let allTitles= data.map(info=> info)
-            let allPaths= allTitles.filter(info=> info.title.toLowerCase()===search)
-            setPaths(allPaths)
-            if(value===' '){console.log(pathsy) 
-                setPaths(data)}     
-        }
+        function onSearch (value, info) {
+            const results = pathsy.filter(path => path.title.toLowerCase().includes(value)) 
+            console.log(info)
+            if(value===''){
+                setPaths(allMyPathsy)
+            }else if(!results){
+                setPaths(allMyPathsy)
+            } else{
+                setPaths(results)
+            }      
+        };
 
          //show modal to transfer topics 
         const showModal = () => {

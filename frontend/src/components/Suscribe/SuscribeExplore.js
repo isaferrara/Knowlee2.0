@@ -27,17 +27,6 @@ const SuscribeExplore = () => {
 
     
     async function suscribeUser(values){
-
-
-        // const {data: allSubs} = await getAllSuscribers()
-        // let allUsers= allSubs.map(subs=> subs.users[0])
-        // let allFiltered= allUsers.filter(subs=> subs._id===user._id)
-        // console.log(allFiltered.length, 'id')
-
-
-        //Cuando alguien me da click  ---subscribers
-
-
     
         const allSubscribers= [...values.suscribers, user]
 
@@ -53,7 +42,7 @@ const SuscribeExplore = () => {
             favorites: values.favorites
         })
 
-            //yyo le doy click y su perfil se guarda (suscription)
+            //actualizas perfil para que se gurade en tu usuario la subs
             const allSuscriptions= [...user.suscriptions, values]
 
             const {data: updateUser} = await updateFn(user._id, {
@@ -67,13 +56,22 @@ const SuscribeExplore = () => {
                 suscriptions: allSuscriptions,
                 favorites: user.favorites
             })
-
-
-
             setChanges(!changes)
 
 
-    }
+            const {data: createSub} = await createSubscription({
+                myId: user._id,
+                userId: values,
+                pathId: values.paths
+                
+            })
+        
+            createSubscription()
+
+        }
+
+
+   
 
 
 

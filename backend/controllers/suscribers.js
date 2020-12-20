@@ -2,17 +2,18 @@ const Suscription = require('../models/Suscription')
 const User = require('../models/User')
 
 
-exports.createSuscriber = async (req, res) => {
-    const {suscribersId} = req.body
-    const newPath = await Suscription.create({
-      suscribers: suscribersId,
+exports.createSubscription = async (req, res) => {
+    const {userId, pathId, myId} = req.body
+    const newUser = await Suscription.create({
+      me: myId,
+      user: userId,
+      paths: pathId,
     })
-    await User.findByIdAndUpdate(suscribersId, { $push: { suscribers: newPath._id} },  {new:true})
-    res.status(201).json( newPath)
+    res.status(201).json( newUser)
     
   }
 
-  exports.createSubscription = async (req, res) => {
+  exports.createSubscriptions = async (req, res) => {
     const {suscriptionId} = req.body
     const newPath = await Suscription.create({
       suscriptions: suscriptionId  
@@ -30,13 +31,13 @@ exports.createSuscriber = async (req, res) => {
   
 
 exports.getAllSuscribers = async (req, res) => {
-    const suscription= await Suscription.find().populate(' paths users')
+    const suscription= await Suscription.find().populate('paths ').populate('user')
     res.status(200).json(suscription)
   }
 
   exports.getSingleSuscriber = async (req, res) => {
     const { id } = req.params
-    const suscription = await Suscription.findById(id).populate('paths users')
+    const suscription = await Suscription.findById(id).populate('paths ').populate('user')
     res.status(200).json(suscription)
   }
 

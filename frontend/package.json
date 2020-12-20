@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
+    "algoliasearch": "^4.8.3",
     "antd": "^4.9.1",
     "antd-password-input-strength": "^1.1.1",
     "axios": "^0.19.0",
@@ -10,6 +11,7 @@
     "react-beautiful-dnd": "^13.0.0",
     "react-dom": "^16.10.0",
     "react-draggable": "^4.4.3",
+    "react-instantsearch-dom": "^6.8.2",
     "react-player": "^2.7.0",
     "react-router-dom": "^5.1.1",
     "react-scripts": "3.1.2",
