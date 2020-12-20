@@ -23,7 +23,7 @@ const { Search } = Input;
 
            //get only users path//
             const userPaths = data.filter((info)=>
-            info.users[0]===user._id && info.category === 'Web Dev'
+            info.users[0]._id===user._id && info.category === 'Web Dev'
             )
             setPaths(userPaths)   
             setallMyPathsy(userPaths)

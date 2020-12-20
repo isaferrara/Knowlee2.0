@@ -25,6 +25,7 @@ const Dash = () => {
     useEffect(() => {
         async function getPaths() {
             const {data} = await getAllPaths()
+            console.log(data)
             //get only users path//
             const Pathsy = data.filter((info)=>
             info.users[0]._id===user._id)

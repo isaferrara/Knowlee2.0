@@ -21,7 +21,7 @@ export const DataScience = () => {
     useEffect(() => {
         async function getPaths() {
             const {data} = await getAllPaths()
-
+console.log(data, 'infooo')
            //get only users path//
             const userPaths = data.filter((info)=>
              info.category === 'Data Science'

@@ -56,25 +56,15 @@ const SuscribeExplore = () => {
                 suscriptions: allSuscriptions,
                 favorites: user.favorites
             })
-            setChanges(!changes)
-
-
+           
             const {data: createSub} = await createSubscription({
                 myId: user._id,
                 userId: values,
                 pathId: values.paths
                 
             })
-        
-            createSubscription()
-
+            setChanges(!changes)
         }
-
-
-   
-
-
-
     return (
         <div>
         {info? 
@@ -86,9 +76,6 @@ const SuscribeExplore = () => {
             <h2>{users.username}</h2>
             <p>{users.paths.length} paths</p>
             {!users.suscribers.length? <p> 0 suscribers </p> : <p> {users.suscribers.length} suscribers </p>}
-
-             <p> {users._id} suscribers </p>
-
             <Button onClick={()=> suscribeUser(users)} >Suscribe</Button>
             
         </Card>

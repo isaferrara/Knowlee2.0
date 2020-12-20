@@ -23,7 +23,7 @@ export const Completed = () => {
 
            //get only users path//
             const userPaths = data.filter((info)=>
-            info.users[0]===user._id && info.progress === 100
+            info.users[0]._id===user._id && info.progress === 100
             )
             setPaths(userPaths)    
             setallMyPathsy(userPaths)

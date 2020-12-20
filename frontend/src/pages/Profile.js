@@ -70,10 +70,6 @@ const Profile = () => {
          </div>
          </div>
         <br />
-        <Button
-          type="primary"
-          onClick={() => setShowEditForm(!showEditForm)}
-          block>Edit Profile</Button>
         <br />
 
 

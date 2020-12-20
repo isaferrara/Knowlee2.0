@@ -25,7 +25,7 @@ export const AllMyPaths = () => {
 
             //get only users path//
             const userPaths = data.filter((info)=>
-            info.users[0]===user._id
+            info.users[0]._id===user._id
             )
             setPaths(userPaths)     
             setallMyPathsy(userPaths)

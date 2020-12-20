@@ -13,16 +13,6 @@ exports.createSubscription = async (req, res) => {
     
   }
 
-  exports.createSubscriptions = async (req, res) => {
-    const {suscriptionId} = req.body
-    const newPath = await Suscription.create({
-      suscriptions: suscriptionId  
-    })
-    await User.findByIdAndUpdate(suscriptionId, { $push: { suscriptions: newPath._id} },  {new:true})
-    res.status(201).json( newPath)
-    
-  }
-
   exports.deleteSuscriber = async (req, res) => {
     const { id } = req.params
     await Suscription.findByIdAndDelete(id)

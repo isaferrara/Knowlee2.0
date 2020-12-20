@@ -23,7 +23,7 @@ export const MyUxUi = () => {
 
            //get only users path//
             const userPaths = data.filter((info)=>
-            info.users[0]===user._id && info.category === 'Ux/Ui'
+            info.users[0]._id===user._id && info.category === 'Ux/Ui'
             )
             setPaths(userPaths) 
             setallMyPathsy(userPaths)

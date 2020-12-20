@@ -25,7 +25,7 @@ export const Favorites = () => {
 
            //get only users path//
             const userPaths = data.filter((info)=>
-            info.users[0]===user._id && info.isFav
+            info.users[0]._id===user._id && info.isFav
             )
             setPaths(userPaths)    
             setallMyPathsy(userPaths)

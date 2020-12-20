@@ -25,7 +25,7 @@ export const MyDataScience = () => {
 
            //get only users path//
             const userPaths = data.filter((info)=>
-            info.users[0]===user._id && info.category === 'Data Science'
+            info.users[0]._id===user._id && info.category === 'Data Science'
             )
             setPaths(userPaths)    
             console.log(userPaths)          

@@ -9,6 +9,7 @@ import { updateFn } from '../../services/auth.js'
 import { getSinglePath } from '../../services/paths.js'
 const { Panel } = Collapse;
 
+//aqui se encuentran todas las suscripciones del usuarios 
 
 const UserSuscriptions = () => {
     const [path, setPath]= useState([])
@@ -21,11 +22,9 @@ const UserSuscriptions = () => {
 
         async function getPaths() {
             const {data} = await getAllSuscribers()
-            console.log(data, 'all subs')
 
             const Pathsy = data.filter((info)=>
             info.me===user._id)
-            console.log(Pathsy, 'all my subs')
             setPath(Pathsy)    
                 
         }
@@ -33,21 +32,23 @@ const UserSuscriptions = () => {
            
         }, [changes])
 
+      
     return (
         <div>
         <Divider>Your subscriptions</Divider>
         {path? <> {path.map(info=> 
-         <>
+         <div style={{border:'1px solid black'}}>
          <p>{info.user.username}</p>
          <p>{info.user.paths.length} paths</p>
          <p>{info.user.suscribers.length} subscribers</p>
         )
-        {info.paths.map(path=> <>
-            <p>{path.title}</p>
-            <p>{path.level}</p>
-            <p>{path.topics.length} topics</p>
-        </>)}
-          </>
+        {info.paths.map(path=> 
+            <div>
+                <p>{path.title}</p>
+                <p>{path.level}</p>
+                <p>{path.topics.length} topics</p>
+            </div>)}
+          </div>
          )} </> : <p>No paths </p>}  
         </div>
     )
