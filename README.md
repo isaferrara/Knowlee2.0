@@ -14,7 +14,7 @@ In this version you will find new features including:
 <br/>
 -Favorites
 <br/>
--Categrories
+-Categories
 <br/>
 -Progress
 
