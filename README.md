@@ -17,7 +17,10 @@ In this version you will find new features including:
 -Categories
 <br/>
 -Progress
+<br/>
 
 Front-end technologies: HTML, CSS, Java Script (ES6), React
+<br/>
 Back end technologies: MongoDb, Axios
+<br/>
 Version control: Git/ Github
