@@ -9,9 +9,13 @@ While Knowlee 1.0 was a collaboration from people around the world, Knowlee 2.0 
 make it more user friendly and help the "learner" build a community. Knwolee 2.0 also improves the design and structure to follow current trends. 
 
 In this version you will find new features including:
+<br/>
 -Subscriptions
+<br/>
 -Favorites
+<br/>
 -Categrories
+<br/>
 -Progress
 
 Front-end technologies: HTML, CSS, Java Script (ES6), React
