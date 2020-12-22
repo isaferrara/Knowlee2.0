@@ -1,5 +1,5 @@
 import React from 'react'
-import { Typography, Button,  Card, Divider, Skeleton, Progress} from 'antd'
+import { Button} from 'antd'
 import { Link } from 'react-router-dom'
 
  const CategoriesIcons = () => {
@@ -7,7 +7,10 @@ import { Link } from 'react-router-dom'
 
 
     return (
-        <div style={{display:'flex', alignItems:'center', justifyContent:'center'}}>
+        <div>
+
+        <h1>Categories</h1>
+        <div style={{display:'flex', alignItems:'center', justifyContent:'center', justifyContent:'space-around'}}>
         <Link to="/cyber-security">
             <Button style={{width:'120px', height:'120px', color:'white', background: 'red', margin:'5px', border:'none', borderRadius:'13px'}}>Cyber <br/> Security</Button>
         </Link>
@@ -27,7 +30,7 @@ import { Link } from 'react-router-dom'
         <Link to="/web-dev">
             <Button style={{width:'120px', height:'120px', color:'white', background: 'red', margin:'5px', border:'none', borderRadius:'13px'}}>Web <br/>Development</Button>   
         </Link>
-
+        </div>
         </div>
     )
 }

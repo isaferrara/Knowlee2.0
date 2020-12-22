@@ -11,8 +11,6 @@ const { Title } = Typography
 const DetailsExplorePath = ({ match: { params: { id } }, history }) => {
     const [form] = Form.useForm()
     const [pathsy, setPaths] = useState(null)
-    const [showEditForm, setShowEditForm] = useState(false)
-    const [showInfo, setShowInfo] = useState(true)
     const [changes, setChanges] = useState(false)
     const { user } = useContextInfo()
     const [isModalVisible, setIsModalVisible] = useState(false);
@@ -52,6 +50,7 @@ const createNewTopic= async (value)=>{
         {pathsy? (<div>
             <Title level={2}>{pathsy.title}</Title>
         <div style={{textAlign:'left'}}> 
+        <p><b>Short Description:</b>{pathsy.shortDesc}</p>
             <p><b>Description:</b>{pathsy.description}</p>
             <p> <b>Category:</b>{pathsy.category}</p>
         </div>

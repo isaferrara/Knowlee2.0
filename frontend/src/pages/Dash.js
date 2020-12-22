@@ -9,12 +9,12 @@ import LayoutDash from "../components/LayoutDash";
 import FavPath from "../components/favorites/FavPath";
 import CategoriesIcons from "../components/CategoriesIcons";
 import SuscribersPaths from '../components/DashComponents/SuscribersPaths.js'
-
+import { PlusOutlined } from '@ant-design/icons';
 
 const { Title } = Typography
 const { Search } = Input;
 
-const Dash = () => {
+const Dash = (props) => {
     const { user } = useContextInfo()
     //user´s paths
     const [pathsy, setPaths] = useState(null)
@@ -25,11 +25,11 @@ const Dash = () => {
     useEffect(() => {
         async function getPaths() {
             const {data} = await getAllPaths()
-            console.log(data)
             //get only users path//
             const Pathsy = data.filter((info)=>
             info.users[0]._id===user._id)
 
+            console.log(Pathsy)
             // // //users paths edit
             setPaths(Pathsy) 
 
@@ -58,47 +58,46 @@ const Dash = () => {
         return (
             <LayoutDash>
             <div>
-             {/* User´s paths */} 
-             <SuscribersPaths/>
-             <CategoriesIcons/>
-             {user? (
-                <div style={{ padding: '1rem 3rem', display:'flex', flexDirection:'column' }}>
-                    <h1 style={{fontFamily:'Verdana', fontSize:'30px'}}><b>Your study paths</b></h1> 
-                <div style={{ padding: '1rem 3rem', display:'flex', flexDirection:'column'}}>
-                <Button type='primary' ><Link to={'/path/create'}  style={{fontFamily:'Arial', fontSize:'20px', color:'white', createBottom: '10px'}}> <b>Create new path </b> </Link> </Button>
-                    <div style={{marginTop:'50px'}}>
-                    <Search placeholder="What are you looking for?" onSearch={onSearch} allowClear style={{ width: 500 }} />                       
-                     <br />         
-                    </div>
-                <div style={{ padding: '1rem', display:'flex', flexDirection:'row', flexWrap: 'wrap'  }}>  
+            <h1> Dashboard </h1>
 
+             {/* User´s paths */} 
+            <SuscribersPaths/>
+            {user? (
+                <div style={{ padding: '1rem 3rem', display:'flex', flexDirection:'column', justifyContent:'center', borderRadius:'20px', backgroundColor:'white', marginTop:'70px', boxShadow: '-1px 0px 19px -1px rgba(125,125,125,0.39)' }}>
+                   
+                    <div style={{display:'flex', flexDirection:'row',  justifyContent:'space-around', marginTop:'20px'}} >
+                    {/* search bar */}
+                    <Search allowClear placeholder="What are you looking for?" onSearch={onSearch} allowClear style={{ width: '600px', borderRadius:'3px', marginBottom: '20px', marginTop:'5px'}} />                       
+
+                    {/* create new path botton */}
+                    <Link to={'/path/create'} >
+                        <Button style={{fontSize:'17px', color:'white', backgroundColor:'#E05872', borderRadius:'6px', width:'210px', height:'40px', display:'flex', flexDirection:'row',  alignItems:'center', alignContent:'center'}} type='ghost'>
+                            <b>Create new path </b> 
+                            <div style={{backgroundColor:'#C74E64', marginLeft:'13px', borderRadius:'6px', padding:'5px 14px 5px 14px'}}>
+                            <PlusOutlined />
+                            </div>
+                        </Button>
+                    </Link> 
+                    </div>
+
+                <Divider style={{color:'#A6A6A4', fontSize:'20px'}}>Your study path</Divider>
+                <div style={{ padding: '1rem 3rem', display:'flex', flexDirection:'column', alignContent:'center', alignItems:'center', justifyContent:'center'}}>
+
+                <div style={{ padding: '1rem', display:'flex', flexDirection:'row', flexWrap: 'wrap', borderRadius:'20px'}}>  
+   
                         {/* sacas todos tus paths */}
                         {pathsy?.map((path, i ) => (
-                        <div style={{borderRadius:' 20px ', margin:'10px',  width:'240px'}}>
-                        <Card  hoverable  style={{backgroundColor: 'white', borderRadius:'10px', boxShadow: '3px 4px 25px -7px rgba(0,0,0,0.75)'}} >
+                        <div style={{borderRadius:' 20% ', margin:'10px',  width:'840px'}}>
                             <Link to={`/path/${path._id}`}>
-                                <div >
-                                    <Card type="inner" style={{ color:'white', backgroundColor:'#0B648A', borderRadius:'5px'}}>
-                                        <Title style={{ color:'white', fontFamily:'arial', fontWeight:'lighter', fontSize:'17px'}} level={2} >{path.title}</Title>
-                                    </Card>
+                                <div type="inner" style={{ color:'#EDECEB', backgroundColor:'#EDECEB', borderRadius:'20px'}}>
+                                <Progress  percent={path.progress} size="small" style={{ width:'800px', marginBottom:'0', lineHeight:'0px'}} strokeColor={'#E05872'}/>
+                                        <h2 style={{ color:'white', fontFamily:'arial', fontWeight:'lighter', fontSize:'17px'}}> {path.title}</h2>
+                                        <h2 style={{ color:'white', fontFamily:'arial', fontWeight:'lighter', fontSize:'17px'}}> {path.topics.length} topics</h2>
                                 </div> 
                             </Link>  
-                            <Progress  percent={path.progress} size="small" />
-                           
-
-                            <Divider>Topics</Divider>
-                           
-                            {path.topics?.map((topic, index ) => (
-                                <>
-                                <Link to={`/topic/${topic._id}`}>
-                                <Card hoverable  style={{ marginTop:'15px', width:'180px', height:'70px', margin:'0px', padding:'0px', borderColor: '#1F79B5'}}  >
-                                        <b><p style={{ margin:'0px', padding:'0px', color:'gray'}}>{topic.title}</p></b>
-                                </Card>  
-                                </Link>   
-                                </>  
-                            ))}
-                        <FavPath {...path}/> 
-                        </Card>
+                              
+                            <FavPath {...path} style={{zIndex:'0'}}/>
+ 
                         </div>      
                         ))}
                     
@@ -111,6 +110,7 @@ const Dash = () => {
             )}
             
         </div>
+        <CategoriesIcons/>
         </LayoutDash>
         )
     }

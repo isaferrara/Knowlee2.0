@@ -43,8 +43,10 @@ export const PathInfo = (props) => {
         {pathsy? (<div>
             <Title level={2}>{pathsy.title}</Title>
         <div style={{textAlign:'left'}}> 
+            <p><b>Short Description:</b>{pathsy.shortDesc}</p>
             <p><b>Description:</b>{pathsy.description}</p>
             <p> <b>Category:</b>{pathsy.category}</p>
+            <p> <b>Level:</b>{pathsy.level}</p>
         </div>
         
         {myPath? <Button type="ghost" block onClick={changeSett}  >Edit Project</Button>: <></> }

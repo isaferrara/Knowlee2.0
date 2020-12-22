@@ -10,7 +10,7 @@ import { updateFn } from '../../services/auth.js'
 //AQUÍ SE ENCUENTRAN TODOS LOS USUARIOS DISPONIBLES PARA SUSCRIBIRTE
 
 const SuscribeExplore = () => {
-    const [subs, setSubs]= useState(null)
+    const [users, setUsers]= useState(null)
     const [info, setInfo]= useState(null)
     const { user } = useContextInfo()
     const [changes, setChanges] = useState(false);
@@ -20,12 +20,20 @@ const SuscribeExplore = () => {
     useEffect(() => {
         async function getPaths() {
             const {data} = await getAllUsers()
-            setInfo(data) 
+            const notMe = data.filter((info)=>
+            info._id !== user._id )
+
+            //a estos todavia no me suscribo
+            const notSuscribed = notMe.filter((info)=>
+            !user.suscriptions.includes(info._id)
+            )
+
+            setInfo(notSuscribed) 
        }
         getPaths()
         }, [changes])
 
-    
+
     async function suscribeUser(values){
     
         const allSubscribers= [...values.suscribers, user]
@@ -65,6 +73,7 @@ const SuscribeExplore = () => {
             })
             setChanges(!changes)
         }
+
     return (
         <div>
         {info? 
@@ -74,9 +83,9 @@ const SuscribeExplore = () => {
             style={{width:'200px'}}
             cover={<img alt="icon" src={users.image} style={{width:'50px', borderRadius: '50%'}}/>} >
             <h2>{users.username}</h2>
-            <p>{users.paths.length} paths</p>
-            {!users.suscribers.length? <p> 0 suscribers </p> : <p> {users.suscribers.length} suscribers </p>}
-            <Button onClick={()=> suscribeUser(users)} >Suscribe</Button>
+             <p>{users.paths.length} paths</p>
+            <p>{users.suscribers.length} suscribers </p>
+             <Button onClick={()=> suscribeUser(users)} >Suscribe</Button>
             
         </Card>
         )}

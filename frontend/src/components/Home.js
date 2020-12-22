@@ -30,7 +30,7 @@ function Home() {
       }, [])  
   return (
       <div className="main">
-<Header className="header" style={{paddingLeft:'200px'}}>
+<Header className="header" style={{paddingLeft:'200px',backgroundColor:'#335E7A'}}>
         <div className="logo" style={{display:'flex', justifyContent:'right'}}/>
         <Menu theme="dark" mode="horizontal">
           <Menu.Item key="1">

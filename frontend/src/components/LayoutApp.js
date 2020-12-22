@@ -17,9 +17,9 @@ const LayoutApp = ({ children }) => {
   return (
     <Layout className="layout">
     <div >
-    <Header className="header" style={{paddingLeft:'200px'}}>
+    <Header className="header" style={{paddingLeft:'200px', backgroundColor:'#335E7A'}}>
         <div className="logo" style={{display:'flex', justifyContent:'right'}}/>
-        <Menu theme="dark" mode="horizontal">
+        <Menu theme="dark" mode="horizontal" style={{ backgroundColor:'#335E7A'}}>
           <Menu.Item key="1">
             <Link to="/">
               Home

@@ -70,12 +70,14 @@ const DetailsPath = ({ match: { params: { id } }, history } ) => {
     }
     let count=0;
     let percentage=0;
+    
      const countDone=  ()=>{
         count++
        percentage= Math.floor((count/ pathsy.topics.length)*100)
     
        const updateProgressPath= async ()=>{  
-       const {data} = await getSinglePath(id)
+       const {data} = await getSinglePath(id)     
+       if(count<=100){
        const {data: upData}=await updatePath (id, 
         {
          title: data.title,
@@ -87,11 +89,19 @@ const DetailsPath = ({ match: { params: { id } }, history } ) => {
          category: data.category,
          topics: data.topics,
          users: data.users
-        } )
+        })
+            
         setCounter(upData.progress)
         setChanges(!changes)
+        console.log(upData, 'updated pathh')
+    } else{
+           return console.log('termino')
+        }
+
         }
         updateProgressPath()
+
+
     }
 
 
@@ -106,7 +116,7 @@ const DetailsPath = ({ match: { params: { id } }, history } ) => {
     <Divider>Topics</Divider>
     <Button type="primary" onClick={showModal} block >Add Topic</Button>
     <br />
-    <div style={{marginTop: '40px',}}>
+    <div style={{marginTop: '40px'}}>
     <Progress type="circle" percent={counter} format={percent => `${percent}`} />
    
 
@@ -115,15 +125,17 @@ const DetailsPath = ({ match: { params: { id } }, history } ) => {
         <Card hoverable
      number={sum(i)} title={ (i+1) + '     ' + topic.title  } style={{marginBottom:'10px'}} >
     <div style={{display:'flex', flexDirection:'row', justifyContent:'space-between'}}>  
-        {topic.progress? countDone(): console.log('no')}
+        {topic.progress ? countDone(): console.log('no')}
 
         <div style={{display:'flex', flexDirection:'column', textAlign:'left',  marginLeft: '40px', padding: '20px'}}>
         <div><b>Objective</b> <p>  {topic.objective}</p></div>
        <div><b>Duration</b> <p>  {topic.duration}</p></div> 
         <div><b>Progress</b> <p>  {topic.progress}</p></div> 
         
-         { topic.progress===true ? <Progress type="circle" percent={100} width={40} /> : <> </>}
+         { topic.progress===true ? <Progress  percent={100} width={40} /> : <> </>}
         </div>
+
+
        
             <div style={{marginTop: '60px'}}>
             <Button type="ghost" danger onClick={ async ()=> {
