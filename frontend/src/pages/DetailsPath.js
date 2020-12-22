@@ -20,14 +20,38 @@ const DetailsPath = ({ match: { params: { id } }, history } ) => {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [status, setStatus] = useState(0);
     const [counter, setCounter] = useState(0);
+    const [Zero, setZero] = useState(false);
+    let percentage;
+    let cero=0;
 
 
     useEffect(() => {
         async function getPaths() {
              const {data} = await getSinglePath(id)
              setPaths(data) 
+             console.log(cero, 'porfa ya')
+
+            if(cero===0){
+            const {data: setToZero } = await updatePath (id, 
+                    {
+                        title: data.title,
+                        description: data.description,
+                        shortDesc: data.shortDesc,
+                        isFav: data.isFav,
+                        progress: 0,
+                        level: data.level,
+                        category: data.category,
+                        topics: data.topics,
+                        users: data.users
+                        })  
+                    console.log(setToZero, 'form')
+       
+                }
+
             }
-            getPaths()        
+            getPaths()                          
+
+
 
         }, [changes])
 
@@ -68,16 +92,22 @@ const DetailsPath = ({ match: { params: { id } }, history } ) => {
             setChanges(!changes)
         
     }
+
     let count=0;
-    let percentage=0;
+
     
      const countDone=  ()=>{
+         
         count++
-       percentage= Math.floor((count/ pathsy.topics.length)*100)
-    
+        percentage= Math.floor((count/ pathsy.topics.length)*100)
+
+
+        console.log(percentage)
        const updateProgressPath= async ()=>{  
        const {data} = await getSinglePath(id)     
-       if(count<=100){
+
+       for( let i=0; i<data.topics.length; i++ ){
+
        const {data: upData}=await updatePath (id, 
         {
          title: data.title,
@@ -90,19 +120,13 @@ const DetailsPath = ({ match: { params: { id } }, history } ) => {
          topics: data.topics,
          users: data.users
         })
-            
-        setCounter(upData.progress)
-        setChanges(!changes)
-        console.log(upData, 'updated pathh')
-    } else{
-           return console.log('termino')
-        }
-
-        }
-        updateProgressPath()
-
-
+         setCounter(upData.progress)
+        } 
     }
+    updateProgressPath()
+    }
+
+
 
 
     return (
@@ -117,6 +141,9 @@ const DetailsPath = ({ match: { params: { id } }, history } ) => {
     <Button type="primary" onClick={showModal} block >Add Topic</Button>
     <br />
     <div style={{marginTop: '40px'}}>
+    
+    {/* mide el progreso que es el promedio de cuantos topics se han completado */}
+    
     <Progress type="circle" percent={counter} format={percent => `${percent}`} />
    
 
@@ -125,14 +152,19 @@ const DetailsPath = ({ match: { params: { id } }, history } ) => {
         <Card hoverable
      number={sum(i)} title={ (i+1) + '     ' + topic.title  } style={{marginBottom:'10px'}} >
     <div style={{display:'flex', flexDirection:'row', justifyContent:'space-between'}}>  
-        {topic.progress ? countDone(): console.log('no')}
+
+
+
+
+    {/* si usuario marcó el contenido como leido entonces countdDone, sino countCero */}
+        {topic.progress ? countDone(): cero=+1 }
 
         <div style={{display:'flex', flexDirection:'column', textAlign:'left',  marginLeft: '40px', padding: '20px'}}>
         <div><b>Objective</b> <p>  {topic.objective}</p></div>
        <div><b>Duration</b> <p>  {topic.duration}</p></div> 
         <div><b>Progress</b> <p>  {topic.progress}</p></div> 
         
-         { topic.progress===true ? <Progress  percent={100} width={40} /> : <> </>}
+         { topic.progress? <Progress  percent={100} width={40} /> : <></>}
         </div>
 
 
