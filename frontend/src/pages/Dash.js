@@ -7,7 +7,7 @@ import { Input } from 'antd';
 
 import LayoutDash from "../components/LayoutDash";
 import FavPath from "../components/favorites/FavPath";
-import CategoriesIcons from "../components/CategoriesIcons";
+import MyCategoriesIcons from "../components/MyCategoriesIcons";
 import SuscribersPaths from '../components/DashComponents/SuscribersPaths.js'
 import { PlusOutlined } from '@ant-design/icons';
 
@@ -48,10 +48,13 @@ const Dash = (props) => {
                 setPaths(allMyPathsy)
             }else if(!results){
                 setPaths(allMyPathsy)
+
             } else{
                 setPaths(results)
+
             }      
         };
+
 
 
 
@@ -59,9 +62,9 @@ const Dash = (props) => {
             <LayoutDash>
             <div>
             <h1> Dashboard </h1>
-
              {/* User´s paths */} 
-            <SuscribersPaths/>
+            <MyCategoriesIcons/>
+
             {user? (
                 <div style={{ padding: '1rem 3rem', display:'flex', flexDirection:'column', justifyContent:'center', borderRadius:'20px', backgroundColor:'white', marginTop:'70px', boxShadow: '-1px 0px 19px -1px rgba(125,125,125,0.39)' }}>
                    
@@ -80,37 +83,46 @@ const Dash = (props) => {
                     </Link> 
                     </div>
 
-                <Divider style={{color:'#A6A6A4', fontSize:'20px'}}>Your study path</Divider>
+                <Divider style={{color:'#A6A6A4', fontSize:'20px', marginBottom:'0'}}>Your study path</Divider>
                 <div style={{ padding: '1rem 3rem', display:'flex', flexDirection:'column', alignContent:'center', alignItems:'center', justifyContent:'center'}}>
 
-                <div style={{ padding: '1rem', display:'flex', flexDirection:'row', flexWrap: 'wrap', borderRadius:'20px'}}>  
+                <div style={{ padding: '1em', display:'flex', flexDirection:'row', flexWrap: 'wrap', borderRadius:'20px'}}>  
    
-                        {/* sacas todos tus paths */}
+                        {/* sacas solo 5 de tus paths */}
+                        {pathsy?.length>5? setPaths(pathsy.slice(-5)): 
+                        <>
                         {pathsy?.map((path, i ) => (
                         <div style={{borderRadius:' 20% ', margin:'10px',  width:'840px'}}>
-                            <Link to={`/path/${path._id}`}>
-                                <div type="inner" style={{ color:'#EDECEB', backgroundColor:'#EDECEB', borderRadius:'20px'}}>
-                                <Progress  percent={path.progress} size="small" style={{ width:'800px', marginBottom:'0', lineHeight:'0px'}} strokeColor={'#E05872'}/>
-                                        <h2 style={{ color:'white', fontFamily:'arial', fontWeight:'lighter', fontSize:'17px'}}> {path.title}</h2>
-                                        <h2 style={{ color:'white', fontFamily:'arial', fontWeight:'lighter', fontSize:'17px'}}> {path.topics.length} topics</h2>
+
+                                <div type="inner" style={{ color:'#EDECEB', backgroundColor:'#f7f7f5', borderRadius:'20px', height:'80px'}}>
+                                <div style={{ position: 'absolute', color:'#CFCFCF', fontSize:'18px', marginTop:'10px' , padding:'17px 28px 17px 30px', borderRight:'1px solid #BFBEBD'}}>
+                                    <FavPath {...path} />
+                                    <div style={{ position: 'absolute', color:'black',  marginLeft:'50px', marginTop:'50px', height: '300px'}}/>
+                                </div>
+                                <Progress  percent={path.progress} size="small" style={{ width:'700px', marginBottom:'0', marginLeft:'40px', lineHeight:'0px'}} strokeColor={'#2B9479'}/>
+                                <Link to={`/path/${path._id}`}>
+                                        <div style={{marginLeft:'105px',  textAlign:'left'}}>
+                                            <h2 style={{fontFamily:'arial', color:'#999897', fontSize:'18px', lineHeight:'13px', marginTop:'7px'}}> {path.title}</h2>
+                                            <h2 style={{fontFamily:'arial',  color:'#BFBEBD', fontWeight:'lighter', fontSize:'15px', lineHeight:'8px'}}> {path.topics.length} topics</h2>
+                                        </div>
+                                </Link>   
                                 </div> 
-                            </Link>  
-                              
-                            <FavPath {...path} style={{zIndex:'0'}}/>
- 
-                        </div>      
+                        </div>   
+                           
                         ))}
-                    
+                        </>
+                        }
                     </div>
+                    <Link to={`/my-paths/${user._id}`}  className='seeMore'> Show more </Link>
                 </div>
                 
             </div>
             ):( 
                 <h1>No Results Found</h1>
             )}
-            
+            <SuscribersPaths/>
+
         </div>
-        <CategoriesIcons/>
         </LayoutDash>
         )
     }

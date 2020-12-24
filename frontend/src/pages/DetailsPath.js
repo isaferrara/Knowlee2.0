@@ -29,7 +29,6 @@ const DetailsPath = ({ match: { params: { id } }, history } ) => {
         async function getPaths() {
              const {data} = await getSinglePath(id)
              setPaths(data) 
-             console.log(cero, 'porfa ya')
 
             if(cero===0){
             const {data: setToZero } = await updatePath (id, 
@@ -44,7 +43,6 @@ const DetailsPath = ({ match: { params: { id } }, history } ) => {
                         topics: data.topics,
                         users: data.users
                         })  
-                    console.log(setToZero, 'form')
        
                 }
 

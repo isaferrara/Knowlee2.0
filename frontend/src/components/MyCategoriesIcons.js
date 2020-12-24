@@ -9,30 +9,44 @@ import { useContextInfo } from '../hooks/context.js'
     const { user } = useContextInfo()
 
     return (
-        <div style={{display:'flex', alignItems:'center', justifyContent:'center'}}>
-        <Link to={`/my-paths/${user._id}`} >
-            <Button style={{width:'120px', height:'120px', color:'white', background: 'red', margin:'5px', border:'none', borderRadius:'13px'}}>All my <br/> Paths</Button>
+        <div>
+        <Divider style={{color:'#A6A6A4', fontSize:'20px', marginBottom:'0'}}>Categories</Divider>
+            <div style={{display:'flex', alignItems:'center',  justifyContent:'space-evenly', marginTop:'40px'}}>
+        <div className='parent border-all'>
+        <Link to={`/my-paths/${user._id}`} className='my-category all-my-paths' >
+           All my <br/> Paths
         </Link>
-        <Link to={`/cyber-security/${user._id}`} >
-            <Button style={{width:'120px', height:'120px', color:'white', background: 'red', margin:'5px', border:'none', borderRadius:'13px'}}>Cyber <br/> Security</Button>
+        </div>
+        <div className='parent border-sec' >
+        <Link to={`/cyber-security/${user._id}`} className='my-category cyber-sec '  >
+           Cyber <br/> Security
         </Link>
+        </div>
 
-        <Link to={`/data-science/${user._id}`} >
-            <Button style={{width:'120px', height:'120px', color:'white', background: 'red', margin:'5px', border:'none', borderRadius:'13px'}}>Data <br/>Science</Button>
+        <div className='parent border-data' >
+        <Link to={`/data-science/${user._id}`} className='my-category data' >
+            Data <br/>Science
         </Link>
+        </div>
 
-        <Link to={`/dev-ops/${user._id}`}  >
-            <Button style={{width:'120px', height:'120px', color:'white', background: 'red', margin:'5px', border:'none', borderRadius:'13px'}}> Dev Ops</Button>
+        <div className='parent border-ops' >
+        <Link to={`/dev-ops/${user._id}`} className=' my-category dev-ops' >
+             Dev Ops
         </Link>
+        </div>
 
-       <Link to={`/ux-ui/${user._id}`} >
-            <Button style={{width:'120px', height:'120px', color:'white', background: 'red', margin:'5px', border:'none', borderRadius:'13px'}}>Ux/ Ui</Button>  
+        <div className='parent border-ux' >
+       <Link to={`/ux-ui/${user._id}`} className='my-category ux-ui' >
+            Ux/ Ui
         </Link>
+        </div>
 
-        <Link to={`/web-dev/${user._id}`} >
-            <Button style={{width:'120px', height:'120px', color:'white', background: 'red', margin:'5px', border:'none', borderRadius:'13px'}}>Web <br/>Development</Button>   
+        <div className='parent border-dev' >
+        <Link to={`/web-dev/${user._id}`} className='my-category web-dev'>
+            Web <br/>Development
         </Link>
-
+        </div>
+        </div>
         </div>
     )
 }

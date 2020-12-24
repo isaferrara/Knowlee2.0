@@ -53,55 +53,44 @@ import {
                 setChanges(!changes)
             }
 
-            const  bottonColor= (info)=>{
-                // switch(info.category) {
-                //     case 'Web Dev':
-                //       return 'black'
-                //       break;
-                //     case 'Ux/Ui':
-                //       return 'pink'
-                //       break;
-                //     case 'Dev Ops':
-                //         return 'gray'
-                //         break; 
-                //     case 'Data Science':
-                //         return 'yellow'
-                //         break;   
-                //     case 'Cyber Security':
-                //         return 'blue'
-                //         break;             
-                //     default:
-                //         return 'green'
-                //   }
-            }
-            bottonColor()
-
     return (
         <div> 
         <Divider style={{color:'#A6A6A4', fontSize:'20px'}}>Your subscriptions</Divider>
         <div style={{display:'flex', flexDirection:'row', color:'#8F8D88', display:'flex', justifyContent:'space-around', }}>
         {pathsy? <> {pathsy.map(info=> 
-         <div style={{ width:'200px',  margin:'0',  backgroundColor:'white', borderRadius:'10px'}}>
 
-         <div style={{  margin:'20px'}}>
-         <div style={{display:'flex', flexDirection:'row', justifyContent:'space-around', textAlign:'left', alignItems:'center'}}>
-         <img alt="icon" src={info.user.image} style={{width:'55px', height:'55px', borderRadius: '50%'}}/>
-            <div style={{display:'flex', flexDirection:'column', justifyContent:'space-around', margin:'10px'}}>
+        //{/* start card */}
+        <div style={{ width:'230px', height:'290px',  margin:'0',  backgroundColor:'white', borderRadius:'10px'}}>
+
+        <div style={{  margin:'20px'}}>
+
+        {/* image username and short description */}
+        <div style={{display:'flex', flexDirection:'column', justifyContent:'space-around', textAlign:'left', alignItems:'center'}}>
+         {/* image */}
+        <div style={{width:'83px', height:'83px', borderRadius: '50%', border: '3px solid rgba(50, 94, 122, 0.5)', display:'flex',  alignContent:'center',  alignItems:'center', alignItems:'center'}}>
+            <img alt="icon" src={info.user.image} style={{width:'90%', height:'90%', margin:'auto', borderRadius: '50%'}}/>
+        </div>
+
+        {/* username and subscribers */}
+            <div style={{display:'flex', flexDirection:'column', justifyContent:'space-around', margin:'10px', textAlign:'center'}}>
                 <p style={{  marginBottom:'0', lineHeight:'17px'}}><b>{info.user.username}</b></p> 
                 <p style={{  marginBottom:'0', lineHeight:'10px'}}><small>{info.user.suscribers.length} subscribers </small></p>
             </div>
              {/* <PlusSquareFilled  onClick={()=>addPath(info)} style={{ color: bottonColor(info)}}/> */}
-
-
         </div>
-            <hr style={{height:'0.5px', color:'#DAD7E0', backgroundColor: '#DAD7E0', border: '0 none', marginTop:'10px'}}/>
+
             <div style={{display:'flex', flexDirection:'column', justifyContent:'space-around'}}>
                 <p style={{textDecoration:'underline',  marginBottom:'0', width:'100%'}}> <b>{info.paths[0].title}</b></p>
                 <div style={{textAlign:'left'}}>
-                <p style={{fontSize:'14px', lineHeight:'15px', fontWeight:'100', marginBottom:'12px', marginTop:'10px'}}>{info.paths[0].shortDesc}</p> 
-                    <p style={{marginBottom:'0', lineHeight:'15px'}}> <small><b>Category:</b>{info.paths[0].category}</small></p> 
-                    <p style={{marginBottom:'0', lineHeight:'15px'}}><small><b>Level:</b>{info.paths[0].level}</small></p>
-              
+                <div style={{height:'50px'}}>
+                    <p style={{ lineHeight:'15px', marginBottom:'12px', marginTop:'10px'}}><small>{info.paths[0].shortDesc}</small></p> 
+                </div>
+
+                <div style={{position:'relative'}}>
+                <hr style={{height:'0.5px', backgroundColor: '#DAD7E0', border: '0 none'}}/>
+                    <p style={{marginBottom:'0', lineHeight:'15px',  fontWeight:'100'}}> <small>{info.paths[0].category}</small></p> 
+                    <p style={{marginBottom:'0', lineHeight:'15px',  fontWeight:'100'}}><small>{info.paths[0].level}</small></p>
+                </div>
                 </div>
             </div>
 

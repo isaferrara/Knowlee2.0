@@ -50,7 +50,7 @@ import { updatePath } from '../../services/paths'
             suscriptions: user.suscriptions, 
             image: user.image, 
             paths: user.paths,
-            suscribers: user.subscribers, 
+            suscribers: user.suscribers, 
             favorites: favsFiltered, 
         })
 
