@@ -8,13 +8,12 @@ import { createTopic } from '../services/topics.js'
 import LayoutDash from "../components/LayoutDash";
 import CategoriesIcons from "../components/CategoriesIcons";
 import { PlusOutlined } from '@ant-design/icons';
-import SuscribeExplore from '../components/Suscribe/SuscribeExplore.js'
 import FavPath from "../components/favorites/FavPath";
 
 const { Panel } = Collapse;
 const { Search } = Input;
 
-const ExplorePaths = () => {
+const ExploreAllOtherPaths = () => {
     const { user } = useContextInfo()
     //user´s paths
     const [pathsy, setPaths] = useState(null)
@@ -34,10 +33,10 @@ const ExplorePaths = () => {
             let allOther=data.filter((info)=>
             info.users[0]._id !==user._id
         )
+        let myPaths=data.filter((info)=>
+        info.users[0]._id ===user._id
+    )
 
-            let myPaths=data.filter((info)=>
-            info.users[0]._id ===user._id
-        )
             setOtherPaths(allOther)
             setPaths(myPaths)
             setallMyPathsy(allOther)
@@ -117,14 +116,13 @@ const ExplorePaths = () => {
         const handleCancel = () => {
             setIsModalVisible(false);
         }
-        return (
-            <div style={{  display:'flex', flexDirection:'column', justifyContent:'content',  width:'100%',  height:'100%', alignContent:'center'}}>
+    return (
 
-            <LayoutDash style={{paddingRight:'0px'}}>
-            <CategoriesIcons />
-            <SuscribeExplore/>
+        <div style={{  display:'flex', flexDirection:'column', justifyContent:'content',  width:'100%',  height:'100%', alignContent:'center'}}>
+        <LayoutDash style={{paddingRight:'0px'}}>
+        <CategoriesIcons/>
 
-             {otherPaths?
+        {otherPaths?
                 (
 
                 <div style={{ padding: '1rem 3rem', display:'flex', flexDirection:'column', justifyContent:'center', borderRadius:'20px', backgroundColor:'white', marginTop:'70px', boxShadow: '-1px 0px 19px -1px rgba(125,125,125,0.39)' }}>
@@ -158,9 +156,6 @@ const ExplorePaths = () => {
                         <Form.Item name="checkbox-group">
                             {/* show only paths that interest user*/} 
                             <Checkbox.Group > 
-                              
-                                {otherPaths?.length>10? setOtherPaths(otherPaths.slice(-10)): 
-                                    <>
                                 {otherPaths?.map(path => (
                                     <div style={{borderRadius:' 20% ', margin:'10px',  width:'840px'}}>
                                         <div style={{ position: 'absolute', color:'#CFCFCF', fontSize:'18px', marginTop:'10px' , padding:'17px 28px 17px 30px', borderRight:'1px solid #BFBEBD'}}>
@@ -195,9 +190,6 @@ const ExplorePaths = () => {
                                         </Collapse>
                                     </div>
                                     ))}
-                                    
-                                    </>
-                                }
                                      </Checkbox.Group>
                                     </Form.Item>
                                     </div>
@@ -229,21 +221,20 @@ const ExplorePaths = () => {
                             </div>
                             </Modal>
                         </div>
-
                     </div>
-                   
-                    <Link to={`/all-paths/${user._id}`}  className='seeMore'> Show more </Link>
-
                     </div>
                 </div>
                 ):( 
                     <Skeleton active />
                 )}
                 
-               
-         </LayoutDash>
+           
+        </LayoutDash>
         </div>
+            
+        
+    )
+}
 
-        )
-    }
-export default ExplorePaths
+
+export default ExploreAllOtherPaths

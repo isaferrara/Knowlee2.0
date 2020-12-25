@@ -1,5 +1,5 @@
 import React, {useState, useEffect}from 'react'
-import { Typography, Button, Modal, Form,  Card, Checkbox, Skeleton, Progress, Input} from 'antd'
+import { Divider, Button, Modal, Form,  Card, Checkbox, Skeleton, Progress, Input} from 'antd'
 import { Link } from 'react-router-dom'
 import { useContextInfo } from '../../hooks/context.js'
 import {createSuscriber, createSubscription} from '../../services/suscriptions'
@@ -76,22 +76,35 @@ const SuscribeExplore = () => {
 
     return (
         <div>
-        {info? 
-        (<div>
-            {info.map( users=>
-            <Card
-            style={{width:'200px'}}
-            cover={<img alt="icon" src={users.image} style={{width:'50px', borderRadius: '50%'}}/>} >
-            <h2>{users.username}</h2>
-             <p>{users.paths.length} paths</p>
-            <p>{users.suscribers.length} suscribers </p>
-             <Button onClick={()=> suscribeUser(users)} >Suscribe</Button>
-            
-        </Card>
-        )}
-        </div>    
-        ):(<Skeleton/>)
-    }
+        <Divider style={{color:'#A6A6A4', fontSize:'20px'}}>Find new Users</Divider>
+
+        {info?.length>5 ? setInfo(info.slice(-5)):
+            (<div style={{display:'flex', flexDirection:'row', color:'#8F8D88', display:'flex', justifyContent:'space-around' }}>
+
+                {info?.map( users=>
+
+                <div style={{ width:'200px', height:'220px',  margin:'0',  backgroundColor:'white', borderRadius:'10px'}}>
+                    <div style={{  margin:'20px'}}>
+
+                        <div style={{display:'flex', flexDirection:'column', justifyContent:'space-around', textAlign:'left', alignItems:'center'}}>
+
+                            <div style={{width:'83px', height:'83px', borderRadius: '50%', border: '3px solid rgba(50, 94, 122, 0.5)', display:'flex',  alignContent:'center',  alignItems:'center', alignItems:'center'}}>
+                                <img alt="icon" src={users.image} style={{width:'90%', height:'90%', margin:'auto', borderRadius: '50%'}}/>
+                            </div>
+
+                            <div style={{display:'flex', flexDirection:'column', marginBottom:'20px', justifyContent:'space-around', margin:'10px', textAlign:'center'}}>
+                                <p style={{  marginBottom:'0', lineHeight:'17px'}}><b>{users.username}</b></p> 
+                                <p style={{  marginBottom:'0', lineHeight:'10px'}}><small>{users.suscribers.length} subscribers </small></p>       
+                                <p style={{  marginBottom:'0', lineHeight:'10px'}}><small>{users.paths.length} paths created </small></p>
+                            </div>
+                        <Button onClick={()=> suscribeUser(users)} >Suscribe</Button>
+                        </div>
+                    </div>
+                </div>
+                )}
+            </div>    
+            )
+        }
         </div>
     )
 }

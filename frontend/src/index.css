@@ -36,15 +36,14 @@ p{
 
 .category{
   font-weight: 500;
-  width: 110%;
-  height: 110%;
+  width: 100px;
+  height: 100px;
   color: white;
-  border: none;
-  border-radius: 13px;
-  padding:0;
+  border-radius: 12px;
  display: flex;
  justify-content: center;
  align-items: center;
+ box-sizing: content-box;
 }
 
 .parent{

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useContextInfo } from '../hooks/context.js'
-import SuscribeExplore  from '../components/Suscribe/SuscribeExplore.js'
+import CategoriesIcons  from '../components/CategoriesIcons.js'
 import LayoutDash from "../components/LayoutDash";
 import UserSuscriptions from '../components/Suscribe/UserSuscriptions'
 
@@ -9,8 +9,7 @@ const Suscriptions = () => {
 
     return (
         <div>        
-        <LayoutDash>
-            <SuscribeExplore />
+        <LayoutDash>          
             <UserSuscriptions />
         </LayoutDash>
         </div>

@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom'
 import { useContextInfo } from '../hooks/context.js'
 
 
-
  const CategoriesIcons = () => {
     const { user } = useContextInfo()
 

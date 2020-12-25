@@ -4,30 +4,45 @@ import { useContextInfo } from '../../hooks/context.js'
 import {createSubscription, getAllSuscribers, getSingleSuscriber} from '../../services/suscriptions'
 import { getAllUsers, getSingleUser } from '../../services/auth.js'
 import { getAllPaths } from '../../services/paths.js'
-import { updateFn } from '../../services/auth.js'
-import { getSinglePath } from '../../services/paths.js'
-import {
-    PlusSquareFilled
-  } from '@ant-design/icons';
 
  const SuscribersPaths = () => {
     const [info, setInfo]= useState(null)
     const [pathsy, setPath] = useState(null)
     const [changes, setChanges] = useState(false);
     const { user } = useContextInfo()
+    let arrayId=[]
 
     useEffect(() => {
         async function getPaths() {
             const {data} = await getAllSuscribers()
-
-            //sacas los paths nuevos a los que ya  suscrito que tengan contenido
-            const notSuscribed = data.filter((info)=>
+            const {data: pather} = await getAllPaths()
+            console.log(pather);
+            //sacas los subs nuevos a los que ya  suscrito 
+            const pathsSuscribedsuscribed = data.filter((info)=>
             info.me === user._id)
 
-            const pathsNotSuscribed = notSuscribed.slice(0,4).filter((info)=>
-             info.paths.length>0)
-             
-             setPath(pathsNotSuscribed)    
+            //sacas los subs nuevos a los que ya  suscrito que tengan paths
+            const pathsSuscribed = pathsSuscribedsuscribed.slice(0,4).filter((info)=>
+             info.paths.length>0)   
+
+            //sacas los id de los paths de los subs nuevos
+            const pathsSuscribedss= pathsSuscribed.map((info)=>
+             info.paths.map(a=> arrayId= arrayId.concat(a._id)))   
+
+
+            //sacas los paths nuevos de tus sucripciones
+
+               // console.log(pathsSuscribedss[pathsSuscribedss.length-1][0], 'suscrasdibed');     
+            // Esto es el ultimo array de todas las ids de los paths de los subs 
+            // se pone así porque tienes que elegir el acumulado
+            // luego checas si se encuentra aqui la id del path
+            // en pocas palabras comparas subs/path/id con path/id
+
+            const suscribedPaths= pather.filter((infos)=>
+            pathsSuscribedss[pathsSuscribedss.length-1][0].includes(infos._id))
+
+
+             setPath(suscribedPaths)    
         }
         getPaths()
 
@@ -35,69 +50,55 @@ import {
         }, [changes])
 
 
-        async function addPath(info){   
-                //actualizas perfil para que se gurade en tu usuario la subs
-                const allPaths= [...user.paths, info]
-    
-                const {data: updateUser} = await updateFn(user._id, {
-                    email: user.email,
-                    username: user.username,
-                    password: user.password,
-                    name: user.name,
-                    suscribers: user.suscribers,
-                    image: user.image, 
-                    paths: allPaths,
-                    suscriptions: user.suscriptions,
-                    favorites: user.favorites
-                })
-                setChanges(!changes)
-            }
-
     return (
         <div> 
         <Divider style={{color:'#A6A6A4', fontSize:'20px'}}>Your subscriptions</Divider>
         <div style={{display:'flex', flexDirection:'row', color:'#8F8D88', display:'flex', justifyContent:'space-around', }}>
-        {pathsy? <> {pathsy.map(info=> 
+        {pathsy?<> {pathsy.map(info => 
 
         //{/* start card */}
         <div style={{ width:'230px', height:'290px',  margin:'0',  backgroundColor:'white', borderRadius:'10px'}}>
 
         <div style={{  margin:'20px'}}>
-
-        {/* image username and short description */}
-        <div style={{display:'flex', flexDirection:'column', justifyContent:'space-around', textAlign:'left', alignItems:'center'}}>
-         {/* image */}
-        <div style={{width:'83px', height:'83px', borderRadius: '50%', border: '3px solid rgba(50, 94, 122, 0.5)', display:'flex',  alignContent:'center',  alignItems:'center', alignItems:'center'}}>
-            <img alt="icon" src={info.user.image} style={{width:'90%', height:'90%', margin:'auto', borderRadius: '50%'}}/>
-        </div>
-
-        {/* username and subscribers */}
-            <div style={{display:'flex', flexDirection:'column', justifyContent:'space-around', margin:'10px', textAlign:'center'}}>
-                <p style={{  marginBottom:'0', lineHeight:'17px'}}><b>{info.user.username}</b></p> 
-                <p style={{  marginBottom:'0', lineHeight:'10px'}}><small>{info.user.suscribers.length} subscribers </small></p>
-            </div>
-             {/* <PlusSquareFilled  onClick={()=>addPath(info)} style={{ color: bottonColor(info)}}/> */}
-        </div>
-
             <div style={{display:'flex', flexDirection:'column', justifyContent:'space-around'}}>
-                <p style={{textDecoration:'underline',  marginBottom:'0', width:'100%'}}> <b>{info.paths[0].title}</b></p>
-                <div style={{textAlign:'left'}}>
-                <div style={{height:'50px'}}>
-                    <p style={{ lineHeight:'15px', marginBottom:'12px', marginTop:'10px'}}><small>{info.paths[0].shortDesc}</small></p> 
+
+            
+            {/* image username and short description */}
+            <div style={{display:'flex', flexDirection:'column', justifyContent:'space-around', textAlign:'left', alignItems:'center'}}>
+                {/* image */}
+                <div style={{width:'83px', height:'83px', borderRadius: '50%', border: '3px solid rgba(50, 94, 122, 0.5)', display:'flex',  alignContent:'center',  alignItems:'center', alignItems:'center'}}>
+                    <img alt="icon" src={info.users[0].image} style={{width:'90%', height:'90%', margin:'auto', borderRadius: '50%'}}/>
                 </div>
 
-                <div style={{position:'relative'}}>
-                <hr style={{height:'0.5px', backgroundColor: '#DAD7E0', border: '0 none'}}/>
-                    <p style={{marginBottom:'0', lineHeight:'15px',  fontWeight:'100'}}> <small>{info.paths[0].category}</small></p> 
-                    <p style={{marginBottom:'0', lineHeight:'15px',  fontWeight:'100'}}><small>{info.paths[0].level}</small></p>
+            {/* username and subscribers */}
+                <div style={{display:'flex', flexDirection:'column', justifyContent:'space-around', margin:'10px', textAlign:'center'}}>
+                    <p style={{  marginBottom:'0', lineHeight:'17px'}}><b>{info.users[0].username}</b></p> 
+                    <p style={{  marginBottom:'0', lineHeight:'10px'}}><small>{info.users[0].suscribers.length} subscribers </small></p>
                 </div>
+            </div>
+
+                <p style={{textDecoration:'underline',  marginBottom:'0', width:'100%'}}>  <b>{info.title}</b></p>
+                <div style={{textAlign:'left'}}>
+                        <div style={{height:'50px'}}>
+                        <p style={{ lineHeight:'15px', marginBottom:'12px', marginTop:'10px'}}><small> {info.shortDesc}</small></p>
+                        </div>
+
+                        <div style={{position:'relative'}}>
+                            <hr style={{height:'0.5px', backgroundColor: '#DAD7E0', border: '0 none'}}/>
+
+                                <p style={{marginBottom:'0', lineHeight:'15px',  fontWeight:'100'}}> <small> {info.category}</small></p> 
+                                <p style={{marginBottom:'0', lineHeight:'15px',  fontWeight:'100'}}><small> {info.level}</small></p>
+                        </div>
                 </div>
             </div>
 
               </div>
           </div>
-         )} </> : <p>No paths </p>}  
+         )} </> : <p>No paths </p>
+         }  
+
         </div>
+
         </div>
     )
 }

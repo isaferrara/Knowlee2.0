@@ -27,6 +27,7 @@ import DetailsExplorePath from "./pages/DetailsExplorePath"
 import DetailsTopic from "./pages/DetailsTopic"
 import DiscoverPaths from './pages/DiscoverPaths';
 import Newsfeed from './pages/Newsfeed';
+import ExploreAllOtherPaths from './pages/ExploreAllOtherPaths';
 
 import Suscription from './pages/Suscriptions';
 import CyberSecurity from './pages/Categories/CyberSecurity';
@@ -72,6 +73,7 @@ const Router = () => {
         <PrivateRoute path='/favorites/:id' component={Favorites} exact />
         <PrivateRoute path='/completed/:id' component={Completed} exact />
         <PrivateRoute path='/progress/:id' component={InProgress} exact />
+        <PrivateRoute path='/all-paths/:id' component={ExploreAllOtherPaths} exact />
 
 
       {/* Routes helpers */}
@@ -84,11 +86,11 @@ const Router = () => {
       <Route path='/news' component={Newsfeed} exact/>
 
       {/* Categories all users*/}
-      <Route path='/cyber-security' component={CyberSecurity} exact />
-      <Route path='/data-science' component={DataScience} exact />
-      <Route path='/dev-ops' component={DevOps} exact />
-      <Route path='/ux-ui' component={UxUi} exact />
-      <Route path='/web-dev' component={WebDev} exact />
+      <PrivateRoute path='/cyber-security' component={CyberSecurity} exact />
+      <PrivateRoute path='/data-science' component={DataScience} exact />
+      <PrivateRoute path='/dev-ops' component={DevOps} exact />
+      <PrivateRoute path='/ux-ui' component={UxUi} exact />
+      <PrivateRoute path='/web-dev' component={WebDev} exact />
 
 
       {/* Categories user*/}

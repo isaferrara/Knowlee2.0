@@ -1,14 +1,15 @@
 import React, {useState, useEffect}from 'react'
 import { getAllPaths} from '../../services/paths.js'
-import { Typography , Card, Divider, Skeleton, Progress} from 'antd'
+import { Button , Collapse, Divider, Skeleton, Progress} from 'antd'
 import { Link } from 'react-router-dom'
 import { useContextInfo } from '../../hooks/context.js'
 import { Input } from 'antd';
 import LayoutDash from "../../components/LayoutDash";
 import FavPath from "../../components/favorites/FavPath";
 import MyCategoriesIcons from '../../components/MyCategoriesIcons.js'
+import { PlusOutlined } from '@ant-design/icons';
 
-const { Title } = Typography
+const { Panel } = Collapse;
 const { Search } = Input;
 
 export const MyUxUi = () => {
@@ -47,55 +48,75 @@ export const MyUxUi = () => {
 
     return (
 <LayoutDash>
-        <div>
-        <MyCategoriesIcons/>
-             {/* User´s paths */} 
-             {user? (
-                <div style={{ padding: '1rem 3rem', display:'flex', flexDirection:'column' }}>
-                    <h1 style={{fontFamily:'Verdana', fontSize:'30px'}}><b>Your study paths</b></h1> 
-                <div style={{ padding: '1rem 3rem', display:'flex', flexDirection:'column'}}>
-                    <div style={{marginTop:'50px'}}>
-                    <Search placeholder="What are you looking for?" onSearch={onSearch} allowClear style={{ width: 500 }} />                        <br />         
-                    </div>
-                <div style={{ padding: '1rem', display:'flex', flexDirection:'row', flexWrap: 'wrap'  }}>  
-
-                        {pathsy?.map((path, i ) => (
-                        <div style={{borderRadius:' 20px ', margin:'10px',  width:'240px'}}>
-                        <Card  hoverable  style={{backgroundColor: 'white', borderRadius:'10px', boxShadow: '3px 4px 25px -7px rgba(0,0,0,0.75)'}} >
-                            <Link to={`/path/${path._id}`}>
-                                <div >
-                                    <Card type="inner" style={{ color:'white', backgroundColor:'#0B648A', borderRadius:'5px'}}>
-                                        <Title style={{ color:'white', fontFamily:'arial', fontWeight:'lighter', fontSize:'17px'}} level={2} >{path.title}</Title>
-                                    </Card>
+            <div>
+            <MyCategoriesIcons/>
+                {/* User´s paths */} 
+                {user? (
+                    <div style={{ padding: '1rem 3rem', display:'flex', flexDirection:'column', justifyContent:'center', borderRadius:'20px', backgroundColor:'white', marginTop:'70px', boxShadow: '-1px 0px 19px -1px rgba(125,125,125,0.39)' }}>
+                    <div style={{display:'flex', flexDirection:'row',  justifyContent:'space-around', marginTop:'20px'}} >
+                    
+                    {/* search bar */}
+                        <Search allowClear placeholder="What are you looking for?" onSearch={onSearch} allowClear style={{ width: '600px', borderRadius:'3px', marginBottom: '20px', marginTop:'5px'}} />                       
+    
+                    {/* create new path botton */}
+                        <Link to={'/path/create'} >
+                            <Button style={{fontSize:'17px', color:'white', backgroundColor:'#E05872', borderRadius:'6px', width:'210px', height:'40px', display:'flex', flexDirection:'row',  alignItems:'center', alignContent:'center'}} type='ghost'>
+                                <b>Create new path </b> 
+                                <div style={{backgroundColor:'#C74E64', marginLeft:'13px', borderRadius:'6px', padding:'5px 14px 5px 14px'}}>
+                                <PlusOutlined />
+                                </div>
+                            </Button>
+                        </Link> 
+                        </div>
+    
+                        <Divider style={{color:'#A6A6A4', fontSize:'20px', marginBottom:'0'}}>Your study paths</Divider>
+                        <div style={{ padding: '1rem 3rem', display:'flex', flexDirection:'column', alignContent:'center', alignItems:'center', justifyContent:'center'}}>
+    
+                        <div style={{ padding: '1em', display:'flex', flexDirection:'row', flexWrap: 'wrap', borderRadius:'20px'}}>  
+                
+                            {pathsy?.map((path, i ) => (
+                                <div style={{borderRadius:' 20% ', margin:'10px',  width:'840px'}}>
+                                        <div style={{ position: 'absolute', color:'#CFCFCF', fontSize:'18px', marginTop:'10px' , padding:'17px 28px 17px 30px', borderRight:'1px solid #BFBEBD'}}>
+                                            <FavPath {...path} />
+                                        </div>
+                                <Link to={`/path/${path._id}`}>
+                                <div type="inner" style={{ color:'#EDECEB', backgroundColor:'#f7f7f5', borderRadius:'20px', height:'80px'}}>
+    
+                                <Progress  percent={path.progress} size="small" style={{ width:'700px', marginBottom:'0', marginLeft:'40px', lineHeight:'0px'}} strokeColor={'#2B9479'}/>
+    
+                                    <div style={{marginLeft:'105px',  textAlign:'left'}}>
+                                        <h2 style={{fontFamily:'arial', color:'#999897', fontSize:'18px', lineHeight:'13px', marginTop:'15px'}}> {path.title}</h2>
+                                    </div>
                                 </div> 
-                            </Link>  
-                            <Progress  percent={path.progress} size="small" />
-
-
-                            <Divider>Topics</Divider> 
-                            {path.topics?.map((topic, index ) => (
-                                <>
-                                <Link to={`/topic/${topic._id}`}>
-                                <Card hoverable  style={{ marginTop:'15px', width:'180px', height:'70px', margin:'0px', padding:'0px', borderColor: '#1F79B5'}}  >
-                                        <b><p style={{ margin:'0px', padding:'0px', color:'gray'}}>{topic.title}</p></b>
-                                </Card>  
-                                </Link>   
-                                </>  
+                                </Link> 
+    
+                                <Collapse bordered={false} defaultActiveKey={['1']} ghost>
+                                <Panel header={<h2 style={{fontFamily:'arial',  color:'#BFBEBD', fontWeight:'lighter', padding:'0px', fontSize:'15px', textAlign:'left'}}> {path.topics.length} topics</h2>}>
+    
+                                {path.topics?.map((topic, index ) => (
+                                    <>
+                                    <Link to={`/topic/${topic._id}`}>
+                                    <div style={{ marginBottom:'2px', padding:'10px 0px 1px 0px', backgroundColor:'#f7f7f5',textAlign:'left'}}>
+                                        <p style={{ marginLeft:'20px', padding:'0px', color:'gray', lineHeight:'10px'}}>{topic.title}</p>
+                                    </div>  
+                                    </Link>   
+                                    </>  
+                                ))}          
+                                </Panel>
+                                </Collapse>
+                            </div>      
                             ))}
-                        <FavPath {...path}/> 
-                        </Card>
-                        </div>      
-                        ))}
+                        </div>
+                
                     </div>
+                    
                 </div>
+                ):( 
+                    <Skeleton active />
+                )}
                 
             </div>
-            ):( 
-                <Skeleton active />
-            )}
-            
-            </div>
-        </LayoutDash>
+            </LayoutDash>
     )
 }
 

@@ -48,16 +48,6 @@ export const AllMyPaths = () => {
             }      
         };
 
-         //show modal to transfer topics 
-        const showModal = () => {
-            setIsModalVisible(true);
-        };
-
-        const handleCancel = () => {
-            setIsModalVisible(false);
-           
-        }
-
     return (
         <LayoutDash>
        <div>
@@ -96,9 +86,9 @@ export const AllMyPaths = () => {
 
                             <Progress  percent={path.progress} size="small" style={{ width:'700px', marginBottom:'0', marginLeft:'40px', lineHeight:'0px'}} strokeColor={'#2B9479'}/>
 
-                                        <div style={{marginLeft:'105px',  textAlign:'left'}}>
-                                            <h2 style={{fontFamily:'arial', color:'#999897', fontSize:'18px', lineHeight:'13px', marginTop:'15px'}}> {path.title}</h2>
-                                        </div>
+                                <div style={{marginLeft:'105px',  textAlign:'left'}}>
+                                    <h2 style={{fontFamily:'arial', color:'#999897', fontSize:'18px', lineHeight:'13px', marginTop:'15px'}}> {path.title}</h2>
+                                </div>
                             </div> 
                             </Link> 
 
@@ -119,15 +109,7 @@ export const AllMyPaths = () => {
                         </div>      
                         ))}
                     </div>
-                    <Modal
-                        footer={null}
-                        title="Create new path"
-                        visible={isModalVisible}
-                        onCancel={handleCancel}
-                        cancelText="cancel"
-                            >
-                        <CreatePath handleCancel={handleCancel}/>
-                        </Modal>
+            
                 </div>
                 
             </div>

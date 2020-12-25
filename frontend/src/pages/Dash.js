@@ -29,7 +29,6 @@ const Dash = (props) => {
             const Pathsy = data.filter((info)=>
             info.users[0]._id===user._id)
 
-            console.log(Pathsy)
             // // //users paths edit
             setPaths(Pathsy) 
 
@@ -121,8 +120,11 @@ const Dash = (props) => {
                 <h1>No Results Found</h1>
             )}
             <SuscribersPaths/>
-
+            <div style={{marginTop:'50px'}}>
+              <Link to={'/subs'}   className='seeMore'> Show more </Link>
+            </div>
         </div>
+
         </LayoutDash>
         )
     }
