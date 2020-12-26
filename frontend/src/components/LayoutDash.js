@@ -1,8 +1,5 @@
 import {
-    AppstoreOutlined,
     BarChartOutlined,
-    CloudOutlined,
-    ShopOutlined,
     MailOutlined,
     UserOutlined,
     UploadOutlined,
@@ -47,13 +44,14 @@ const LayoutDash = ({ children }) => {
               Home
             </Link>
           </Menu.Item>
-          <Menu.Item key="2">
+          {!user ? <>
+            <Menu.Item key="2">
               <Link to="/discover">
               Discover
               </Link>
           </Menu.Item>
-          {!user ? <>
-            <Menu.Item key="3">
+          <div style={{border:'1px solid white'}}>
+            <Menu.Item key="3" >
               <Link to="/signup">
                 Signup
             </Link>
@@ -63,22 +61,33 @@ const LayoutDash = ({ children }) => {
                 Login
             </Link>
             </Menu.Item>
+          </div>
           </> : <>
             <Menu.Item key="5">
               <Link to="/choose-donation">
               Donate
               </Link>
             </Menu.Item>
-            <Menu.Item key="6" onClick={handleLogout}>
-              <Link to="/">
-              Logout
-              </Link>
-            </Menu.Item>
-            <Menu.Item key="7">
-                <Link to={`/dash/${user._id}`}>
-                  Dashboard
-              </Link>
-              </Menu.Item>
+
+            <SubMenu key="SubMenu" title="Profile">
+                <Menu.Item key="7" icon={<UserOutlined />}>
+                    <Link to={`/dash/${user._id}`} >
+                      Dashboard
+                  </Link>
+                  </Menu.Item>
+
+                <Menu.Item key="15" icon={<BarChartOutlined />}>
+                  <Link to={"/profile"}>
+                      Profile
+                  </Link>
+                </Menu.Item>
+
+                <Menu.Item key="16" onClick={handleLogout} style={{ borderTop:'1px solid gray'}}>
+                  <Link to="/"  >
+                  Logout
+                  </Link>
+                </Menu.Item>
+             </SubMenu>
               </> }
         </Menu>
       </Header>
@@ -100,7 +109,7 @@ const LayoutDash = ({ children }) => {
      
      {/* profile info */}
         <div style={{display : 'flex', justifyContent:'center', alignItems:'center', flexDirection:'column',  margin:'40px 0px 30px 0px'}}>
-            <img src={user.image} style={{width:'75px', height:'75px', borderRadius:'50%', marginBottom:'20px'}} />
+        <Link to={`/profile`}><img src={user.image} style={{width:'75px', height:'75px', borderRadius:'50%', marginBottom:'20px'}} /> </Link>
             <h1>{user.username}</h1>
         </div>
       {/* submenu */}
@@ -136,19 +145,10 @@ const LayoutDash = ({ children }) => {
 
         <Menu.Item key="14" icon={<UploadOutlined />}>
         <Link to={`/explore`}>
-           Explore paths
+           Explore 
         </Link>
         </Menu.Item>
-        <Menu.Item key="15" icon={<BarChartOutlined />}>
-        <Link to={"/profile"}>
-            Profile
-        </Link>
-        </Menu.Item>
-        <Menu.Item key="16" onClick={handleLogout}>
-              <Link to="/">
-              Logout
-              </Link>
-        </Menu.Item>
+
 
       </Menu>
     </Sider>

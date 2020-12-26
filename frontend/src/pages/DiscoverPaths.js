@@ -1,96 +1,140 @@
 import React, {useState, useEffect}from 'react'
-import { getAllPaths} from '../services/paths.js'
-import { Button, Typography, Form,  Card, Divider, Skeleton} from 'antd'
+import { Input, Typography, Button, Modal, Form,  Card, Divider, Skeleton, Collapse, Progress} from 'antd'
 import { Link } from 'react-router-dom'
 import { useContextInfo } from '../hooks/context.js'
-import { Input } from 'antd';
+import {createSubscription, getAllSuscribers, getSingleSuscriber} from '../services/suscriptions'
+import { getAllUsers, getSingleUser } from '../services/auth.js'
+import { getAllPaths } from '../services/paths.js'
+import { updateFn } from '../services/auth.js'
+import { getSinglePath } from '../services/paths.js'
+import { PlusOutlined } from '@ant-design/icons';
 import LayoutApp from "../components/LayoutApp";
-const { Search } = Input;
-const { Title } = Typography
 
 
 const DiscoverPaths = () => {
-    //recommended paths
-    const [otherPaths, setOtherPaths] = useState(null)
-    const [selectedTopics, setSelectedTopics] = useState(null)
+    const [info, setInfo]= useState(false)
+    const [pathsy, setPath] = useState(null)
     const [changes, setChanges] = useState(false);
+    const [users, setUsers] = useState(null);
+    const [otherPaths, setOtherPaths] = useState(null)
     const [allMyPathsy, setallMyPathsy] = useState(null)
 
+
+    const { user } = useContextInfo()
+    let arrayId=[]
     useEffect(() => {
         async function getPaths() {
-            const {data} = await getAllPaths()
-            //get recommended paths--users starts with all existing paths//
-            setOtherPaths(data)
-            setallMyPathsy(data)
+            const {data} = await getAllSuscribers()
+            const {data: pather} = await getAllPaths()
+            const {data: allUsers} = await getAllUsers()
 
+            setUsers(allUsers.slice(0,3))
+            
         }
         getPaths()
         }, [changes])
 
-
-
-        //on submit all the selected topics user is adding to paths
-        const onFinish = values => {
-                let copy = {...values}
-                setSelectedTopics(copy)
-        } 
-
-        //search recommended paths
-        function onSearch (value) {
-            const results = otherPaths.filter(path => path.title.toLowerCase().includes(value)) 
+        function onSearch (value, info) {
+            const results = pathsy.filter(path => path.title.toLowerCase().includes(value)) 
+            console.log(info)
             if(value===''){
-                setOtherPaths(allMyPathsy)
+                setUsers(users)
             }else if(!results){
-                setOtherPaths(allMyPathsy)
+                setUsers(otherPaths)
             } else{
-                setOtherPaths(results)
+                setUsers(otherPaths)
             }      
         };
 
         return (
+            <div> 
             <LayoutApp>
-            <div style={{  display:'flex', flexDirection:'column', justifyContent:'content', width:'80%', marginLeft: '100px', marginRight: '100px', padding:'0 30px', backgroundColor:'	#DCDCDC'}}>
-
-
-
-             {otherPaths?
-                (
-                    <div style={{borderRadius:' 20px ', margin:'10px', marginRight:'20px'}}>
-                    <h1 style={{fontFamily:'Verdana', fontSize:'30px', paddingTop: '50px'}}><b>Find the best study paths</b></h1> 
-                    {/* searchbar */}
-                    <Search placeholder="What are you looking for?" onSearch={onSearch} allowClear style={{ width: 500 }} />                        <br />         
-                        <div style={{ display:'flex', flexDirection:'row', flexWrap: 'wrap' , justifyContent:'center' }}>    
-
-                            {/* show only paths that interest user*/} 
-
-                                {otherPaths?.map(path => (
-                                    <div style={{borderRadius:' 20px ', margin:'10px',  width:'240px', marginRight:'20px'}}>
-                                    <Card hoverable  style={{backgroundColor: 'white', borderRadius:'10px', boxShadow: '3px 4px 25px -7px rgba(0,0,0,0.75)', width:'260px'}} >
-                                    <Card type="inner" style={{ color:'white', backgroundColor:'#0B648A', borderRadius:'5px'}}>
-                                        <Link to={`/login`}> <h1 style={{ fontSize:'20px', color:'white'}}  >{path.title}</h1> </Link> 
-                                  </Card>
-                                    <Divider>Topics</Divider>
-                                    <div style={{ padding: '1rem', display:'flex', flexDirection:'column', width:'350px' }} >
-                                            {path.topics?.map((topic, index) => (
-                                                <Card hoverable  style={{ marginTop:'15px', width:'180px', height:'70px', margin:'0px', padding:'0px', borderColor: '#1F79B5'}}  >
-                                                    <Link to={`/login`}>
-                                                    <b><p style={{ margin:'0px', padding:'0px', fontWeight:'lighter', color:'gray'}}>{topic.title}</p></b>
-                                                    </Link>
-                                             
-                                                </Card> 
-                                            ))}
+            <div style={{width: '900px'}} >
+        {info? <div> <h1> No subscriptions</h1></div> :
+        <>            
+        <Divider style={{color:'#A6A6A4', fontSize:'20px', marginTop:'50px'}}>Featured users</Divider>
+        <div style={{display:'flex', flexDirection:'row', flexWrap:'wrap', justifyContent:'space-around', alignItems:'center'}}>
+            {users?.map(usy=>
+            
+                <div style={{display:'flex', flexDirection:'row', justifyContent:'space-around', alignItems:'center'}}>
+                <div style={{ width:'230px', height:'190px',  margin:'0',  backgroundColor:'white', borderRadius:'10px', marginTop:'20px'}}>
+                    <div style={{  margin:'20px'}}>
+                                {/* image username and short description */}
+                                <div style={{display:'flex', flexDirection:'column', justifyContent:'space-around', textAlign:'left', alignItems:'center'}}>
+                                    {/* image */}
+                                    <div style={{width:'83px', height:'83px', borderRadius: '50%', border: '3px solid rgba(50, 94, 122, 0.5)', display:'flex',  alignContent:'center',  alignItems:'center', alignItems:'center'}}>
+                                        <img alt="icon" src={usy.image} style={{width:'90%', height:'90%', margin:'auto', borderRadius: '50%'}}/>
                                     </div>
-                                    </Card>    
-                                    </div>   
-                                    ))}                                
-                        </div>
+                                        {/* username and subscribers */}
+                                        <div style={{display:'flex', flexDirection:'column', justifyContent:'space-around', margin:'10px', textAlign:'center'}}>
+                                            <p style={{  marginBottom:'0', lineHeight:'17px'}}><b>{usy.username}</b></p> 
+                                            <p style={{  marginBottom:'0', lineHeight:'10px'}}><small>{usy.suscribers.length} subscribers </small></p>
+                                            <p style={{  marginBottom:'0', lineHeight:'10px'}}><small>{usy.paths.length} path </small></p>
+
+                                        </div>
+                                    </div>     
                     </div>
-                ):( 
-                    <Skeleton active />
-                )}
-                
+                </div>
+
+            </div>
+            )
+            }
+            </div>
+
+        <div>
+        
+        {users?<> {users.map(info => 
+
+        <div style={{ padding: '1rem 3rem', display:'flex', flexDirection:'column', justifyContent:'center', borderRadius:'20px', backgroundColor:'white', marginTop:'70px', boxShadow: '-1px 0px 19px -1px rgba(125,125,125,0.39)' }}>
+        <div style={{display:'flex', flexDirection:'row',  justifyContent:'space-around', marginTop:'20px'}} >
+            
+            {/* search bar */}
+            {/* <Search allowClear placeholder="What are you looking for?" onSearch={onSearch()} allowClear style={{ width: '600px', borderRadius:'3px', marginBottom: '20px', marginTop:'5px'}} />                        */}
         </div>
-        </LayoutApp>
+
+
+        <div style={{display:'flex', flexDirection:'column', justifyContent:'space-around'}}>
+
+            
+            {/* image username and short description */}
+            <div style={{display:'flex', flexDirection:'column', justifyContent:'space-around', textAlign:'left', alignItems:'center'}}>
+                {/* image */}
+                <div style={{width:'83px', height:'83px', borderRadius: '50%', border: '3px solid rgba(50, 94, 122, 0.5)', display:'flex',  alignContent:'center',  alignItems:'center', alignItems:'center'}}>
+                    <img alt="icon" src={info.image} style={{width:'90%', height:'90%', margin:'auto', borderRadius: '50%'}}/>
+                </div>
+
+            {/* username and subscribers */}
+                <div style={{display:'flex', flexDirection:'column', justifyContent:'space-around', margin:'10px', textAlign:'center'}}>
+                    <p style={{  marginBottom:'0', lineHeight:'17px'}}><b>{info.username}</b></p> 
+                    <p style={{  marginBottom:'0', lineHeight:'10px'}}><small>{info.suscribers.length} subscribers </small></p>
+                </div>
+            </div>
+
+            {info.paths?.map(path=>
+            <>
+                <Link to={`/login`}>
+                    <div type="inner" style={{ color:'#EDECEB', backgroundColor:'#f7f7f5', borderRadius:'20px', marginTop:'20px',  height:'80px'}}>
+                        <div style={{marginLeft:'105px',  textAlign:'left'}}>
+                            <h2 style={{fontFamily:'arial', color:'#999897', fontSize:'18px', lineHeight:'13px', paddingTop:'30px'}}> {path.title}</h2>
+                            <p style={{  marginBottom:'0',color:'#999897', lineHeight:'10px'}}><small>{path.topics.length} topics </small></p>
+
+                        </div>
+                    </div> 
+                </Link> 
+                </>
+            )}
+       
+                </div>
+              </div>
+         )} </> : <p>No paths </p>
+         }  
+         </div>
+     
+        </>
+            }
+            </div>
+            </LayoutApp>
+        </div>
 
         )
     }

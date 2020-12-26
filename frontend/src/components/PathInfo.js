@@ -40,17 +40,20 @@ export const PathInfo = (props) => {
     
     return (
         <div>
-        {pathsy? (<div>
-            <Title level={2}>{pathsy.title}</Title>
-        <div style={{textAlign:'left'}}> 
-            <p><b>Short Description:</b>{pathsy.shortDesc}</p>
-            <p><b>Description:</b>{pathsy.description}</p>
-            <p> <b>Category:</b>{pathsy.category}</p>
-            <p> <b>Level:</b>{pathsy.level}</p>
+         <div style={{position:'absolute', marginBottom:'130px', marginLeft:'690px'}}>
+        {myPath? <Button type="ghost"  onClick={changeSett} style={{marginTop:'20px'}} >Edit</Button>: <></> }
         </div>
-        
-        {myPath? <Button type="ghost" block onClick={changeSett}  >Edit Project</Button>: <></> }
-        
+        {pathsy? (<div>
+
+            <h2 style={{textDecoration:'underline'}}>{pathsy.title}</h2>
+        <div style={{textAlign:'left', margingRight:'200px', width:'600px', wordWrap: 'break-word'}}> 
+            <p style={{lineHeight:'10px', margin:'0'}}><b>About</b></p> <p style={{fontWeight:'lighter', marginBottom:'20px'}}><br/>{pathsy.description}</p>
+            <p style={{lineHeight:'7px', fontSize:'15px'}}> <b>Category:</b>{'   '}{pathsy.category}</p>
+            <p style={{lineHeight:'7px', fontSize:'15px'}}> <b>Level: </b>{'   '}{pathsy.level}</p>
+            <small> Created by {pathsy.users[0].username}</small>
+        </div> 
+
+
         <br />
         </div>
         ):(

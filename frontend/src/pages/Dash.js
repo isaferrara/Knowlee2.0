@@ -20,7 +20,7 @@ const Dash = (props) => {
     const [pathsy, setPaths] = useState(null)
     const [allMyPathsy, setallMyPathsy] = useState(null)
     const [changes, setChanges] = useState(false);
-    const [info, setInfo]= useState(null)
+
 
     useEffect(() => {
         async function getPaths() {

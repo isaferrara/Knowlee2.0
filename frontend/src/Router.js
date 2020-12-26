@@ -80,10 +80,10 @@ const Router = () => {
      <Route path='/path/create' component={CreatePath} exact />
       <PrivateRoute path='/path/:id' component={DetailsPath} exact />
       <PrivateRoute path='/subs' component={Suscription} exact />
-      <Route path='/path/explore/:id' component={DetailsExplorePath} exact />      
+      <PrivateRoute path='/path/explore/:id' component={DetailsExplorePath} exact />      
       <PrivateRoute path='/topic/:id' component={ContentTopic} exact />
-      <Route path='/topicdetails/:id' component={DetailsTopic} exact />
-      <Route path='/news' component={Newsfeed} exact/>
+      <PrivateRoute path='/topicdetails/:id' component={DetailsTopic} exact />
+      <PrivateRoute path='/news' component={Newsfeed} exact/>
 
       {/* Categories all users*/}
       <PrivateRoute path='/cyber-security' component={CyberSecurity} exact />

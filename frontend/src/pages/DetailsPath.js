@@ -2,12 +2,13 @@ import React, {useState, useEffect} from 'react'
 import { useContextInfo } from '../hooks/context'
 import { getSinglePath, deletePath } from '../services/paths.js'
 import {  deleteTopic, createTopic} from '../services/topics.js'
-import { Skeleton, Divider, Card, Button, Modal, Form, Input, Progress} from 'antd'
+import { Popconfirm, Skeleton, Divider, Card, Button, Modal, Form, Input, Progress} from 'antd'
 import EditPath from '../components/EditPath'
 import PathInfo from '../components/PathInfo'
 import { Link } from 'react-router-dom'
 import LayoutDash from "../components/LayoutDash";
 import { updatePath } from '../services/paths'
+import { PlusOutlined, QuestionCircleOutlined} from '@ant-design/icons';
 
 
 const DetailsPath = ({ match: { params: { id } }, history } ) => {
@@ -58,6 +59,12 @@ const DetailsPath = ({ match: { params: { id } }, history } ) => {
             history.push(`/dash/${user._id}`)
         }
             
+        async function delTopic(id) {
+            await deleteTopic(id)
+            setChanges(!changes)
+            
+            history.push(`/path/${pathsy._id}`)
+        }
 
         function sum(i) {
             i++
@@ -129,57 +136,68 @@ const DetailsPath = ({ match: { params: { id } }, history } ) => {
 
     return (
         <LayoutDash>
-        <div style={{ padding: '1rem 3rem' }}>
+        <div style={{ padding: '1rem 3rem', backgroundColor:'white', borderRadius:'10px'}}>
+        <div style={{position:'absolute', marginLeft:'760px', marginTop:'20px'}}>
+        {showInfo?
+            <Popconfirm title="Are you sure？" onConfirm={handleDelete} icon={<QuestionCircleOutlined style={{ color: 'red' }} />}>
+                <Button type="ghost" danger >Delete</Button>
+            </Popconfirm>:<></>}
+            </div>
+        <div style={{position:'absolute', marginTop:'50px', marginLeft:'700px'}}>
+            {/* mide el progreso que es el promedio de cuantos topics se han completado */}
+            {showInfo?<Progress style={{marginTop:'20px'}} type="circle" percent={counter} format={percent => `${percent}%`} width={120}/>: <></> }
+        </div>
+
             {pathsy? (<div>
                 {showInfo && <PathInfo {...pathsy} setForms={setForms} /> }
                 <br />
-        {showEditForm && <EditPath {...pathsy} setForms={setForms}/>}
+                {showEditForm && <EditPath {...pathsy} setForms={setForms}/>}
 
-    <Divider>Topics</Divider>
-    <Button type="primary" onClick={showModal} block >Add Topic</Button>
-    <br />
+        <div style={{display:'flex', flexDirection:'column', alignItems:'center'}}>
+         <Divider>Topics</Divider>
+        {/* create new path botton */}
+       
+            <Button primary onClick={showModal} style={{fontSize:'17px', color:'white', backgroundColor:'#E05872', borderRadius:'6px', width:'170px', height:'40px', display:'flex', flexDirection:'row',  alignItems:'center', alignContent:'center'}} type='ghost'>
+                <b>Add Topic</b> 
+                <div style={{backgroundColor:'#C74E64', marginLeft:'29px', borderRadius:'6px', padding:'5px 14px 5px 14px'}}>
+                <PlusOutlined />
+                </div>
+            </Button>
+          <br />
     <div style={{marginTop: '40px'}}>
     
-    {/* mide el progreso que es el promedio de cuantos topics se han completado */}
-    
-    <Progress type="circle" percent={counter} format={percent => `${percent}`} />
-   
 
     {pathsy.topics.map((topic, i) => 
-        <Link to={`/topic/${topic._id}`}> 
-        <Card hoverable
-     number={sum(i)} title={ (i+1) + '     ' + topic.title  } style={{marginBottom:'10px'}} >
-    <div style={{display:'flex', flexDirection:'row', justifyContent:'space-between'}}>  
-
-
-
-
-    {/* si usuario marcó el contenido como leido entonces countdDone, sino countCero */}
-        {topic.progress ? countDone(): cero=+1 }
-
-        <div style={{display:'flex', flexDirection:'column', textAlign:'left',  marginLeft: '40px', padding: '20px'}}>
-        <div><b>Objective</b> <p>  {topic.objective}</p></div>
-       <div><b>Duration</b> <p>  {topic.duration}</p></div> 
-        <div><b>Progress</b> <p>  {topic.progress}</p></div> 
-        
-         { topic.progress? <Progress  percent={100} width={40} /> : <></>}
-        </div>
-
-
-       
-            <div style={{marginTop: '60px'}}>
-            <Button type="ghost" danger onClick={ async ()=> {
-                await deleteTopic(topic._id)
-                setChanges(!changes)}}>Delete</Button> 
+    <div>
+        <div style={{position: 'absolute', marginTop: '45px', marginLeft:'760px'}}>
+            <Popconfirm title="Are you sure？" onConfirm={()=>delTopic(topic._id)} icon={<QuestionCircleOutlined style={{ color: 'red' }} />}>               
+            <Button type="ghost" danger >Delete</Button> 
+            </Popconfirm>
             </div>
+        <Link to={`/topic/${topic._id}`}> 
+        { topic.progress? <Progress  percent={100} width={40} strokeWidth={3}/> : <></>}
+        {topic.progress ? countDone(): <div style={{display:'none'}}>{cero=+1}</div>}   
+       
+        <div style={{display:'flex', flexDirection:'row', justifyContent:'space-between', backgroundColor:'#f7f7f5', borderRadius:'15px', marginBottom:'10px', width:'900px'}}>  
+
+        <div style={{display:'flex', flexDirection:'column', textAlign:'left', marginLeft: '40px', padding: '10px'}}>
+
+        <p style={{marginBottom:'1px', marginTop:'5px', color:'gray'}} > 
+            {topic.title}</p>{'   '}
+            <small style={{marginBottom:'10px', marginTop:'5px', color:'gray', lineHeight:'10px'}}>
+            <b>Objective:</b> {'   '}
+                {topic.objective}</small>
+            <small style={{marginBottom:'10px', paddingLeft:'0px', color:'gray', lineHeight:'10px'}}>
+            <b>Duration:</b>{'   '}
+            {topic.duration}</small>
+            </div>
+
         </div>
-    </Card>
     </Link>
+    </div>
     )}
     </div>
-    <Divider></Divider>
-    <Button type="ghost" onClick={handleDelete} danger block >Delete Path</Button>
-    
+</div>
     {/* modal to add new topics  */} 
 
         <Modal
@@ -203,7 +221,7 @@ const DetailsPath = ({ match: { params: { id } }, history } ) => {
             <Input placeholder="Estimated duration " />
         </Form.Item>
         <Form.Item name="content" hidden/>
-        <Button type="ghost" htmlType='submit' block >Add topic</Button>
+        <Button type="primary" htmlType='submit' block >Add topic</Button>
             
         </Form>
             </Modal>

@@ -121,10 +121,10 @@ export const ContentTopic = (props) => {
             }
         
             return (
-                <div style={{display:'flex', justifyContent:'center', width:'100%',  height:'100%', alignContent:'center'}}>
+                <div style={{display:'flex', alignItems:'center', width:'100%',  height:'100%', alignContent:'center'}}>
                 <LayoutDash style={{display:'flex', justifyContent:'center'}}>
 
-                <div style={{display:'flex', flexDirection:'column', justifyContent:'center', alignContent:'center', marginLeft :'170px'}}>
+                <div style={{display:'flex', flexDirection:'column', alignItems:'center', alignContent:'center', backgroundColor:'white', borderRadius:'20px'}}>
                 {contenty?(
                     <div style={{width:'80vh'}}> 
                     <Form onFinish={onFinish} form={form} type="dashed">
@@ -157,9 +157,12 @@ export const ContentTopic = (props) => {
                     <p><b>Duration:</b>  {contenty.duration}</p>
                 </div>
                     <Divider></Divider>
-                        {content && content }
+                        {content }
 
+                        <div style={{marginTop:'20px', marginBottom:'30px'}} >
+                        <Divider></Divider>
                         <Progreso {...contenty} />
+                        </div>
 
                     </div>):(
                         <Skeleton active />

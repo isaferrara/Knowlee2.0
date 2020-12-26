@@ -82,7 +82,7 @@ import {useContextInfo} from '../hooks/context'
 
             <Form.Item 
            
-            placeholder="Write a short sentence in 20 words"
+            placeholder="Write a short sentence in 50 words"
             name="Short description"
             label="Short description:"
             rules={[
@@ -91,7 +91,7 @@ import {useContextInfo} from '../hooks/context'
                 message: 'Please input a short description!',
             }, 
             ]}>
-              <Input.TextArea maxLength={20} />
+              <Input.TextArea maxLength={50} />
             </Form.Item>
 
             <Form.Item 

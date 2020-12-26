@@ -6,7 +6,7 @@ import { getAllUsers, getSingleUser } from '../../services/auth.js'
 import { getAllPaths } from '../../services/paths.js'
 
  const SuscribersPaths = () => {
-    const [info, setInfo]= useState(null)
+    const [info, setInfo]= useState(false)
     const [pathsy, setPath] = useState(null)
     const [changes, setChanges] = useState(false);
     const { user } = useContextInfo()
@@ -16,13 +16,12 @@ import { getAllPaths } from '../../services/paths.js'
         async function getPaths() {
             const {data} = await getAllSuscribers()
             const {data: pather} = await getAllPaths()
-            console.log(pather);
             //sacas los subs nuevos a los que ya  suscrito 
             const pathsSuscribedsuscribed = data.filter((info)=>
             info.me === user._id)
 
             //sacas los subs nuevos a los que ya  suscrito que tengan paths
-            const pathsSuscribed = pathsSuscribedsuscribed.slice(0,4).filter((info)=>
+            const pathsSuscribed = pathsSuscribedsuscribed.filter((info)=>
              info.paths.length>0)   
 
             //sacas los id de los paths de los subs nuevos
@@ -38,9 +37,12 @@ import { getAllPaths } from '../../services/paths.js'
             // luego checas si se encuentra aqui la id del path
             // en pocas palabras comparas subs/path/id con path/id
 
-            const suscribedPaths= pather.filter((infos)=>
-            pathsSuscribedss[pathsSuscribedss.length-1][0].includes(infos._id))
+            const suscribedPaths= pather.slice(0,4).filter((infos)=>
+        
+            pathsSuscribedss.length===0? setInfo(true) :  pathsSuscribedss[pathsSuscribedss.length-1][0].includes(infos._id)
+            )
 
+            console.log(suscribedPaths, 'adsasd')
 
              setPath(suscribedPaths)    
         }
@@ -52,11 +54,14 @@ import { getAllPaths } from '../../services/paths.js'
 
     return (
         <div> 
+        {info? <div> <h1> No subscriptions</h1></div> :
+        <div>
         <Divider style={{color:'#A6A6A4', fontSize:'20px'}}>Your subscriptions</Divider>
         <div style={{display:'flex', flexDirection:'row', color:'#8F8D88', display:'flex', justifyContent:'space-around', }}>
         {pathsy?<> {pathsy.map(info => 
 
         //{/* start card */}
+
         <div style={{ width:'230px', height:'290px',  margin:'0',  backgroundColor:'white', borderRadius:'10px'}}>
 
         <div style={{  margin:'20px'}}>
@@ -64,13 +69,17 @@ import { getAllPaths } from '../../services/paths.js'
 
             
             {/* image username and short description */}
+
             <div style={{display:'flex', flexDirection:'column', justifyContent:'space-around', textAlign:'left', alignItems:'center'}}>
+
                 {/* image */}
+
                 <div style={{width:'83px', height:'83px', borderRadius: '50%', border: '3px solid rgba(50, 94, 122, 0.5)', display:'flex',  alignContent:'center',  alignItems:'center', alignItems:'center'}}>
                     <img alt="icon" src={info.users[0].image} style={{width:'90%', height:'90%', margin:'auto', borderRadius: '50%'}}/>
                 </div>
 
             {/* username and subscribers */}
+
                 <div style={{display:'flex', flexDirection:'column', justifyContent:'space-around', margin:'10px', textAlign:'center'}}>
                     <p style={{  marginBottom:'0', lineHeight:'17px'}}><b>{info.users[0].username}</b></p> 
                     <p style={{  marginBottom:'0', lineHeight:'10px'}}><small>{info.users[0].suscribers.length} subscribers </small></p>
@@ -97,8 +106,9 @@ import { getAllPaths } from '../../services/paths.js'
          )} </> : <p>No paths </p>
          }  
 
+        </div>        
         </div>
-
+             }
         </div>
     )
 }

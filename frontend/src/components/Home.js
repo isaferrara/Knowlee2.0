@@ -11,7 +11,16 @@ import { Layout, Menu } from 'antd';
 import { Link } from 'react-router-dom'
 import { useContextInfo } from '../hooks/context'
 import { logoutFn } from '../services/auth'
-const { Header, Content, Footer } = Layout;
+import {
+  BarChartOutlined,
+  MailOutlined,
+  UserOutlined,
+  UploadOutlined,
+  VideoCameraOutlined,
+} from '@ant-design/icons';
+
+const { Header } = Layout;
+const { SubMenu } = Menu;
 
 function Home() {
   const { user, logout } = useContextInfo()
@@ -38,13 +47,14 @@ function Home() {
               Home
             </Link>
           </Menu.Item>
-          <Menu.Item key="7">
+
+          {!user ? <>
+            <Menu.Item key="7">
               <Link to="/discover">
               Discover
               </Link>
           </Menu.Item>
-          {!user ? <>
-            <Menu.Item key="2">
+            <Menu.Item key="2" >
               <Link to="/signup">
                 Signup
             </Link>
@@ -54,22 +64,32 @@ function Home() {
                 Login
             </Link>
             </Menu.Item>
-          </> : <React.Fragment>
+          </> 
+          : <React.Fragment>
             <Menu.Item key="6">
               <Link to="/choose-donation">
               Donate
               </Link>
             </Menu.Item>
-            <Menu.Item key="5" onClick={handleLogout}>
-              <Link to="/">
-              Logout
-              </Link>
-            </Menu.Item>
-            <Menu.Item key="4">
-                <Link to={`/dash/${user._id}`}>
-                  Dashboard
-              </Link>
-              </Menu.Item>
+            <SubMenu key="SubMenu" title="Profile">
+                <Menu.Item key="7" icon={<UserOutlined />}>
+                    <Link to={`/dash/${user._id}`} >
+                      Dashboard
+                  </Link>
+                  </Menu.Item>
+
+                <Menu.Item key="15" icon={<BarChartOutlined />}>
+                  <Link to={"/profile"}>
+                      Profile
+                  </Link>
+                </Menu.Item>
+
+                <Menu.Item key="16" onClick={handleLogout} style={{ borderTop:'1px solid gray'}}>
+                  <Link to="/"  >
+                  Logout
+                  </Link>
+                </Menu.Item>
+             </SubMenu>
             
             </React.Fragment>}
 

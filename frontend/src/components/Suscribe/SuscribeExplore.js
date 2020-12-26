@@ -35,7 +35,7 @@ const SuscribeExplore = () => {
 
 
     async function suscribeUser(values){
-    
+  
         const allSubscribers= [...values.suscribers, user]
 
         const {data: updateUsera} = await updateFn(values._id, {
@@ -52,7 +52,6 @@ const SuscribeExplore = () => {
 
             //actualizas perfil para que se gurade en tu usuario la subs
             const allSuscriptions= [...user.suscriptions, values]
-
             const {data: updateUser} = await updateFn(user._id, {
                 email: user.email,
                 username: user.username,

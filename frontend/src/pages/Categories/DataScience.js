@@ -157,7 +157,7 @@ export const DataScience = () => {
                                         <div style={{ position: 'absolute', color:'#CFCFCF', fontSize:'18px', marginTop:'10px' , padding:'17px 28px 17px 30px', borderRight:'1px solid #BFBEBD'}}>
                                             <FavPath {...path} />
                                         </div>
-                                    <Link to={`/path/${path._id}`}>
+                                    <Link to={`/path/explore/${path._id}`}>
                                         <div type="inner" style={{ color:'#EDECEB', backgroundColor:'#f7f7f5', borderRadius:'20px', height:'80px'}}>
             
                                         <Progress  percent={path.progress} size="small" style={{ width:'700px', marginBottom:'0', marginLeft:'40px', lineHeight:'0px'}} strokeColor={'#2B9479'}/>
