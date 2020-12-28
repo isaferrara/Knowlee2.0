@@ -1,6 +1,4 @@
 import React from 'react'
-import { Row, Col } from 'antd';
-import { Card } from 'antd';
 import {
     CodeOutlined,
     AlertOutlined,
@@ -9,9 +7,7 @@ import {
     CalculatorOutlined
   } from '@ant-design/icons';
 
-  import { Link } from 'react-router-dom'
 
-const { Meta } = Card;
 
 const AppFeature = () => {
     return (
@@ -19,9 +15,9 @@ const AppFeature = () => {
         <div style={{ backgroundColor:'#f7f7f5', padding:'100px 0 20px 0'}}> 
         <h2 style={{textAlign:'center', fontSize:'30px'}}>Categories</h2>
         </div>
-        <div style={{display:'flex', alignItems:'center', justifyContent:'center', width:'100%', backgroundColor:'#f7f7f5', padding:'0 0 100px 0'}}>
+        <div style={{display:'flex', width:'100%', alignItems:'center', justifyContent:'space-evenly', width:'100%', backgroundColor:'#f7f7f5', padding:'0 0 100px 0'}}>
 
-        <div style={{display:'flex', width:'60%', flexWrap:'wrap',  alignItems:'center', justifyContent:'center', justifyContent:'space-around'}}>
+        <div style={{display:'flex', alignItems:'center',  justifyContent:'space-evenly', marginLeft:'100px'}}>
   
         <div className='categoryDash' style={{backgroundColor:'white', display:'flex', flexDirection:'column', border:'6px solid #1D3747'}} >
            

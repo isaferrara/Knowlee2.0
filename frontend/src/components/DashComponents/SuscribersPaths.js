@@ -1,14 +1,13 @@
 import React, {useState, useEffect}from 'react'
-import { Typography, Button, Modal, Form,  Card, Divider, Skeleton, Collapse, Progress} from 'antd'
+import { Divider} from 'antd'
 import { useContextInfo } from '../../hooks/context.js'
-import { getAllSuscribers, getSingleSuscriber} from '../../services/suscriptions'
+import { getAllSuscribers} from '../../services/suscriptions'
 import { getAllPaths } from '../../services/paths.js'
-import { Link } from 'react-router-dom'
 
  const SuscribersPaths = () => {
     const [info, setInfo]= useState(false)
     const [pathsy, setPath] = useState(null)
-    const [changes, setChanges] = useState(false);
+    const [changes] = useState(false);
     const { user } = useContextInfo()
     let arrayId=[]
 
@@ -72,7 +71,7 @@ import { Link } from 'react-router-dom'
 
                 {/* image */}
 
-                <div style={{width:'83px', height:'83px', borderRadius: '50%', border: '3px solid rgba(50, 94, 122, 0.5)', display:'flex',  alignContent:'center',  alignItems:'center', alignItems:'center'}}>
+                <div style={{width:'83px', height:'83px', borderRadius: '50%', border: '3px solid rgba(50, 94, 122, 0.5)', display:'flex',  alignContent:'center', alignItems:'center'}}>
                     <img alt="icon" src={info.users[0].image} style={{width:'90%', height:'90%', margin:'auto', borderRadius: '50%'}}/>
                 </div>
 

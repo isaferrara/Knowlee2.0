@@ -1,6 +1,6 @@
 import React, {useState, useEffect}from 'react'
-import { getAllPaths, updatePath} from '../services/paths.js'
-import { Collapse, Progress, Checkbox, Button, Modal, Form,  Card, Divider, Skeleton} from 'antd'
+import { getAllPaths} from '../services/paths.js'
+import { Collapse, Progress, Checkbox, Button, Modal, Form, Divider, Skeleton} from 'antd'
 import { Link } from 'react-router-dom'
 import { useContextInfo } from '../hooks/context.js'
 import { Input } from 'antd';

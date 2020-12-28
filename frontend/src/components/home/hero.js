@@ -1,8 +1,6 @@
 import React from 'react';
-import { Carousel, Button, Typography } from 'antd';
+import {  Button } from 'antd';
 import { Link } from 'react-router-dom'
-
-const {Title, Text, Paragraph} = Typography;
 
 
 

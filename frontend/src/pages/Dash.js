@@ -11,10 +11,9 @@ import MyCategoriesIcons from "../components/MyCategoriesIcons";
 import SuscribersPaths from '../components/DashComponents/SuscribersPaths.js'
 import { PlusOutlined } from '@ant-design/icons';
 
-const { Title } = Typography
 const { Search } = Input;
 
-const Dash = (props) => {
+const Dash = () => {
     const { user } = useContextInfo()
     //user´s paths
     const [pathsy, setPaths] = useState(null)
@@ -24,7 +23,6 @@ const Dash = (props) => {
 
     useEffect(() => {
         async function getPaths() {
-            console.log(user)
             const {data} = await getAllPaths()
             //get only users path//
             const Pathsy = data.filter((info)=>
@@ -36,7 +34,6 @@ const Dash = (props) => {
              //users paths always complete
             setallMyPathsy(Pathsy)
 
-           console.log(user)
         }
         getPaths()
 

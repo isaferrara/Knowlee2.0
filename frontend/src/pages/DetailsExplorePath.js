@@ -1,30 +1,23 @@
 import React, {useState, useEffect} from 'react'
-import { useContextInfo } from '../hooks/context'
-import { getSinglePath, deletePath } from '../services/paths.js'
-import {  createTopic} from '../services/topics.js'
-import { Input, Typography, Skeleton, Divider, Card, Button, Modal, Form, Inputtle} from 'antd'
+import { getSinglePath } from '../services/paths.js'
+import {  Typography, Skeleton, Divider, Form} from 'antd'
 import { Link } from 'react-router-dom'
 import LayoutDash from "../components/LayoutDash";
 
 
 const { Title } = Typography
 const DetailsExplorePath = ({ match: { params: { id } }, history }) => {
-    const [form] = Form.useForm()
     const [pathsy, setPaths] = useState(null)
-    const [changes, setChanges] = useState(false)
-    const { user } = useContextInfo()
-    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [changes] = useState(false)
+
     useEffect(() => {
     async function getPaths() {
         const {data} = await getSinglePath(id)
         setPaths(data) 
-        console.log(data)
     }
     getPaths()
     }, [changes])
- function sum(i) {
-    i++
- }
+
 
     return (
         //solo ver no editar

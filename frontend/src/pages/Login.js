@@ -119,12 +119,12 @@ const Login = ({ history }) => {
             Login
           </Button>
         </Form>
-        <Divider>
+        {/* <Divider>
           Or
         </Divider>
         <a href={googleUrl}>
           <Button block>Login with Google</Button>
-        </a>
+        </a> */}
       </Col>
     </Row>
     </div>

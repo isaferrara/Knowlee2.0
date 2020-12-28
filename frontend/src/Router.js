@@ -111,8 +111,8 @@ const Router = () => {
       <Route exact path="/success" component={Success} />
       <Route exact path="/failure" component={Failure} />
       <Route exact path="/pending" component={Pending} />
+      <Route component={NotFound} />
       
-    {/*<Route component={NotFound} />*/}
     </Switch>
     </BrowserRouter>
   )

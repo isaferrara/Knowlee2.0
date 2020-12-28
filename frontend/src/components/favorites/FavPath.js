@@ -2,7 +2,7 @@ import React, {useState, useEffect}from 'react'
 import { HeartOutlined, HeartFilled} from '@ant-design/icons';
 import { useContextInfo } from '../../hooks/context.js'
 import { updateFn } from '../../services/auth'
-import { createFav, deleteFav} from '../../services/favs.js';
+import { createFav} from '../../services/favs.js';
 import { updatePath } from '../../services/paths'
 
  const FavPath = (props) => {
@@ -12,7 +12,7 @@ import { updatePath } from '../../services/paths'
     let path= [props.isFav]
 
     useEffect(() => {
-        let a= path.map(favs=> setFav(favs))
+        path.map(favs=> setFav(favs))
       },[])
   
 
@@ -22,7 +22,7 @@ import { updatePath } from '../../services/paths'
     const {data}= await createFav({ userId:user, pathId:props })
     setNewFavs(data._id)
 
-    const {data: upData}=await updatePath (props._id, 
+    await updatePath (props._id, 
         {
          title: props.title,
          description: props.description,
@@ -54,7 +54,7 @@ import { updatePath } from '../../services/paths'
             favorites: favsFiltered, 
         })
 
-        const {data: upData}=await updatePath (props._id, 
+        await updatePath (props._id, 
             {
              title: props.title,
              description: props.description,
@@ -66,7 +66,6 @@ import { updatePath } from '../../services/paths'
              topics: props.topics,
              users: props.users
             })
-            // const {data: favDel}= await deleteFav(newFavs)
         }
 
 

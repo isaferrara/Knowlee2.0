@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import ReactPlayer from 'react-player/youtube'
 
 //ants
-import {  Skeleton, Divider, Card, Upload, Button, Modal,Form, Input, Space} from 'antd'
+import {  Skeleton, Divider,  Button, Form} from 'antd'
 import { PlusOutlined } from '@ant-design/icons';
 
 //services

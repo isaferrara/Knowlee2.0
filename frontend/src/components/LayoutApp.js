@@ -7,7 +7,7 @@ import {
 } from '@ant-design/icons';
 import { useContextInfo } from '../hooks/context'
 import { logoutFn } from '../services/auth'
-const { Header, Content, Footer } = Layout;
+const { Header, Content } = Layout;
 
 const { SubMenu } = Menu;
 

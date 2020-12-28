@@ -32,7 +32,6 @@ function UpdateProfileForm({
             suscriptions: user.suscriptions, 
             favorites: user.favorites
         })
-        console.log(newUpdatedUsr, 'user updated')
         setInfoUser(newUpdatedUsr)
 
     }
@@ -50,7 +49,6 @@ function UpdateProfileForm({
     }
 
     function disabled(){
-        console.log('hola')
         setDisable(!disable)
 
     }

@@ -20,7 +20,6 @@ export const MyCyberSecurity = (props) => {
     const [allMyPathsy, setallMyPathsy] = useState(null)
 
     useEffect(() => {
-        console.log(props)
         async function getPaths() {
             const {data} = await getAllPaths()
 
@@ -37,7 +36,6 @@ export const MyCyberSecurity = (props) => {
         //search paths
         function onSearch (value, info) {
             const results = pathsy.filter(path => path.title.toLowerCase().includes(value)) 
-            console.log(info)
             if(value===''){
                 setPaths(allMyPathsy)
             }else if(!results){

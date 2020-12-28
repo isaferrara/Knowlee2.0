@@ -2,8 +2,6 @@ import React, {useState, useEffect} from 'react';
 import { getAllPaths } from '../services/paths.js'
 import AppHero from '../components/home/hero';
 import Appworks from '../components/home/works';
-import AppFeature from '../components/home/feature';
-
 import AppContact from '../components/home/contact';
 import { Layout, Menu } from 'antd';
 import { Link } from 'react-router-dom'
@@ -16,6 +14,7 @@ import {
   ShareAltOutlined,
   BarChartOutlined
 } from '@ant-design/icons';
+import AppFeature from './home/feature.js';
 
 const { Header } = Layout;
 const { SubMenu } = Menu;
@@ -120,7 +119,6 @@ function Home() {
             </div>
        </div>  
           <Appworks />
-          <AppFeature />
           <AppContact />
      </div>
 

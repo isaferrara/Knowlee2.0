@@ -1,17 +1,14 @@
 import { useState, useEffect} from 'react'
 import React from 'react'
 import { Typography, Row, Col, Button } from 'antd'
-import { useContextInfo } from '../hooks/context'
 import { Redirect } from 'react-router-dom'
 import UpdateProfileForm from '../components/UpdateProfileForm'
 import { currentUserFn } from '../services/auth'
 import LayoutDash from "../components/LayoutDash";
 
-//traer login y currentuser y hacer useEffect
 
 const Profile = () => {
   //const { user } = useContextInfo()
-  const [showEditForm, setShowEditForm] = useState(false)
   const [user, setUser] = useState(null)
   const [disable, setDisable] = useState(false)
 
@@ -57,10 +54,6 @@ const Profile = () => {
 
           <h4> <b>Email:</b>
             {user.email}
-          </h4>
-
-          <h4><b>Full name:</b>
-            {user.name}
           </h4>
           <br/>
           </div>

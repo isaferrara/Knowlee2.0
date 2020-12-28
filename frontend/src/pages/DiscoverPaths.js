@@ -1,31 +1,25 @@
 import React, {useState, useEffect}from 'react'
-import { Input, Typography, Button, Modal, Form,  Card, Divider, Skeleton, Collapse, Progress} from 'antd'
+import { Divider} from 'antd'
 import { Link } from 'react-router-dom'
 import { useContextInfo } from '../hooks/context.js'
-import {createSubscription, getAllSuscribers, getSingleSuscriber} from '../services/suscriptions'
-import { getAllUsers, getSingleUser } from '../services/auth.js'
-import { getAllPaths } from '../services/paths.js'
-import { updateFn } from '../services/auth.js'
-import { getSinglePath } from '../services/paths.js'
-import { PlusOutlined } from '@ant-design/icons';
+import { getAllUsers } from '../services/auth.js'
+
 import LayoutApp from "../components/LayoutApp";
 
 
 const DiscoverPaths = () => {
-    const [info, setInfo]= useState(false)
-    const [pathsy, setPath] = useState(null)
-    const [changes, setChanges] = useState(false);
+    const [info]= useState(false)
+    const [pathsy] = useState(null)
+    const [changes] = useState(false);
     const [users, setUsers] = useState(null);
-    const [otherPaths, setOtherPaths] = useState(null)
-    const [allMyPathsy, setallMyPathsy] = useState(null)
+    const [otherPaths] = useState(null)
+
 
 
     const { user } = useContextInfo()
     let arrayId=[]
     useEffect(() => {
         async function getPaths() {
-            const {data} = await getAllSuscribers()
-            const {data: pather} = await getAllPaths()
             const {data: allUsers} = await getAllUsers()
 
             setUsers(allUsers.slice(0,3))
@@ -34,9 +28,8 @@ const DiscoverPaths = () => {
         getPaths()
         }, [changes])
 
-        function onSearch (value, info) {
+        function onSearch (value) {
             const results = pathsy.filter(path => path.title.toLowerCase().includes(value)) 
-            console.log(info)
             if(value===''){
                 setUsers(users)
             }else if(!results){
@@ -62,7 +55,7 @@ const DiscoverPaths = () => {
                                 {/* image username and short description */}
                                 <div style={{display:'flex', flexDirection:'column', justifyContent:'space-around', textAlign:'left', alignItems:'center'}}>
                                     {/* image */}
-                                    <div style={{width:'83px', height:'83px', borderRadius: '50%', border: '3px solid rgba(50, 94, 122, 0.5)', display:'flex',  alignContent:'center',  alignItems:'center', alignItems:'center'}}>
+                                    <div style={{width:'83px', height:'83px', borderRadius: '50%', border: '3px solid rgba(50, 94, 122, 0.5)', display:'flex',  alignContent:'center',  alignItems:'center'}}>
                                         <img alt="icon" src={usy.image} style={{width:'90%', height:'90%', margin:'auto', borderRadius: '50%'}}/>
                                     </div>
                                         {/* username and subscribers */}
@@ -99,7 +92,7 @@ const DiscoverPaths = () => {
             {/* image username and short description */}
             <div style={{display:'flex', flexDirection:'column', justifyContent:'space-around', textAlign:'left', alignItems:'center'}}>
                 {/* image */}
-                <div style={{width:'83px', height:'83px', borderRadius: '50%', border: '3px solid rgba(50, 94, 122, 0.5)', display:'flex',  alignContent:'center',  alignItems:'center', alignItems:'center'}}>
+                <div style={{width:'83px', height:'83px', borderRadius: '50%', border: '3px solid rgba(50, 94, 122, 0.5)', display:'flex',   alignItems:'center', alignItems:'center'}}>
                     <img alt="icon" src={info.image} style={{width:'90%', height:'90%', margin:'auto', borderRadius: '50%'}}/>
                 </div>
 

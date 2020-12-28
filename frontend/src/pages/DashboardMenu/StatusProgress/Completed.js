@@ -1,6 +1,6 @@
 import React, {useState, useEffect}from 'react'
 import { getAllPaths} from '../../../services/paths.js'
-import { Typography, Button, Collapse,  Empty, Divider, Skeleton, Progress} from 'antd'
+import { Button, Collapse,  Empty, Divider, Skeleton, Progress} from 'antd'
 import { Link } from 'react-router-dom'
 import { useContextInfo } from '../../../hooks/context.js'
 import { Input } from 'antd';
@@ -9,7 +9,6 @@ import FavPath from "../../../components/favorites/FavPath";
 import { PlusOutlined } from '@ant-design/icons';
 
 const { Panel } = Collapse;
-const { Title } = Typography
 const { Search } = Input;
 
 export const Completed = () => {
@@ -17,7 +16,7 @@ export const Completed = () => {
     const { user } = useContextInfo()
     const [pathsy, setPaths] = useState(null)
     const [allMyPathsy, setallMyPathsy] = useState(null)
-    const [changes, setChanges] = useState(false);
+    const [changes] = useState(false);
 
     useEffect(() => {
         async function getPaths() {
@@ -36,7 +35,6 @@ export const Completed = () => {
         //search paths
         function onSearch (value, info) {
             const results = pathsy.filter(path => path.title.toLowerCase().includes(value)) 
-            console.log(info)
             if(value===''){
                 setPaths(allMyPathsy)
             }else if(!results){

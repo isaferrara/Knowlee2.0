@@ -36,16 +36,12 @@ const { Search } = Input;
         //search recommended paths
         function onSearch (value, info) {
             const results = pathsy.filter(path => path.title.toLowerCase().includes(value)) 
-            console.log(info)
             if(value===''){
                 setPaths(allMyPathsy)
-                console.log(allMyPathsy, 'vacio')
             }else if(!results){
                 setPaths(allMyPathsy)
-              console.log(results, 'no rsult')
             } else{
                 setPaths(results)
-              console.log(results, 'hola')
             }      
         };
 

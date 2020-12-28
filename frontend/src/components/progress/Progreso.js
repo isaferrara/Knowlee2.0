@@ -5,7 +5,6 @@ import { useContextInfo } from '../../hooks/context.js'
 import {  updateTopic} from '../../services/topics.js'
 
 const Progreso = (props) => {
-    const { setFinished, current } = useContextInfo()
     const [changes, setChanges] = useState(true)
     const [status, setStatus] = useState(props.progress)
 

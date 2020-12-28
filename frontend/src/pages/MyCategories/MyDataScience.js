@@ -13,11 +13,8 @@ const { Panel } = Collapse;
 const { Search } = Input;
 
 export const MyDataScience = () => {
-
-
     const { user } = useContextInfo()
     const [pathsy, setPaths] = useState(null)
-    const [isModalVisible, setIsModalVisible] = useState(false);
     const [changes, setChanges] = useState(false);
 
     useEffect(() => {
@@ -29,7 +26,6 @@ export const MyDataScience = () => {
             info.users[0]._id===user._id && info.category === 'Data Science'
             )
             setPaths(userPaths)    
-            console.log(userPaths)          
         }
         getPaths()
         }, [changes])

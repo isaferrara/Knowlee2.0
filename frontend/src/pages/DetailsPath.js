@@ -107,7 +107,6 @@ const DetailsPath = ({ match: { params: { id } }, history } ) => {
         percentage= Math.floor((count/ pathsy.topics.length)*100)
 
 
-        console.log(percentage)
        const updateProgressPath= async ()=>{  
        const {data} = await getSinglePath(id)     
 

@@ -118,11 +118,11 @@ const Signup = ({ history }) => {
     <div style={{padding: '50px', background: 'rgba( 255, 255, 255, 0.25 )', boxShadow: '0 8px 32px 0 rgba( 31, 38, 135, 0.37 )',
       backdropFilter: 'blur( 5.0px )', WebkitBackdropFilter: 'blur( 5.0px )', borderRadius: '10px' }}>     <Row>
       
-        <h2 style={{ margin:'0'}}>Signup</h2>
+        <h2 style={{ margin:'0'}}>Sign up</h2>
   
       <Divider />
       <Col span={24}>
-        <Form layout="vertical" form={form} onFinish={handleSubmit}>
+        <Form layout="vertical" form={form} onFinish={handleSubmit} initialValues={{ image: 'https://coa.pe/public/assets/img/default-user.png' }}>
 
           <Form.Item name='username' type='username' id='username' label="Username:" rules={[{ 
             required: true, message: 'Please input your username!' }]}>
@@ -150,15 +150,15 @@ const Signup = ({ history }) => {
           </Form.Item>
 
           <Button type="primary" block htmlType="submit">
-            Signup
+            Sign up
           </Button>
         </Form>
-        <Divider>
+        {/* <Divider>
           Or
         </Divider>
         <a href={googleUrl}>
           <Button block>Sign up with Google</Button>
-        </a>
+        </a> */}
       </Col>
     </Row>
     </div>

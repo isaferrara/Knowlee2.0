@@ -1,4 +1,4 @@
-import React, {useState, useEffect}from 'react'
+import React, {useState}from 'react'
 import { HeartOutlined, HeartFilled} from '@ant-design/icons';
 import { useContextInfo } from '../../hooks/context.js'
 import {  getSingleTopic } from '../../services/topics'

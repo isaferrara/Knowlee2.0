@@ -6,13 +6,13 @@ import {
     VideoCameraOutlined,
   } from '@ant-design/icons';
   import React, {useState}from 'react'
-import { Divider, Layout, Menu } from 'antd';
+import { Layout, Menu } from 'antd';
 import { Link } from 'react-router-dom'
 import { useContextInfo } from '../hooks/context'
 import { logoutFn } from '../services/auth'
 
 const { SubMenu } = Menu;
-const { Header, Content, Footer, Sider } = Layout;
+const { Header, Content, Sider } = Layout;
 
 
 const LayoutDash = ({ children }) => {

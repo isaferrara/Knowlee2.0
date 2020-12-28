@@ -1,7 +1,7 @@
 
 import React, {useState, useEffect}from 'react'
 import { getAllPaths} from '../../services/paths.js'
-import { Collapse, Progress, Checkbox, Button, Modal, Form,  Card, Divider, Skeleton} from 'antd'
+import { Collapse, Progress, Checkbox, Button, Modal, Form,  Divider, Skeleton} from 'antd'
 import { Link } from 'react-router-dom'
 import { useContextInfo } from '../../hooks/context.js'
 import { Input } from 'antd';
@@ -57,7 +57,6 @@ export const UxUi = () => {
         //search paths
         function onSearch (value, info) {
             const results = pathsy.filter(path => path.title.toLowerCase().includes(value)) 
-            console.log(info)
             if(value===''){
                 setOtherPaths(allMyPathsy)
             }else if(!results){

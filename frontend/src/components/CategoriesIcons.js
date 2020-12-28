@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Divider} from 'antd'
+import { Divider} from 'antd'
 import { Link } from 'react-router-dom'
 
  const CategoriesIcons = () => {
@@ -8,8 +8,8 @@ import { Link } from 'react-router-dom'
 
     return (
         <div>
-            <Divider style={{color:'#A6A6A4', fontSize:'20px', marginBottom:'0', marginTop:'30px', marginTop:'50px'}}>Categories</Divider>
-        <div style={{display:'flex', alignItems:'center', justifyContent:'center', justifyContent:'space-around', marginTop:'40px'}}>
+            <Divider style={{color:'#A6A6A4', fontSize:'20px', marginBottom:'0', marginTop:'30px'}}>Categories</Divider>
+        <div style={{display:'flex', alignItems:'center',  justifyContent:'space-around', marginTop:'40px'}}>
         <Link to="/cyber-security" className='category cyber-sec'>
             Cyber <br/> Security
         </Link>

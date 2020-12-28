@@ -1,18 +1,11 @@
 import React, {useState, useEffect}from 'react'
-import { Input, Typography, Button, Modal, Form,  Card, Divider, Skeleton, Collapse, Progress} from 'antd'
+import { Input,  Divider, Collapse} from 'antd'
 import { Link } from 'react-router-dom'
 import { useContextInfo } from '../../hooks/context.js'
-import {createSubscription, getAllSuscribers, getSingleSuscriber} from '../../services/suscriptions'
-import { getAllUsers, getSingleUser } from '../../services/auth.js'
+import { getAllSuscribers } from '../../services/suscriptions'
+import { getAllUsers } from '../../services/auth.js'
 import { getAllPaths } from '../../services/paths.js'
-import { updateFn } from '../../services/auth.js'
-import { getSinglePath } from '../../services/paths.js'
-import { PlusOutlined } from '@ant-design/icons';
-import FavPath from "../../components/favorites/FavPath";
 
-
-const { Panel } = Collapse;
-const { Search } = Input;
 
 
 //aqui se encuentran todas las suscripciones del usuarios 
@@ -44,7 +37,6 @@ const UserSuscriptions = () => {
             user.suscriptions.includes(info._id)
             )
 
-            console.log(notSuscribed, 'allsubs')
             setUsers(notSuscribed)
             
             //sacas los subs nuevos a los que ya  suscrito 
@@ -81,7 +73,6 @@ const UserSuscriptions = () => {
 
         function onSearch (value, info) {
             const results = pathsy.filter(path => path.title.toLowerCase().includes(value)) 
-            console.log(info)
             if(value===''){
                 setUsers(users)
             }else if(!results){

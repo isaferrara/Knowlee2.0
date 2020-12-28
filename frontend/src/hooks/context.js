@@ -7,7 +7,6 @@
    
    export const CtxProvider = props => {
      const [user, setUser] = useState(null)
-     const [current, setCurrent] = useState(false)
 
 
      useEffect(() => {

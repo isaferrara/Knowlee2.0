@@ -1,20 +1,16 @@
 import React, {useState, useEffect}from 'react'
-import { Divider, Button, Modal, Form,  Card, Checkbox, Skeleton, Progress, Input} from 'antd'
-import { Link } from 'react-router-dom'
+import { Divider, Button, Form} from 'antd'
 import { useContextInfo } from '../../hooks/context.js'
-import {createSuscriber, createSubscription} from '../../services/suscriptions'
-import { getAllUsers, getSingleUser } from '../../services/auth.js'
-import { getAllSuscribers } from '../../services/suscriptions.js'
+import { createSubscription} from '../../services/suscriptions'
+import { getAllUsers } from '../../services/auth.js'
 import { updateFn } from '../../services/auth.js'
 
 //AQUÍ SE ENCUENTRAN TODOS LOS USUARIOS DISPONIBLES PARA SUSCRIBIRTE
 
 const SuscribeExplore = () => {
-    const [users, setUsers]= useState(null)
     const [info, setInfo]= useState(null)
     const { user } = useContextInfo()
     const [changes, setChanges] = useState(false);
-    const [form] = Form.useForm()
 
 
     useEffect(() => {
@@ -38,7 +34,7 @@ const SuscribeExplore = () => {
   
         const allSubscribers= [...values.suscribers, user]
 
-        const {data: updateUsera} = await updateFn(values._id, {
+        await updateFn(values._id, {
             email: values.email,
             username: values.username,
             password: values.password,
@@ -64,7 +60,7 @@ const SuscribeExplore = () => {
                 favorites: user.favorites
             })
            
-            const {data: createSub} = await createSubscription({
+            await createSubscription({
                 myId: user._id,
                 userId: values,
                 pathId: values.paths

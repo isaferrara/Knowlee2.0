@@ -12,7 +12,6 @@ import {
 import { getSinglePath } from '../services/paths.js'
 
 const EditPath = (props) => {
-    const { user } = useContextInfo()
     const [form] = Form.useForm()
     const history = useHistory()
     const [pathsy, setPaths] = useState(null)

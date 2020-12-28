@@ -35,7 +35,6 @@ export const InProgress = () => {
         //search paths
         function onSearch (value, info) {
             const results = pathsy.filter(path => path.title.toLowerCase().includes(value)) 
-            console.log(info)
             if(value===''){
                 setPaths(allMyPathsy)
             }else if(!results){
