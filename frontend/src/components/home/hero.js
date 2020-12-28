@@ -4,49 +4,33 @@ import { Link } from 'react-router-dom'
 
 const {Title, Text, Paragraph} = Typography;
 
-const items = [
-    {
-        key: '1',
-        title: 'Learning paths',
-        content: 'Boost your skills. Stay sharp. Get ahead.',
-    },
-    {
-        key: '1',
-        title: 'Share your knowledge',
-        content: 'Create & help others grow.',
-    },
-    {
-        key: '1',
-        title: 'Network',
-        content: 'Meet people. Form a community.',
-    },
-]
+
 
 const AppHero = () => {
 
+    const headHome={
+        position: 'relative',
+        bottom: '0',
+        left: '0',
+        right: '0',
+        width: '100%',
+        height: '600px',  
+        backgroundColor:'#F7F9FF',
+    }
+
 
     return (
+        <div style= {{ backgroundColor:'#f7f9ff', height:'700px', paddingBottom:'400px'}}>   
 
-        <div className="heroBlock">
-        <Title style={{ fontSize: '80px', color: '#ffffff', fontFamily:'roboto', marginBottom: '0px', paddingTop:'230px', marginLeft:'760px' }}>Knowlee</Title>
-
-        <Carousel autoplay >
-        {items.map(item => {
-            return (
-             <div key={item.key} className="container-fluid" style={{marginLeft: '840px', marginTop: '0'}}>
-             <div className="content" style={{marginLeft: '830px', paddingBottom: '400px'}}>
-             <div className="btnHolder" style={{marginBottom: '200px'}}>
-             <p style={{ fontSize: '30px', color: '#ffffff', fontFamily:'sans-serif', fontWeight:'bold', paddingTop:'50px', marginBottom:'0px' }}>{item.title}</p>
-              <p style={{ fontSize: '25px', color: '#ffffff', fontFamily:'sans-serif', fontWeight:'lighter'  }}>{item.content}</p>
-             <div style={{ fontSize: '20px', color: 'white', backgroundColor:'#DC143C', height:'40px', border:'none', borderRadius:'10px',paddin:'5px'}} >
-              <Link style={{ fontSize: '20px', color: 'white'}}to='/login'  >Start learning</Link>
+        <div style= {{ backgroundColor:'#f7f9ff'}}>
+            <img style={{ position:'absolute', marginLeft:'680px', width:'900px', height:'auto'}}  src='../../dash.png'/>
+           <div style= {{position:'absolute', marginTop:'250px', marginLeft:'250px', display:'flex', alignItems:'center', flexDirection:'column'}}>
+            <h1 style= {{ color:'black', fontSize:'70px', fontFamily:'Futura', marginBottom:'0'}}>Knowlee</h1>
+            <h2 style= {{ color:'black',   fontWeight:'200'}}>Create learning paths and roadmaps. <br/>Share, network and learn </h2>
+            <Link to='/login'><Button style= {{ backgroundColor:'#e05872', color:'white', borderRadius:'7px', width:'200px', height:'50px', fontSize:'18px'}}> Start learning </Button></Link>
             </div>
-              </div>
-             </div>
-             </div>
-            );
-        })}        
-       </Carousel>
+            </div>
+
       </div>
     );
 }

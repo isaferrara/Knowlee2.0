@@ -1,74 +1,61 @@
 import React from 'react'
 import { Row, Col } from 'antd';
 import { Card } from 'antd';
+import {
+    CodeOutlined,
+    AlertOutlined,
+    FormatPainterOutlined,
+    LaptopOutlined,
+    CalculatorOutlined
+  } from '@ant-design/icons';
+
+  import { Link } from 'react-router-dom'
+
 const { Meta } = Card;
 
 const AppFeature = () => {
     return (
-        <div className="block featureBlock bgGray">
-            <div className="container-fluid">
-            <div className="titleHolder">
-               <h2>Categories</h2> 
-               <p>You can find all the knowledge you need.</p>
-            </div>
-            <Row gutter={[16, 16]}>
-            <Col span={8}>
-            <Card
-                hoverable
-       
-                cover={<img alt="example"  style={{ height: '300px'}} src="https://images.unsplash.com/photo-1573164713988-8665fc963095?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" />}
-            >
-                <Meta title="web development" />
-            </Card>
-            </Col>
-            <Col span={8}>
-            <Card
-                hoverable
-       
-                cover={<img alt="example" style={{ height: '300px'}} src="https://images.unsplash.com/photo-1559028012-481c04fa702d?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1535&q=80" />}
-            >
-                <Meta title="Ux/Ui design" />
-            </Card>
-            </Col>
-            <Col span={8}>
-            <Card
-                hoverable
-       
-                cover={<img alt="example" style={{ height: '300px'}} src="https://images.unsplash.com/photo-1586772002345-339f8042a777?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=3000&q=80" />}
-            >
-                <Meta title="DevOps" />
-            </Card>
-            </Col>
-            <Col span={8}>
-            <Card
-                hoverable
-       
-                cover={<img alt="example" style={{ height: '300px'}} src="https://images.unsplash.com/photo-1496368077930-c1e31b4e5b44?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" />}
-            >
-                <Meta title="Cyber Security" />
-            </Card>
-            </Col>
-            <Col span={8}>
-            <Card
-                hoverable
-       
-                cover={<img alt="example" style={{ height: '300px'}} src="https://images.unsplash.com/photo-1562577309-4932fdd64cd1?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1567&q=80" />}
-            >
-                <Meta title="Data Science" />
-            </Card>
-            </Col>
-            <Col span={8}>
-            <Card
-                hoverable
-       
-                cover={<img alt="example" style={{ height: '300px'}} src="https://images.unsplash.com/photo-1564069114553-7215e1ff1890?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2089&q=80" />}
-            >
-                <Meta title="Machine Learning" />
-            </Card>
-            </Col>
-            </Row>
+        <div>
+        <div style={{ backgroundColor:'#f7f7f5', padding:'100px 0 20px 0'}}> 
+        <h2 style={{textAlign:'center', fontSize:'30px'}}>Categories</h2>
+        </div>
+        <div style={{display:'flex', alignItems:'center', justifyContent:'center', width:'100%', backgroundColor:'#f7f7f5', padding:'0 0 100px 0'}}>
+
+        <div style={{display:'flex', width:'60%', flexWrap:'wrap',  alignItems:'center', justifyContent:'center', justifyContent:'space-around'}}>
+  
+        <div className='categoryDash' style={{backgroundColor:'white', display:'flex', flexDirection:'column', border:'6px solid #1D3747'}} >
            
-            </div>
+        <AlertOutlined style={{fontSize:'60px', color:'#1D3747'}}/>
+            <h2 style={{textAlign:'center', color:'#1D3747', lineHeight:'15px', marginTop:'15px'}}>Cyber <br/> Security</h2>
+        </div>
+
+        <div className='categoryDash' style={{backgroundColor:'white', display:'flex', flexDirection:'column', border:'6px solid #1D3747'}} >
+           
+        <CalculatorOutlined style={{fontSize:'60px', color:'#1D3747'}}/>
+            <h2 style={{textAlign:'center', color:'white', lineHeight:'15px', marginTop:'15px',  color:'#1D3747'}}>Data <br/> Science</h2>
+        </div>
+
+        <div className='categoryDash' style={{backgroundColor:'white', display:'flex', flexDirection:'column', border:'6px solid #1D3747'}} >
+           
+           <LaptopOutlined style={{fontSize:'60px', color:'#1D3747'}}/>
+               <h2 style={{textAlign:'center', color:'white', lineHeight:'15px', marginTop:'15px',  color:'#1D3747'}}>DevOps</h2>
+           </div>
+   
+
+           <div className='categoryDash' style={{backgroundColor:'white', display:'flex', flexDirection:'column', border:'6px solid #1D3747'}} >
+           
+           <FormatPainterOutlined style={{fontSize:'60px', color:'#1D3747'}}/>
+               <h2 style={{textAlign:'center', color:'white', lineHeight:'15px', marginTop:'15px',  color:'#1D3747'}}>Ux/Ui</h2>
+           </div>
+   
+           <div className='categoryDash' style={{backgroundColor:'white', display:'flex', flexDirection:'column', border:'6px solid #1D3747'}} >
+           
+           <CodeOutlined style={{fontSize:'60px', color:'#1D3747'}}/>
+               <h2 style={{textAlign:'center', color:'white', lineHeight:'15px', marginTop:'15px',  color:'#1D3747'}}>Web <br/> Development</h2>
+           </div>
+   
+        </div>
+        </div>
         </div>
     );
 }

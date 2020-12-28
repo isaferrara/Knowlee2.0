@@ -2,8 +2,8 @@ import React, {useState, useEffect} from 'react'
 import ReactPlayer from 'react-player/youtube'
 
 //ants
-import { Typography, Skeleton, Divider, Card, Upload, Button, Modal,Form, Input, Space} from 'antd'
-import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import {  Skeleton, Divider, Card, Upload, Button, Modal,Form, Input, Space} from 'antd'
+import { PlusOutlined } from '@ant-design/icons';
 
 //services
 import {  getSingleTopic, updateTopic} from '../services/topics.js'

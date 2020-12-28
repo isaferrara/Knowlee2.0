@@ -74,7 +74,7 @@ function UpdateProfileForm({
         <Form.Item name="email" label="Email:">
             <Input disabled={disable}/>
         </Form.Item>
-        <Form.Item name='image' label="Image:" >
+        <Form.Item name='image' label="Image:" valuePropName="fileList">
             <Upload 
                 name="image"
                 showUploadList={false}

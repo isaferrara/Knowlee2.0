@@ -1,6 +1,6 @@
 import React, {useState, useEffect}from 'react'
 import { getAllPaths} from '../services/paths.js'
-import { Typography, Button, Modal,  Card, Divider, Skeleton, Progress} from 'antd'
+import { Typography, Button, Empty, Divider, Progress} from 'antd'
 import { Link } from 'react-router-dom'
 import { useContextInfo } from '../hooks/context.js'
 import { Input } from 'antd';
@@ -24,6 +24,7 @@ const Dash = (props) => {
 
     useEffect(() => {
         async function getPaths() {
+            console.log(user)
             const {data} = await getAllPaths()
             //get only users path//
             const Pathsy = data.filter((info)=>
@@ -34,6 +35,8 @@ const Dash = (props) => {
 
              //users paths always complete
             setallMyPathsy(Pathsy)
+
+           console.log(user)
         }
         getPaths()
 
@@ -90,6 +93,8 @@ const Dash = (props) => {
                         {/* sacas solo 5 de tus paths */}
                         {pathsy?.length>5? setPaths(pathsy.slice(-5)): 
                         <>
+                        {pathsy?.length === 0?  <Empty />: <></>} 
+
                         {pathsy?.map((path, i ) => (
                         <div style={{borderRadius:' 20% ', margin:'10px',  width:'840px'}}>
 
@@ -112,17 +117,21 @@ const Dash = (props) => {
                         </>
                         }
                     </div>
-                    <Link to={`/my-paths/${user._id}`}  className='seeMore'> Show more </Link>
+                    {user?.paths.length > 5? <Link to={`/my-paths/${user._id}`}  className='seeMore'> Show more </Link> : <></>} 
+
                 </div>
-                
+
             </div>
             ):( 
                 <h1>No Results Found</h1>
             )}
-            <SuscribersPaths/>
-            <div style={{marginTop:'50px'}}>
+            <SuscribersPaths />
+            {user?.suscriptions>5 ?
+             <div style={{marginTop:'50px'}}>
               <Link to={'/subs'}   className='seeMore'> Show more </Link>
-            </div>
+            </div>:<></>
+             }
+
         </div>
 
         </LayoutDash>

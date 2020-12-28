@@ -4,9 +4,13 @@ import { loginFn, profile } from '../services/auth'
 import { useContextInfo } from '../hooks/context'
 import { Link } from 'react-router-dom'
 import { logoutFn } from '../services/auth'
+import {
+  UserOutlined,
+  BarChartOutlined
+} from '@ant-design/icons';
 
 const { Header} = Layout;
-
+const { SubMenu } = Menu;
 const { Title } = Typography
 
 const googleUrl = process.env.NODE_ENV === 'development' ?
@@ -37,7 +41,7 @@ const Login = ({ history }) => {
   }
   return (
     <div>
-    <Header className="header" style={{paddingLeft:'200px'}}>
+<Header className="header" style={{backgroundColor:'#335E7A'}}>
         <div className="logo" style={{display:'flex', justifyContent:'right'}}/>
         <Menu theme="dark" mode="horizontal">
           <Menu.Item key="1">
@@ -45,35 +49,59 @@ const Login = ({ history }) => {
               Home
             </Link>
           </Menu.Item>
-          <Menu.Item key="7">
+
+          {!user ? <>
+            <Menu.Item key="7">
               <Link to="/discover">
-              Discover
+              Featured
               </Link>
           </Menu.Item>
-          {!user ? <>
-            <Menu.Item key="2">
-              <Link to="/signup">
-                Signup
+            
+            <Menu.Item key="3">
+              <Link to="/login">
+                Login
             </Link>
-            </Menu.Item>     
-          </> : <React.Fragment>
+            </Menu.Item>
+            <Menu.Item key="2" >
+              <Link to="/signup">
+              Create Account
+            </Link>
+            </Menu.Item>
+          </> 
+          : <React.Fragment>
             <Menu.Item key="6">
               <Link to="/choose-donation">
               Donate
               </Link>
             </Menu.Item>
-            <Menu.Item key="4">
-                <Link to={`/dash/${user._id}`}>
-                Dashboard
-              </Link>
-              </Menu.Item>
+            <SubMenu key="SubMenu" title="Profile">
+                <Menu.Item key="7" icon={<UserOutlined />}>
+                    <Link to={`/dash/${user._id}`} >
+                      Dashboard
+                  </Link>
+                  </Menu.Item>
+
+                <Menu.Item key="15" icon={<BarChartOutlined />}>
+                  <Link to={"/profile"}>
+                      Profile
+                  </Link>
+                </Menu.Item>
+
+                <Menu.Item key="16" onClick={handleLogout} style={{ borderTop:'1px solid gray'}}>
+                  <Link to="/"  >
+                  Logout
+                  </Link>
+                </Menu.Item>
+             </SubMenu>
+            
             </React.Fragment>}
         </Menu>
       </Header>
 
-    <div style={{backgroundImage: 'url("https://roundtables.abl.org/wp-content/uploads/2018/04/BlueBackground_150475949.jpg")', width: '100%', height:'800px', paddingTop:'0'}}>
-    <div style={{ padding: '100px 304px'}}>
-    <div style={{padding: '50px', background: 'white', borderRadius: '20px', background: '#F8F8F8'}}> 
+    <div style={{backgroundImage: 'url(https://pngimage.net/wp-content/uploads/2018/06/%E0%B8%AA%E0%B8%B5%E0%B9%80%E0%B8%97%E0%B8%B2-png-4.png)', width: '100%', height:'800px', paddingTop:'0'}}>
+    <div style={{ padding: '160px 404px 120px 400px'}}>
+    <div style={{padding: '50px', background: 'rgba( 229, 229, 229, 0.25)', boxShadow: '0 8px 32px 0 rgba( 31, 38, 135, 0.37 )',
+      backdropFilter: 'blur( 5.0px )', WebkitBackdropFilter: 'blur( 5.0px )', borderRadius: '10px' }}> 
     <Row>
       <Col span={24}>
         <Title level={1} style={{color:'gray'}}>Login to empower your skills!</Title>

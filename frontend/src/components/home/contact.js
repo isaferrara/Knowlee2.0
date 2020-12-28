@@ -4,7 +4,7 @@ const { TextArea } = Input;
 
 const AppContact = () => {
     return (
-        <div className="block contactBlock">
+        <div className="block contactBlock" style={{marginTop:'70px'}}>
         <div className="container-fluid">
             <div className="titleHolder">
                 <h2>Get In Touch</h2>

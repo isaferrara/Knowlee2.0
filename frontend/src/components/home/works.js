@@ -5,46 +5,22 @@ const {Title, Text, Link, Paragraph} = Typography;
 
 const AppWorks = () => {
 
-    const [isModalVisible, setIsModalVisible] = useState(false);
-
-    const showModal = () => {
-      setIsModalVisible(true);
-    };  
-  
-    const handleCancel = () => {
-      setIsModalVisible(false);
-    };
 
     return (
-        <div className="block worksBlock">
-            <div className="container-fluid">
-                <div className="titleHolder">
-                    <Title style={{ color: '#ffffff'}}>Learn to learn</Title>
-                    <h2>Our mission is to help you create new ways to study and learn in a structured and precise way </h2>
+            <div  style={{height:'190px', paddingTop: '25px', backgroundColor:'#1D3747', width:'100%'}}>
+                <div style={{display:'flex', alignItems:'center', flexDirection:'column'}}>
+                    <h2 style={{ color: '#ffffff', fontSize:'20px'}}>Learn to learn</h2>
+                    <h2 style={{ color: '#ffffff', fontWeight:'300'}}>Our mission is to help you create new ways to study and learn in a structured and precise way </h2>
+                    <Link to='/login'>
+                    <Button style={{ backgroundColor: '#A18932', color:'white', height:'40px', borderRadius:'5px', fontSize:'20px'}} >
+                        Start learning
+                    </Button> 
+                    </Link>
+                
                 </div>
-                <div className="contentHolder">
-                    <Button onClick={showModal}>
-                        <i class="fas fa-play"></i>
-                    </Button>
-                </div>
-                <Modal
-                    title="Linux tutorial"
-                    visible={isModalVisible}                    
-                    onCancel={handleCancel}
-                    footer={null}
-                >
-                    <iframe width="100%" height="350"
-                    src="https://www.youtube.com/watch?v=kMi13DoDBAM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen="allowfullscreen"
-                    mozallowfullscreen="mozallowfullscreen" 
-                    msallowfullscreen="msallowfullscreen" 
-                    oallowfullscreen="oallowfullscreen" 
-                    webkitallowfullscreen="webkitallowfullscreen"
-                    ></iframe>
 
-                </Modal>
             </div>
-        </div>
+     
     );
   }
 

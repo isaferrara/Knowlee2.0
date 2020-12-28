@@ -13,8 +13,10 @@ exports.signup = async (req, res) => {
   const user = await User.findOne({ username })
   if (user) {
     return res
-      .status(400)
-      .json({ message: 'Error with username' })
+    .status(400)
+    .json({ message: 'Something went wrong authenticating user' } )
+ 
+
   }
 
   const hashPass = bcrypt

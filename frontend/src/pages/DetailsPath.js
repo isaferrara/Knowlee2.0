@@ -145,7 +145,7 @@ const DetailsPath = ({ match: { params: { id } }, history } ) => {
             </div>
         <div style={{position:'absolute', marginTop:'50px', marginLeft:'700px'}}>
             {/* mide el progreso que es el promedio de cuantos topics se han completado */}
-            {showInfo?<Progress style={{marginTop:'20px'}} type="circle" percent={counter} format={percent => `${percent}%`} width={120}/>: <></> }
+            {showInfo?<Progress style={{marginTop:'20px', }}  type="circle" percent={counter} format={percent => `${percent}%`} width={120}/>: <></> }
         </div>
 
             {pathsy? (<div>
@@ -175,7 +175,7 @@ const DetailsPath = ({ match: { params: { id } }, history } ) => {
             </Popconfirm>
             </div>
         <Link to={`/topic/${topic._id}`}> 
-        { topic.progress? <Progress  percent={100} width={40} strokeWidth={3}/> : <></>}
+        { topic.progress? <Progress  percent={100} width={40} strokeWidth={3} strokeColor={'#2B9479'}/> : <></>}
         {topic.progress ? countDone(): <div style={{display:'none'}}>{cero=+1}</div>}   
        
         <div style={{display:'flex', flexDirection:'row', justifyContent:'space-between', backgroundColor:'#f7f7f5', borderRadius:'15px', marginBottom:'10px', width:'900px'}}>  

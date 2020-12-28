@@ -1,6 +1,6 @@
 import React, {useState, useEffect}from 'react'
 import { getAllPaths} from '../../services/paths.js'
-import { Collapse, Button, Modal,  Card, Divider, Skeleton, Progress} from 'antd'
+import { Collapse, Button, Empty,  Card, Divider, Skeleton, Progress} from 'antd'
 import { Link } from 'react-router-dom'
 import { useContextInfo } from '../../hooks/context.js'
 import { Input } from 'antd';
@@ -73,7 +73,7 @@ export const MyDevOps = () => {
                     <div style={{ padding: '1rem 3rem', display:'flex', flexDirection:'column', alignContent:'center', alignItems:'center', justifyContent:'center'}}>
 
                     <div style={{ padding: '1em', display:'flex', flexDirection:'row', flexWrap: 'wrap', borderRadius:'20px'}}>  
-            
+                    {pathsy?.length === 0?  <Empty />: <></>} 
                         {pathsy?.map((path, i ) => (
                             <div style={{borderRadius:' 20% ', margin:'10px',  width:'840px'}}>
                                     <div style={{ position: 'absolute', color:'#CFCFCF', fontSize:'18px', marginTop:'10px' , padding:'17px 28px 17px 30px', borderRight:'1px solid #BFBEBD'}}>

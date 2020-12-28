@@ -14,11 +14,13 @@ p{
   margin-bottom:0px;
 }
 
+
 .seeMore {
   display: 'flex';
   line-height: 20px;
   align-items: center;
   font-size: 15px;
+
   color:#4e4e4e;
   border:2px solid #E05872;
   border-radius:6px;
@@ -46,6 +48,19 @@ p{
  box-sizing: content-box;
 }
 
+.categoryDash{
+  font-weight: 500;
+  width: 150px;
+  height: 150px;
+  color: white;
+  border-radius: 12px;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ box-sizing: content-box;
+}
+
+
 .parent{
   width: 110px;
   height: 110px;
@@ -57,6 +72,13 @@ p{
   box-sizing: content-box;
 }
 
+.button-homes{
+  background: #e05872;
+  color: white;
+  border-radius: 20px;
+  width: 200px;
+  height: 70px;
+}
 
 .my-category{
   font-weight: 500;

@@ -1,22 +1,20 @@
 import React, {useState, useEffect} from 'react';
 import { getAllPaths } from '../services/paths.js'
 import AppHero from '../components/home/hero';
-import AppAbout from '../components/home/about';
-import AppFeature from '../components/home/feature';
 import Appworks from '../components/home/works';
-import Appfaq from '../components/home/faq';
-import AppPricing from '../components/home/pricing';
+import AppFeature from '../components/home/feature';
+
 import AppContact from '../components/home/contact';
 import { Layout, Menu } from 'antd';
 import { Link } from 'react-router-dom'
 import { useContextInfo } from '../hooks/context'
 import { logoutFn } from '../services/auth'
 import {
-  BarChartOutlined,
-  MailOutlined,
+  AppstoreAddOutlined,
+  DeploymentUnitOutlined,
   UserOutlined,
-  UploadOutlined,
-  VideoCameraOutlined,
+  ShareAltOutlined,
+  BarChartOutlined
 } from '@ant-design/icons';
 
 const { Header } = Layout;
@@ -38,8 +36,8 @@ function Home() {
       getPaths()
       }, [])  
   return (
-      <div className="main">
-<Header className="header" style={{paddingLeft:'200px',backgroundColor:'#335E7A'}}>
+      <div className="main" style={{backgroundColor:'white', width:'100%'}}>
+<Header className="header" style={{backgroundColor:'#335E7A'}}>
         <div className="logo" style={{display:'flex', justifyContent:'right'}}/>
         <Menu theme="dark" mode="horizontal">
           <Menu.Item key="1">
@@ -51,17 +49,18 @@ function Home() {
           {!user ? <>
             <Menu.Item key="7">
               <Link to="/discover">
-              Discover
+              Featured
               </Link>
           </Menu.Item>
-            <Menu.Item key="2" >
-              <Link to="/signup">
-                Signup
-            </Link>
-            </Menu.Item>
+            
             <Menu.Item key="3">
               <Link to="/login">
                 Login
+            </Link>
+            </Menu.Item>
+            <Menu.Item key="2" >
+              <Link to="/signup">
+              Create Account
             </Link>
             </Menu.Item>
           </> 
@@ -95,12 +94,33 @@ function Home() {
 
         </Menu>
       </Header>
-          <AppHero />          
-          <AppAbout />    
-          <AppFeature /> 
+          <AppHero />  
+   
+          <div style={{marginTop:'250px', marginBottom:'100px', display:'flex'}}>
+            <div  style={{display:'flex',  width:'1400px', flexDirection:'row', justifyContent:'space-evenly'}} >
+               <div style={{  width:'300px',textAlign:'center'}} >
+               <AppstoreAddOutlined style={{fontSize:'70px'}}/>                              
+                <b><h2 style={{fontSize:'40px'}}>Create</h2></b>
+                    <p style={{fontWeight:'200'}}>Create learning paths to structure your knowledge.</p>
+                </div>
+                
+                <div style={{  width:'300px', textAlign:'center'}}>
+                <DeploymentUnitOutlined style={{fontSize:'70px'}} />
+                <b><h2 style={{fontSize:'40px'}}>Network</h2></b>
+                <p style={{fontWeight:'200'}}>Find new people, subscribe and learn from them and their experience.</p>
+                </div>
+                <div style={{  width:'300px', textAlign:'center'}}>
+                <ShareAltOutlined style={{fontSize:'70px'}}/>
+                <b><h2 style={{fontSize:'40px'}}>Share</h2></b>
+                <p style={{fontWeight:'200'}}>Share what you have learned with our community.</p> 
+                </div>
+
+             
+
+            </div>
+       </div>  
           <Appworks />
-          <Appfaq />
-          <AppPricing />
+          <AppFeature />
           <AppContact />
      </div>
 

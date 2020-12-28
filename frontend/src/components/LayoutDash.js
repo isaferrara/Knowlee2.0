@@ -47,18 +47,19 @@ const LayoutDash = ({ children }) => {
           {!user ? <>
             <Menu.Item key="2">
               <Link to="/discover">
-              Discover
+              Featured
               </Link>
           </Menu.Item>
           <div style={{border:'1px solid white'}}>
-            <Menu.Item key="3" >
-              <Link to="/signup">
-                Signup
-            </Link>
-            </Menu.Item>
+
             <Menu.Item key="4">
               <Link to="/login">
                 Login
+            </Link>
+            </Menu.Item>
+            <Menu.Item key="3" >
+              <Link to="/signup">
+                Create Account
             </Link>
             </Menu.Item>
           </div>

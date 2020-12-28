@@ -1,9 +1,9 @@
 import React, {useState, useEffect}from 'react'
 import { Typography, Button, Modal, Form,  Card, Divider, Skeleton, Collapse, Progress} from 'antd'
 import { useContextInfo } from '../../hooks/context.js'
-import {createSubscription, getAllSuscribers, getSingleSuscriber} from '../../services/suscriptions'
-import { getAllUsers, getSingleUser } from '../../services/auth.js'
+import { getAllSuscribers, getSingleSuscriber} from '../../services/suscriptions'
 import { getAllPaths } from '../../services/paths.js'
+import { Link } from 'react-router-dom'
 
  const SuscribersPaths = () => {
     const [info, setInfo]= useState(false)
@@ -42,8 +42,6 @@ import { getAllPaths } from '../../services/paths.js'
             pathsSuscribedss.length===0? setInfo(true) :  pathsSuscribedss[pathsSuscribedss.length-1][0].includes(infos._id)
             )
 
-            console.log(suscribedPaths, 'adsasd')
-
              setPath(suscribedPaths)    
         }
         getPaths()
@@ -53,8 +51,8 @@ import { getAllPaths } from '../../services/paths.js'
 
 
     return (
-        <div> 
-        {info? <div> <h1> No subscriptions</h1></div> :
+        <div style={{marginTop:'100px'}}> 
+        {info? <div> <h2> No subscriptions</h2></div> :
         <div>
         <Divider style={{color:'#A6A6A4', fontSize:'20px'}}>Your subscriptions</Divider>
         <div style={{display:'flex', flexDirection:'row', color:'#8F8D88', display:'flex', justifyContent:'space-around', }}>
@@ -62,7 +60,7 @@ import { getAllPaths } from '../../services/paths.js'
 
         //{/* start card */}
 
-        <div style={{ width:'230px', height:'290px',  margin:'0',  backgroundColor:'white', borderRadius:'10px'}}>
+        <div style={{ width:'230px',  margin:'0',  backgroundColor:'white', borderRadius:'10px'}}>
 
         <div style={{  margin:'20px'}}>
             <div style={{display:'flex', flexDirection:'column', justifyContent:'space-around'}}>
@@ -103,11 +101,14 @@ import { getAllPaths } from '../../services/paths.js'
 
               </div>
           </div>
+          
          )} </> : <p>No paths </p>
          }  
 
-        </div>        
+        </div>   
+    
         </div>
+        
              }
         </div>
     )
