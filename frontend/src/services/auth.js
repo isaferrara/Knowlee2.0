@@ -1,6 +1,8 @@
 import axios from 'axios'
 
-const baseURL = 'http://localhost:3000/auth'
+const baseURL = '/auth'
+
+
 
 const authService = axios.create({
   baseURL,

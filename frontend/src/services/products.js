@@ -3,6 +3,8 @@ import isProd from '../utils/isProd'
 
 const baseURL = isProd ? '/api/product' : 'http://localhost:3000/api/product'
 
+
+
 const productsService = axios.create({ baseURL })
 
 export const getProduct100 = () => productsService.get('/100')
